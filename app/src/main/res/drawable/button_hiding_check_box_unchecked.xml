@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:height="@dimen/size_check_box"
+        android:width="@dimen/size_check_box">
+        <shape/>
+    </item>
+    <item
+        android:width="@dimen/size_check_box_icon"
+        android:height="@dimen/size_check_box_icon"
+        android:drawable="@drawable/up_arrow"
+        android:gravity="center">
+    </item>
+</layer-list>

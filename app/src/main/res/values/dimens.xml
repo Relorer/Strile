@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_base">22dp</dimen>
+    <dimen name="margin_vertical_progress_bar_block_hide">-6dp</dimen>
+    <dimen name="margin_vertical_progress_bar_block_visible">30dp</dimen>
+    <dimen name="margin_horizontal_progress_bar">14dp</dimen>
+    <dimen name="margin_between_blocks">2dp</dimen>
+    <dimen name="margin_top_account_name">8dp</dimen>
+    <dimen name="height_underline">3dp</dimen>
+    <dimen name="height_progress_bar">6dp</dimen>
+    <dimen name="height_app_bar">48dp</dimen>
+    <dimen name="font_size_text_title">18sp</dimen>
+    <dimen name="font_size_text_primary">16sp</dimen>
+    <dimen name="font_size_text_secondary">12sp</dimen>
+    <dimen name="font_size_text_timer">70sp</dimen>
+    <dimen name="size_fab_custom">52dp</dimen>
+    <dimen name="size_image_special">18dp</dimen>
+    <dimen name="size_check_box">25dp</dimen>
+    <dimen name="size_check_box_icon">14dp</dimen>
+    <dimen name="size_circle_productivity">220dp</dimen>
+    <dimen name="size_account_photo">200dp</dimen>
+    <dimen name="padding_vertical_item">16dp</dimen>
+    <dimen name="padding_horizontal_button_timer_control">50dp</dimen>
+    <dimen name="corners_radius_account_photo">100dp</dimen>
+    <dimen name="corners_radius_button">5dp</dimen>
+    <dimen name="padding_vertical_edit_text">12dp</dimen>
+    <dimen name="corners_radius_rectangle_rounded">20dp</dimen>
+    <dimen name="height_error_line">2dp</dimen>
+</resources>

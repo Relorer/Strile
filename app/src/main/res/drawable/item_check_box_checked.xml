@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="@dimen/size_check_box"
+        android:height="@dimen/size_check_box">
+        <shape android:shape="oval">
+            <solid android:color="@color/colorAccent" />
+            <stroke
+                android:width="1dp"
+                android:color="@color/colorAccent" />
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/tick"
+        android:height="@dimen/size_check_box_icon"
+        android:width="@dimen/size_check_box_icon"
+        android:gravity="center"/>
+</layer-list>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <size
+                android:width="@dimen/size_check_box"
+                android:height="@dimen/size_check_box" />
+            <solid android:color="@color/colorAccent" />
+        </shape>
+    </item>
+</layer-list>

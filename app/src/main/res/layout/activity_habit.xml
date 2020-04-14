@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.add_habit.AddHabitActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_app_bar"
+        android:background="@color/colorPrimaryDark"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Habit Name"
+                android:textAlignment="center"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextTitle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/view_toolBar"
+                app:layout_constraintStart_toEndOf="@+id/view_back"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/view_toolBar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="@dimen/size_image_special"
+                    android:layout_height="@dimen/size_image_special"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin_base"
+                    android:layout_marginEnd="@dimen/margin_base"
+                    android:src="@drawable/toolbar"
+                    android:tint="@color/colorGray" />
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:id="@+id/view_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="@dimen/size_image_special"
+                    android:layout_height="@dimen/size_image_special"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin_base"
+                    android:layout_marginEnd="@dimen/margin_base"
+                    android:src="@drawable/back_arrow"
+                    android:tint="@color/colorGray" />
+            </FrameLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_timeGoal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_between_blocks"
+        android:background="@color/colorPrimary"
+        android:paddingTop="@dimen/margin_base"
+        android:paddingBottom="@dimen/margin_base">
+
+        <TextView
+            android:id="@+id/text_today"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_base"
+            android:text="Today"
+            android:textAppearance="@style/TextPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_time_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_base"
+            android:text="22/45 minutes"
+            android:textAppearance="@style/TextPrimary"
+            android:textColor="@color/colorMediumCase"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/text_today"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_time_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_progress_bar"
+            android:layout_marginLeft="@dimen/margin_horizontal_progress_bar"
+            android:layout_marginTop="@dimen/margin_base"
+            android:layout_marginRight="@dimen/margin_horizontal_progress_bar"
+            android:max="45"
+            android:progress="22"
+            android:progressTint="@color/colorMediumCase"
+            android:progressDrawable="@drawable/progress_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_today" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_between_blocks"
+        android:background="@color/colorPrimary"
+        android:paddingTop="@dimen/margin_base"
+        android:paddingBottom="@dimen/margin_base">
+
+        <TextView
+            android:id="@+id/text_text_streak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_base"
+            android:text="Current Streak"
+            android:textAppearance="@style/TextPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_streak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_base"
+            android:text="21"
+            android:textAppearance="@style/TextPrimary"
+            android:textColor="@color/colorMediumCase"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/text_text_streak"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_between_blocks"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingTop="@dimen/padding_vertical_item"
+        android:paddingBottom="@dimen/padding_vertical_item">
+
+        <ImageView
+            android:id="@+id/image_repeat"
+            android:layout_width="@dimen/size_check_box"
+            android:layout_height="@dimen/size_check_box"
+            android:layout_marginStart="@dimen/margin_base"
+            android:button="@drawable/button_hiding_check_box"
+            android:src="@drawable/repeat"
+            android:tint="@color/colorBlack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_repeat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_base"
+            android:baselineAligned="false"
+            android:text="Repeat Everyday"
+            android:textAppearance="@style/TextPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_repeat"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingTop="@dimen/padding_vertical_item"
+        android:paddingBottom="@dimen/padding_vertical_item">
+
+        <ImageView
+            android:id="@+id/image_goal"
+            android:layout_width="@dimen/size_check_box"
+            android:layout_height="@dimen/size_check_box"
+            android:layout_marginStart="@dimen/margin_base"
+            android:button="@drawable/button_hiding_check_box"
+            android:src="@drawable/time_goal"
+            android:tint="@color/colorBlack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_goal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_base"
+            android:baselineAligned="false"
+            android:text="No Time Goal"
+            android:textAppearance="@style/TextPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_goal"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

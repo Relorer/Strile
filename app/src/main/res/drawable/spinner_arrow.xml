@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingRight="@dimen/size_check_box">
+    <item
+        android:width="@dimen/size_check_box"
+        android:height="@dimen/size_check_box"
+        android:gravity="right|center">
+        <layer-list>
+            <item
+                android:gravity="center"
+                android:height="@dimen/size_check_box_icon"
+                android:width="@dimen/size_check_box_icon">
+                <rotate
+                    android:drawable="@drawable/up_arrow"
+                    android:fromDegrees="180"
+                    android:pivotX="50%"
+                    android:pivotY="50%"
+                    android:toDegrees="180"/>
+            </item>
+            <item>
+                <ripple
+                    android:color="@color/colorLightGray"
+                    tools:targetApi="lollipop">
+                    <item android:id="@android:id/mask"
+                        android:gravity="center">
+                        <shape android:shape="oval">
+                            <size
+                                android:height="@dimen/size_check_box"
+                                android:width="@dimen/size_check_box"/>
+                            <solid android:color="#f816a463" />
+                        </shape>
+                    </item>
+                </ripple>
+            </item>
+        </layer-list>
+    </item>
+</layer-list>

@@ -1,0 +1,35 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+    </style>
+
+
+    <style name="TextTitle" parent="TextAppearance.AppCompat">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/font_size_text_title</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="TextPrimary" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_size_text_primary</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="TextSecondary" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_size_text_secondary</item>
+        <item name="android:textColor">@color/colorLightGray</item>
+    </style>
+
+    <style name="TextTimer" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_size_text_timer</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+</resources>
