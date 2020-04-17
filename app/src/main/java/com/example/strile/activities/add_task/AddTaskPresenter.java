@@ -39,7 +39,7 @@ public class AddTaskPresenter extends BasePresenter<TaskModel, AddTaskActivity> 
         if (!task.getName().equals("")) {
             addTaskInDatabase();
             view().finish();
-        } else if (task.getName().equals("")) view().setVisibleErrorLineTextName(true);
+        } else if (task.getName().equals("")) view().showToast("Task's name shouldn't be empty!");
     }
 
     void backButtonClicked() {
@@ -58,7 +58,6 @@ public class AddTaskPresenter extends BasePresenter<TaskModel, AddTaskActivity> 
 
     void nameChanged(String name) {
         task.setName(name.trim());
-        if (name.trim().length() > 0) view().setVisibleErrorLineTextName(false);
     }
 
     void descriptionChanged(String description) {

@@ -12,12 +12,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.strile.R;
 import com.example.strile.fragments.dialog.DialogTimeGoalOptions;
@@ -43,7 +45,6 @@ public class AddTaskActivity extends AppCompatActivity {
     private View deadlineClearButton;
     private SeekBar seekBarDifficult;
     private TextView textDifficult;
-    private FrameLayout errorLine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +144,6 @@ public class AddTaskActivity extends AppCompatActivity {
 
             }
         });
-        errorLine = findViewById(R.id.frame_error_line);
     }
 
     public static void start(Fragment caller) {
@@ -151,9 +151,11 @@ public class AddTaskActivity extends AppCompatActivity {
         caller.startActivity(intent);
     }
 
-    void setVisibleErrorLineTextName(boolean visible) {
-        if (visible) errorLine.setVisibility(View.VISIBLE);
-        else errorLine.setVisibility(View.GONE);
+    void showToast(String text) {
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+        if( v != null) v.setGravity(Gravity.CENTER);
+        toast.show();
     }
 
     void setTextDifficult(String text) {

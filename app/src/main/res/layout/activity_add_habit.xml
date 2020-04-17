@@ -86,8 +86,6 @@
         android:paddingBottom="@dimen/padding_vertical_edit_text"
         android:textAppearance="@style/TextPrimary"/>
 
-<include layout="@layout/frame_error_line"/>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view_repeat"
         android:layout_width="match_parent"

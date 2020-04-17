@@ -29,11 +29,12 @@ public class AddHabitPresenter extends BasePresenter<HabitModel, AddHabitActivit
     }
 
     void doneButtonClicked() {
-        if (habit.getDaysRepeat() != 0 && !habit.getName().equals("")) {
+        if (habit.getName().equals("")) view().showToast("Habit's name shouldn't be empty!");
+        else if (habit.getDaysRepeat() == 0) view().showToast("The habit should be repeated at least once a week!");
+        else {
             addHabitInDatabase();
             view().finish();
         }
-        else if (habit.getName().equals("")) view().setVisibleErrorLineTextName(true);
     }
 
     void backButtonClicked() {
@@ -50,7 +51,6 @@ public class AddHabitPresenter extends BasePresenter<HabitModel, AddHabitActivit
 
     void nameChanged(String name) {
         habit.setName(name.trim());
-        if (name.trim().length() > 0) view().setVisibleErrorLineTextName(false);
     }
 
     void goalTimeChanged(int time) {
