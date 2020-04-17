@@ -9,6 +9,8 @@ import com.example.strile.database.entities.Case;
 import com.example.strile.database.models.CaseModel;
 import com.example.strile.sevice.call_back_interfaces.CompleteLoadCallback;
 import com.example.strile.sevice.presenter.BasePresenter;
+import com.example.strile.sevice.recycler_view_adapter.ButtonHidingModel;
+import com.example.strile.sevice.recycler_view_adapter.ItemModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,19 +19,19 @@ public abstract class JournalCasesPresenter extends BasePresenter<CaseModel, Jou
 
     private LiveData<List<Case>> cases;
     private List<Case> incomplete;
-    private List<Case> completed;
-
-    private boolean buttonHidingState = true;
+    private List<Case> forToday;
+    ButtonHidingModel button;
 
     public JournalCasesPresenter() {
         model = getModel();
         model.loadCases(new CompleteLoadCallback() {
             @Override
             public void onComplete(LiveData<?> list) {
-                cases = (LiveData<List<Case>>) list;;
+                cases = (LiveData<List<Case>>) list;
                 updateView();
             }
         });
+        button = new ButtonHidingModel();
     }
 
     protected abstract CaseModel getModel();
@@ -37,23 +39,17 @@ public abstract class JournalCasesPresenter extends BasePresenter<CaseModel, Jou
     @Override
     protected void updateView() {
         if (cases != null) {
+            cases.removeObservers(view());
             cases.observe(view(), new Observer<List<Case>>() {
                 @Override
                 public void onChanged(List<Case> cases) {
-                    List<Case> forToday = chooseForToday(cases);
+                    forToday = chooseForToday(cases);
                     incomplete = chooseIncomplete(forToday);
-                    completed = chooseCompleted(forToday);
-
-                    view().setSortedListIncomplete(incomplete);
-
-                    if (buttonHidingState) view().setSortedListCompleted(null);
-                    else view().setSortedListCompleted(completed);
-                    if (completed.size() > 0) view().setVisibleButtonHiding(true);
-                    view().updateButtonHidingCount(completed.size());
+                    button.setCount(forToday.size() - incomplete.size());
+                    updateSortedListOnScreen();
                 }
             });
         }
-        view().setCheckedButtonHiding(buttonHidingState);
     }
 
     void itemClicked(Case c) {
@@ -64,11 +60,18 @@ public abstract class JournalCasesPresenter extends BasePresenter<CaseModel, Jou
         updateCase(c);
     }
 
-    void buttonHidingStateChanged() {
-        buttonHidingState = !buttonHidingState;
-        view().setCheckedButtonHiding(buttonHidingState);
-        if (buttonHidingState) view().setSortedListCompleted(null);
-        else view().setSortedListCompleted(completed);
+    void buttonHidingStateChanged(ButtonHidingModel button) {
+        updateSortedListOnScreen();
+    }
+
+    private void updateSortedListOnScreen() {
+        ArrayList<ItemModel> items;
+        if (button.isChecked()) items = new ArrayList<ItemModel>(forToday);
+        else items = new ArrayList<ItemModel>(incomplete);
+        if (button.getCount() > 0) {
+            items.add(button);
+        }
+        view().setSortedList(items);
     }
 
     private void updateCase(Case c) {

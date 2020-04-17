@@ -1,36 +1,98 @@
 package com.example.strile.database.entities;
 
-
 import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
 import com.example.strile.R;
 import com.example.strile.database.entities.Case;
 import com.example.strile.sevice.DateManager;
+import com.example.strile.sevice.converters.DatesConverter;
+import com.example.strile.sevice.recycler_view_adapter.ItemModel;
+import com.example.strile.sevice.structures.DateCompleted;
 
 import java.security.cert.Certificate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 @SuppressLint("ParcelCreator")
 @Entity(tableName = "habit")
-public class Habit implements Case {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+public class Habit extends Case {
+
     private String name = "";
     private int difficulty;
     private int goalTimeSeconds;
     private int elapsedTimeSeconds;
     private int streak;
     private int daysRepeat;
-    private long dateLastExecution;
 
-    public Habit() {}
+    @TypeConverters({DatesConverter.class})
+    private List<DateCompleted> datesCompleted = new ArrayList<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Habit habit = (Habit) o;
+        return difficulty == habit.difficulty &&
+                goalTimeSeconds == habit.goalTimeSeconds &&
+                elapsedTimeSeconds == habit.elapsedTimeSeconds &&
+                streak == habit.streak &&
+                daysRepeat == habit.daysRepeat &&
+                name.equals(habit.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, difficulty, goalTimeSeconds, elapsedTimeSeconds, streak, daysRepeat, datesCompleted);
+    }
+
+    @Override
+    public void setState(boolean complete) {
+        boolean current = datesCompleted.get(datesCompleted.size() - 1).complete;
+        if (complete != current) {
+            if (complete) streak++;
+            else streak--;
+        }
+        datesCompleted.get(datesCompleted.size() - 1).complete = complete;
+    }
+
+    @Override
+    public boolean plannedForToday() {
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1;
+        if ((daysRepeat & (int) Math.pow(2, day)) == Math.pow(2, day)) {
+            long today = DateManager.getDateWithoutTimeUsingCalendar().getTime();
+
+            if (datesCompleted.size() == 0) {
+                datesCompleted.add(new DateCompleted(today, false));
+            }
+
+            DateCompleted date = datesCompleted.get(datesCompleted.size() - 1);
+
+            if (date.date != today) {
+                if (!date.complete) streak = 0;
+                datesCompleted.add(new DateCompleted(today, false));
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean completed() {
+        return datesCompleted.get(datesCompleted.size() - 1).complete;
+    }
 
     @Override
     public int getId() {
@@ -62,39 +124,6 @@ public class Habit implements Case {
         this.difficulty = difficulty;
     }
 
-    @Override
-    public void setState(boolean complete) {
-        if (complete) dateLastExecution = DateManager.getDateWithoutTimeUsingCalendar().getTime();
-        else dateLastExecution = 0;
-    }
-
-    @Override
-    public boolean isGoalTime() {
-        return goalTimeSeconds > 0;
-    }
-
-    @Override
-    public boolean plannedForToday() {
-        int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1;
-        if ((daysRepeat & (int)Math.pow(2, day)) == Math.pow(2, day)) return true;
-        return false;
-    }
-
-    @Override
-    public boolean completed() {
-        return dateLastExecution == DateManager.getDateWithoutTimeUsingCalendar().getTime();
-    }
-
-    @Override
-    public boolean infoImportant() {
-        return false;
-    }
-
-    @Override
-    public String getInfo() {
-        return streak + " day streak";
-    }
-
     public int getGoalTimeSeconds() {
         return goalTimeSeconds;
     }
@@ -119,22 +148,22 @@ public class Habit implements Case {
         this.streak = streak;
     }
 
+    public List<DateCompleted> getDatesCompleted() {
+        return datesCompleted;
+    }
+
+    public void setDatesCompleted(List<DateCompleted> datesCompleted) {
+        this.datesCompleted = datesCompleted;
+    }
+
     public int getDaysRepeat() {
         return daysRepeat;
-    }
-
-    public long getDateLastExecution() {
-        return dateLastExecution;
-    }
-
-    public void setDateLastExecution(long dateLastExecution) {
-        this.dateLastExecution = dateLastExecution;
     }
 
     public boolean[] getDaysRepeatAsArray() {
         boolean[] days = new boolean[7];
         for (int i = 0; i < days.length; i++) {
-            days[i] = (daysRepeat & (int)Math.pow(2, i)) == Math.pow(2, i);
+            days[i] = (daysRepeat & (int) Math.pow(2, i)) == Math.pow(2, i);
         }
         return days;
     }
@@ -164,7 +193,7 @@ public class Habit implements Case {
         dest.writeInt(elapsedTimeSeconds);
         dest.writeInt(streak);
         dest.writeInt(daysRepeat);
-        dest.writeLong(dateLastExecution);
+        dest.writeString(new DatesConverter().fromDatesList(datesCompleted));
     }
 
     public static final Parcelable.Creator<Habit> CREATOR = new Parcelable.Creator<Habit>() {
@@ -179,7 +208,7 @@ public class Habit implements Case {
             habit.setElapsedTimeSeconds(source.readInt());
             habit.setStreak(source.readInt());
             habit.setDaysRepeat(source.readInt());
-            habit.setDateLastExecution(source.readLong());
+            habit.setDatesCompleted(new DatesConverter().toDatesList(source.readString()));
             return habit;
         }
 
@@ -188,4 +217,9 @@ public class Habit implements Case {
             return new Habit[size];
         }
     };
+
+    @Override
+    public int getType() {
+        return ItemModel.HABIT_TYPE;
+    }
 }

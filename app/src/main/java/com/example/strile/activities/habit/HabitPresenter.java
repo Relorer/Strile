@@ -19,7 +19,7 @@ public class HabitPresenter extends BasePresenter<HabitModel, HabitActivity> {
     @Override
     protected void updateView() {
         view().setTextName(habit.getName());
-        if (habit.isGoalTime()) {
+        if (habit.getGoalTimeSeconds() != 0) {
             view().setVisibleViewTimeGoal(true);
             view().setTextTimeProgress(getTextProgress());
             view().setTextTimeProgressColor(DifficultyManager.getColor(habit.getDifficulty()));

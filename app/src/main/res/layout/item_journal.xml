@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?attr/selectableItemBackground"
+    android:background="@color/colorPrimary">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
     android:paddingTop="@dimen/padding_vertical_item"
     android:paddingBottom="@dimen/padding_vertical_item">
 
@@ -13,10 +19,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_base"
         android:button="@drawable/item_check_box" />
-
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/liner"
@@ -58,3 +63,5 @@
         android:contentDescription="TODO" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

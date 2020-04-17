@@ -182,7 +182,7 @@ public class AddTaskActivity extends AppCompatActivity {
         DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                dateAndTime.set(year, month,dayOfMonth);
+                dateAndTime.set(year, month, dayOfMonth, 0, 0, 0);
                 presenter.deadlineChanged(dateAndTime.getTimeInMillis());
             }
         },
