@@ -7,17 +7,16 @@ import android.content.SharedPreferences;
 import androidx.room.Room;
 
 import com.example.strile.database.AppDatabase;
-import com.example.strile.database.dao_interfaces.HabitDao;
-import com.example.strile.database.models.HabitModel;
-import com.example.strile.database.models.TaskModel;
-import com.example.strile.sevice.recycler_view_adapter.ItemModel;
+import com.example.strile.database.models.HabitDatabaseModel;
+import com.example.strile.database.models.TaskDatabaseModel;
+import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 
 public class App extends Application {
     final String APP_PREFERENCES = "app_preferences";
 
     private static App instance;
-    private HabitModel habitModel;
-    private TaskModel taskModel;
+    private HabitDatabaseModel habitModel;
+    private TaskDatabaseModel taskModel;
 
 
     @Override
@@ -30,19 +29,19 @@ public class App extends Application {
                 .allowMainThreadQueries()
                 .build();
 
-        habitModel = new HabitModel(database.habitDao());
-        taskModel = new TaskModel(database.taskDao());
+        habitModel = new HabitDatabaseModel(database.habitDao());
+        taskModel = new TaskDatabaseModel(database.taskDao());
 
         SharedPreferences sp = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        ItemModel.setPreferences(sp);
-        ItemModel.setMaxId(sp.getInt(ItemModel.PREFERENCES_KEY_MAX_ID, 0));
+        BaseModel.setPreferences(sp);
+        BaseModel.setMaxId(sp.getInt(BaseModel.PREFERENCES_KEY_MAX_ID, 0));
     }
 
-    public HabitModel getHabitModel() {
+    public HabitDatabaseModel getHabitModel() {
         return habitModel;
     }
 
-    public TaskModel getTaskModel() {
+    public TaskDatabaseModel getTaskModel() {
         return taskModel;
     }
 

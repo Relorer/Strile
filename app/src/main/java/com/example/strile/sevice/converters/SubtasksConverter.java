@@ -2,30 +2,21 @@ package com.example.strile.sevice.converters;
 
 import androidx.room.TypeConverter;
 
-import com.example.strile.sevice.structures.DateCompleted;
+import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SubtasksConverter {
-    private final String separator = "<subtask_separator>";
-
     @TypeConverter
-    public String fromSubtasksList(List<String> names) {
-        StringBuilder data = new StringBuilder();
-
-        if (names != null) {
-            for (String n : names) {
-                data.append(n).append(separator);
-            }
-        }
-
-        return data.toString();
+    public String fromList(List<SubtaskModel> items) {
+        return new Gson().toJson(items, new TypeToken<ArrayList<SubtaskModel>>() {}.getType());
     }
 
     @TypeConverter
-    public List<String> toDatesList(String data) {
-        return new ArrayList<>(Arrays.asList(data.split(separator)));
+    public List<SubtaskModel> toList(String data) {
+        return new Gson().fromJson(data, new TypeToken<ArrayList<SubtaskModel>>() {}.getType());
     }
 }

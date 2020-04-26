@@ -5,10 +5,10 @@ import androidx.room.RoomDatabase;
 
 import com.example.strile.database.dao_interfaces.HabitDao;
 import com.example.strile.database.dao_interfaces.TaskDao;
-import com.example.strile.database.entities.Habit;
-import com.example.strile.database.entities.Task;
+import com.example.strile.database.entities.HabitModel;
+import com.example.strile.database.entities.TaskModel;
 
-@Database(entities = {Habit.class, Task.class}, version = 22)
+@Database(entities = {HabitModel.class, TaskModel.class}, version = 36)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract HabitDao habitDao();
     public abstract TaskDao taskDao();

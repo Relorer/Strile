@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin_base">22dp</dimen>
-    <dimen name="margin_vertical_progress_bar_block_hide">-6dp</dimen>
-    <dimen name="margin_vertical_progress_bar_block_visible">30dp</dimen>
+    <dimen name="margin_vertical_journal_top_block_hide">-50dp</dimen>
+    <dimen name="margin_vertical_journal_top_block_visible">15dp</dimen>
     <dimen name="margin_horizontal_progress_bar">14dp</dimen>
     <dimen name="margin_between_blocks">2dp</dimen>
     <dimen name="margin_top_account_name">8dp</dimen>
@@ -15,6 +15,7 @@
     <dimen name="font_size_text_timer">70sp</dimen>
     <dimen name="size_fab_custom">52dp</dimen>
     <dimen name="size_image_special">18dp</dimen>
+    <dimen name="size_image_timer_button">25dp</dimen>
     <dimen name="size_check_box">25dp</dimen>
     <dimen name="size_check_box_icon">14dp</dimen>
     <dimen name="size_circle_productivity">220dp</dimen>
@@ -26,4 +27,6 @@
     <dimen name="padding_vertical_edit_text">12dp</dimen>
     <dimen name="corners_radius_rectangle_rounded">20dp</dimen>
     <dimen name="height_error_line">2dp</dimen>
+    <dimen name="font_size_text_short_day">11sp</dimen>
+    <dimen name="width_timer_button">125dp</dimen>
 </resources>

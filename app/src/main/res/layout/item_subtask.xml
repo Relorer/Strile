@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary">
 
-</LinearLayout>
+    <CheckBox
+        android:id="@+id/checkbox_done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_base"
+        android:button="@drawable/item_check_box" />
+
+    <EditText
+        android:id="@+id/editText_subtask"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_base"
+        android:background="@color/colorPrimary"
+        android:hint="Enter title"
+        android:inputType="textMultiLine|textCapSentences"
+        android:paddingTop="@dimen/padding_vertical_edit_text"
+        android:paddingRight="@dimen/margin_base"
+        android:paddingBottom="@dimen/padding_vertical_edit_text"
+        android:textAppearance="@style/TextPrimary"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/image_cross"
+        app:layout_constraintStart_toEndOf="@+id/checkbox_done"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_cross"
+        android:layout_width="@dimen/size_check_box_icon"
+        android:layout_height="@dimen/size_check_box_icon"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:src="@drawable/cross"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

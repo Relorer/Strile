@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.strile.database.entities.Habit;
+import com.example.strile.database.entities.HabitModel;
 
 import java.util.List;
 
@@ -15,21 +15,21 @@ import java.util.List;
 public interface HabitDao {
 
     @Query("SELECT * FROM habit")
-    List<Habit> getAll();
+    List<HabitModel> getAll();
 
     @Query("SELECT * FROM habit")
-    LiveData<List<Habit>> getLiveDataAll();
+    LiveData<List<HabitModel>> getLiveDataAll();
 
     @Query("SELECT * FROM habit WHERE id = :id")
-    Habit getById(long id);
+    HabitModel getById(long id);
 
     @Insert
-    void insert(Habit habit);
+    void insert(HabitModel habitModel);
 
     @Update
-    void update(Habit habit);
+    void update(HabitModel habitModel);
 
     @Delete
-    void delete(Habit habit);
+    void delete(HabitModel habitModel);
 
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/view_deadline"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:paddingTop="@dimen/padding_vertical_item"
+    android:paddingBottom="@dimen/padding_vertical_item">
+
+    <ImageView
+        android:id="@+id/image_date"
+        android:layout_width="@dimen/size_check_box"
+        android:layout_height="@dimen/size_check_box"
+        android:layout_marginStart="@dimen/margin_base"
+        android:button="@drawable/button_hiding_check_box"
+        android:src="@drawable/calendar"
+        android:tint="@color/colorBlack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_deadline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_base"
+        android:baselineAligned="false"
+        android:text="Add due date"
+        android:textAppearance="@style/TextPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/image_date"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_cross"
+        android:layout_width="@dimen/size_check_box_icon"
+        android:layout_height="@dimen/size_check_box_icon"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:src="@drawable/cross"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/text_deadline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

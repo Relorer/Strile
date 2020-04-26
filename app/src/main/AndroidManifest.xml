@@ -10,14 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.task.TaskActivity" />
-        <activity android:name=".activities.habit.HabitActivity" />
+        <activity android:name=".activities.case_activity.task.TaskActivity" />
+        <activity android:name=".activities.case_activity.habit.HabitActivity" />
         <activity
-            android:name=".activities.add_task.AddTaskActivity"
-            android:configChanges="screenSize|orientation|screenLayout"
-            android:windowSoftInputMode="adjustPan" />
+            android:name=".activities.case_activity.add_case.add_task.AddTaskActivity"
+            android:configChanges="screenSize|orientation|screenLayout"/>
         <activity
-            android:name=".activities.add_habit.AddHabitActivity"
+            android:name=".activities.case_activity.add_case.add_habit.AddHabitActivity"
             android:configChanges="screenSize|orientation|screenLayout"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activities.settings.SettingsActivity" />

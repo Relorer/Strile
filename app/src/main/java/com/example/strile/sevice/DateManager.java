@@ -1,11 +1,24 @@
 package com.example.strile.sevice;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.example.strile.sevice.event_handler_interfaces.OnChangeListener;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class DateManager {
-    public static Date getDateWithoutTimeUsingCalendar() {
+    private static List<OnChangeListener<Long>> onChangeVisibleDayListeners = new ArrayList<>();
+
+    private static long visibleDay = getDateWithoutTime(Calendar.getInstance().getTimeInMillis()).getTime();
+
+    public static Date getDateWithoutTime(long day) {
         Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(day);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -30,5 +43,28 @@ public class DateManager {
             text = text.substring(0, text.length() - 2);
         }
         return text;
+    }
+
+    public static long getVisibleDay() {
+        return visibleDay;
+    }
+
+    public static void setVisibleDay(long visibleDay) {
+        DateManager.visibleDay = getDateWithoutTime(visibleDay).getTime();
+        for (OnChangeListener<Long> listener : onChangeVisibleDayListeners)
+            listener.onChanged(visibleDay);
+    }
+
+    public static void addOnChangeVisibleDayListener(@NonNull OnChangeListener<Long> onChangeListener) {
+        if (!onChangeVisibleDayListeners.contains(onChangeListener))
+            onChangeVisibleDayListeners.add(onChangeListener);
+    }
+
+    public static void removeOnChangeVisibleDayListener(@NonNull OnChangeListener<Long> onChangeListener) {
+        onChangeVisibleDayListeners.remove(onChangeListener);
+    }
+
+    public static void clearOnChangeVisibleDayListeners() {
+        onChangeVisibleDayListeners.clear();
     }
 }

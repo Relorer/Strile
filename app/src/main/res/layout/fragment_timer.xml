@@ -52,7 +52,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageButton_close"
+            android:id="@+id/image_buttonClose"
             android:layout_width="@dimen/size_check_box_icon"
             android:layout_height="@dimen/size_check_box_icon"
             android:layout_marginEnd="@dimen/margin_base"

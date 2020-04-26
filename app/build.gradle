@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.strile"
-        minSdkVersion 23
+        minSdkVersion defaultMinSdkVersion
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -20,9 +20,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 
 }
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -31,6 +34,8 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     implementation("com.google.guava:guava:28.2-android")
+
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

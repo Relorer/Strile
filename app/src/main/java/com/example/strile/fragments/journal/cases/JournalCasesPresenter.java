@@ -3,60 +3,58 @@ package com.example.strile.fragments.journal.cases;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 
-import com.example.strile.database.entities.Case;
-import com.example.strile.database.models.CaseModel;
-import com.example.strile.sevice.call_back_interfaces.CompleteLoadCallback;
+import com.example.strile.database.entities.CaseModel;
+import com.example.strile.database.entities.HabitModel;
+import com.example.strile.database.models.CaseDatabaseModel;
+import com.example.strile.sevice.DateManager;
 import com.example.strile.sevice.presenter.BasePresenter;
-import com.example.strile.sevice.recycler_view_adapter.ButtonHidingModel;
-import com.example.strile.sevice.recycler_view_adapter.ItemModel;
+import com.example.strile.sevice.recycler_view_adapter.models.ButtonHidingModel;
+import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class JournalCasesPresenter extends BasePresenter<CaseModel, JournalCasesFragment> {
+public abstract class JournalCasesPresenter extends BasePresenter<CaseDatabaseModel, JournalCasesFragment> {
 
-    private LiveData<List<Case>> cases;
-    private List<Case> incomplete;
-    private List<Case> forToday;
-    ButtonHidingModel button;
+    private LiveData<List<CaseModel>> cases;
+
+    private List<CaseModel> full;
+    private List<CaseModel> incomplete;
+    private List<CaseModel> forDay;
+    private ButtonHidingModel button;
 
     public JournalCasesPresenter() {
         model = getModel();
-        model.loadCases(new CompleteLoadCallback() {
-            @Override
-            public void onComplete(LiveData<?> list) {
-                cases = (LiveData<List<Case>>) list;
-                updateView();
-            }
+        model.loadCases(list -> {
+            cases = (LiveData<List<CaseModel>>) list;
+            updateView();
         });
         button = new ButtonHidingModel();
+        DateManager.addOnChangeVisibleDayListener(model -> {
+            if (setupDone())
+                updateSortedListOnScreen();
+        });
     }
 
-    protected abstract CaseModel getModel();
+    protected abstract CaseDatabaseModel getModel();
 
     @Override
     protected void updateView() {
         if (cases != null) {
             cases.removeObservers(view());
-            cases.observe(view(), new Observer<List<Case>>() {
-                @Override
-                public void onChanged(List<Case> cases) {
-                    forToday = chooseForToday(cases);
-                    incomplete = chooseIncomplete(forToday);
-                    button.setCount(forToday.size() - incomplete.size());
-                    updateSortedListOnScreen();
-                }
+            cases.observe(view(), caseModels -> {
+                full = caseModels;
+                updateSortedListOnScreen();
             });
         }
     }
 
-    void itemClicked(Case c) {
+    void itemClicked(CaseModel c) {
         view().startCaseActivity(c);
     }
 
-    void itemStateChanged(Case c) {
+    void itemStateChanged(CaseModel c) {
         updateCase(c);
     }
 
@@ -65,39 +63,39 @@ public abstract class JournalCasesPresenter extends BasePresenter<CaseModel, Jou
     }
 
     private void updateSortedListOnScreen() {
-        ArrayList<ItemModel> items;
-        if (button.isChecked()) items = new ArrayList<ItemModel>(forToday);
-        else items = new ArrayList<ItemModel>(incomplete);
-        if (button.getCount() > 0) {
-            items.add(button);
+        forDay = chooseForDay(full);
+        incomplete = chooseIncomplete(forDay);
+        button.setCount(forDay.size() - incomplete.size());
+        if (setupDone()) {
+            ArrayList<BaseModel> items = new ArrayList<>();
+            if (button.isChecked()) items.addAll(forDay);
+            else items.addAll(incomplete);
+            if (button.getCount() > 0) {
+                items.add(button);
+            }
+            view().setSortedList(items);
         }
-        view().setSortedList(items);
+//        for(CaseModel model : full) {
+//                model.visibleDayChanged();
+//        }
     }
 
-    private void updateCase(Case c) {
+    private void updateCase(CaseModel c) {
         model.updateCase(c, null);
     }
 
-    private List<Case> chooseIncomplete(List<Case> cases) {
-        List<Case> chosen = new ArrayList<>();
-        for (Case c : cases) {
-            if (!c.completed()) chosen.add(c);
+    private List<CaseModel> chooseIncomplete(List<CaseModel> caseModels) {
+        List<CaseModel> chosen = new ArrayList<>();
+        for (CaseModel c : caseModels) {
+            if (!c.isCompleted()) chosen.add(c);
         }
         return chosen;
     }
 
-    private List<Case> chooseCompleted(List<Case> cases) {
-        List<Case> chosen = new ArrayList<>();
-        for (Case c : cases) {
-            if (c.completed()) chosen.add(c);
-        }
-        return chosen;
-    }
-
-    private List<Case> chooseForToday(List<Case> cases) {
-        List<Case> chosen = new ArrayList<>();
-        for (Case c : cases) {
-            if (c.plannedForToday()) chosen.add(c);
+    private List<CaseModel> chooseForDay(List<CaseModel> caseModels) {
+        List<CaseModel> chosen = new ArrayList<>();
+        for (CaseModel c : caseModels) {
+            if (c.plannedForDay()) chosen.add(c);
         }
         return chosen;
     }

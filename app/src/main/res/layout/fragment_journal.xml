@@ -19,24 +19,19 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/linear_progressBar"
+                android:id="@+id/linear_topBlock"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_vertical_progress_bar_block_hide"
                 android:animateLayoutChanges="true"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/tab">
+                app:layout_constraintTop_toBottomOf="@+id/tab"
+                android:layout_marginTop="@dimen/margin_vertical_journal_top_block_hide">
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="?android:attr/progressBarStyleHorizontal"
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_progress_bar"
-                    android:layout_marginLeft="@dimen/margin_horizontal_progress_bar"
-                    android:layout_marginRight="@dimen/margin_horizontal_progress_bar"
-                    android:max="4"
-                    android:progress="1"
-                    android:progressDrawable="@drawable/progress_bar" />
+                    android:layout_height="wrap_content"/>
 
                 <FrameLayout
                     android:id="@+id/frameLayout_toggle"

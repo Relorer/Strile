@@ -7,8 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.strile.database.entities.Habit;
-import com.example.strile.database.entities.Task;
+import com.example.strile.database.entities.TaskModel;
 
 import java.util.List;
 
@@ -16,21 +15,21 @@ import java.util.List;
 public interface TaskDao {
 
     @Query("SELECT * FROM task")
-    List<Task> getAll();
+    List<TaskModel> getAll();
 
     @Query("SELECT * FROM task")
-    LiveData<List<Task>> getLiveDataAll();
+    LiveData<List<TaskModel>> getLiveDataAll();
 
     @Query("SELECT * FROM task WHERE id = :id")
-    Task getById(long id);
+    TaskModel getById(long id);
 
     @Insert
-    void insert(Task task);
+    void insert(TaskModel taskModel);
 
     @Update
-    void update(Task task);
+    void update(TaskModel taskModel);
 
     @Delete
-    void delete(Task task);
+    void delete(TaskModel taskModel);
 
 }
