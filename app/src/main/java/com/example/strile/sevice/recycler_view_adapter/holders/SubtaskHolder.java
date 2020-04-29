@@ -2,6 +2,7 @@ package com.example.strile.sevice.recycler_view_adapter.holders;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -27,22 +28,18 @@ public class SubtaskHolder extends BaseHolder<SubtaskModel> {
         text = view.findViewById(R.id.editText_subtask);
         buttonDelete = view.findViewById(R.id.image_cross);
 
-        state.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        state.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!isBinding()) {
                 model.setComplete(isChecked);
                 if (onModelChangedListener != null)
                     onModelChangedListener.onChanged(model);
             }
         });
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                text.clearFocus();
-                model.setDying(true);
-                if (onModelChangedListener != null)
-                    onModelChangedListener.onChanged(model);
-            }
+        buttonDelete.setOnClickListener(v -> {
+            text.clearFocus();
+            model.setDying(true);
+            if (onModelChangedListener != null)
+                onModelChangedListener.onChanged(model);
         });
         text.addTextChangedListener(new TextWatcher() {
             @Override

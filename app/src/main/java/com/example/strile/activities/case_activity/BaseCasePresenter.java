@@ -8,6 +8,7 @@ import com.example.strile.sevice.recycler_view_adapter.models.ButtonDateSelectio
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonRepeatModel;
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonTimeGoalModel;
 import com.example.strile.sevice.recycler_view_adapter.models.EditTextModel;
+import com.example.strile.sevice.recycler_view_adapter.models.ProgressBarElapsedTimeModel;
 import com.example.strile.sevice.recycler_view_adapter.models.SeekBarDifficultModel;
 import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
 
@@ -22,6 +23,7 @@ public abstract class BaseCasePresenter<M extends CaseDatabaseModel, V> extends 
     public void difficultChanged(SeekBarDifficultModel model) {}
     public void dateSelectionChanged(ButtonDateSelectionModel model) {}
     public void addSubtaskButtonClicked(ButtonAddSubtaskModel model) {}
+    public void elapsedTimeClicked(ProgressBarElapsedTimeModel model) {}
 
     protected void addCaseInDatabase(CaseModel c) {
         model.insertCase(c, null);

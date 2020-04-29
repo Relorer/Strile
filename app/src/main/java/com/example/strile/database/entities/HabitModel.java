@@ -56,12 +56,7 @@ public class HabitModel extends CaseModel {
 
     @Override
     public int hashCode() {
-        return Objects.hash(goalTimeSeconds, elapsedTimeSeconds, daysRepeat);
-    }
-
-    @Override
-    public void setState(boolean complete) {
-        getCurrentDateCompleted().setComplete(complete);
+        return Objects.hash(goalTimeSeconds, elapsedTimeSeconds, daysRepeat, datesCompleted);
     }
 
     @Override
@@ -78,7 +73,20 @@ public class HabitModel extends CaseModel {
     }
 
     @Override
+    public void setState(boolean complete) {
+        getCurrentDateCompleted().setComplete(complete);
+        if (DateManager.getVisibleDay() == DateManager.getDateWithoutTime(Calendar.getInstance().getTimeInMillis()).getTime() && goalTimeSeconds != 0) {
+            if (complete) elapsedTimeSeconds = goalTimeSeconds;
+            else  elapsedTimeSeconds = 0;
+        }
+        notifyOfChanges();
+    }
+
+    @Override
     public boolean isCompleted() {
+        if (DateManager.getVisibleDay() == DateManager.getDateWithoutTime(Calendar.getInstance().getTimeInMillis()).getTime() && goalTimeSeconds != 0 && elapsedTimeSeconds == goalTimeSeconds) {
+                getCurrentDateCompleted().setComplete(true);
+        }
         return getCurrentDateCompleted().isComplete();
     }
 
@@ -162,8 +170,11 @@ public class HabitModel extends CaseModel {
     private DateCompleted getCurrentDateCompleted() {
         DateCompleted found = datesCompleted.stream().filter(date -> DateManager.getVisibleDay() == date.getDate()).findAny().orElse(null);
         if (found == null) {
-            DateCompleted newDateCompleted = new DateCompleted(DateManager.getVisibleDay(), false, this);
+            DateCompleted newDateCompleted = new DateCompleted(DateManager.getVisibleDay(), false);
             datesCompleted.add(newDateCompleted);
+            if (DateManager.getVisibleDay() == DateManager.getDateWithoutTime(Calendar.getInstance().getTimeInMillis()).getTime()) {
+                elapsedTimeSeconds = 0;
+            }
             return newDateCompleted;
         }
         return found;

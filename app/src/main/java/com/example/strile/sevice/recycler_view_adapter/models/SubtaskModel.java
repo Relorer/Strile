@@ -3,11 +3,13 @@ package com.example.strile.sevice.recycler_view_adapter.models;
 public class SubtaskModel extends BaseModel {
 
     private String text = "";
-    private boolean complete;
-    private boolean dying;
+    private boolean complete = false;
+    private boolean dying = false;
 
-    public SubtaskModel() {
-        dying = false;
+    public SubtaskModel(String text, boolean complete, boolean dying) {
+        this.text = text;
+        this.complete = complete;
+        this.dying = dying;
     }
 
     @Override

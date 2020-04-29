@@ -2,64 +2,140 @@ package com.example.strile.fragments.timer;
 
 import android.os.Bundle;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.strile.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TimerFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class TimerFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import com.example.strile.activities.case_activity.add_case.add_habit.AddHabitActivity;
+import com.example.strile.canvases.TimerCanvas;
+import com.example.strile.database.entities.HabitModel;
+import com.example.strile.sevice.presenter.PresenterManager;
+
+public class TimerFragment extends Fragment {
+
+    private TimerPresenter presenter;
+
+    private View view;
+
+    private TextView textTitle;
+    private TextView textTime;
+    private Button buttonTimerControlPrimary;
+    private TextView textItemTitle;
+    private TextView textInfo;
+    private TextView textButtonTimerControlSecondary;
+    private TimerCanvas timerCanvas;
+
+    private HabitModel habit;
 
     public TimerFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TimerFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TimerFragment newInstance(String param1, String param2) {
-        TimerFragment fragment = new TimerFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public TimerFragment(HabitModel habit) {
+        this.habit = habit;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_timer, container, false);
+        View view = inflater.inflate(R.layout.fragment_timer, container, false);
+
+        textTitle = view.findViewById(R.id.text_title);
+        textTime = view.findViewById(R.id.text_timer_time);
+        buttonTimerControlPrimary = view.findViewById(R.id.button_timer_control_primary);
+        textItemTitle = view.findViewById(R.id.text_item_title);
+        timerCanvas = view.findViewById(R.id.view_canvas);
+        textInfo = view.findViewById(R.id.text_info);
+        textButtonTimerControlSecondary = view.findViewById(R.id.text_timer_control_secondary);
+
+        textTitle.setText("Focus Timer");
+
+        buttonTimerControlPrimary.setOnClickListener(v -> {
+            presenter.buttonTimerControlClicked(buttonTimerControlPrimary.getText().toString());
+        });
+        textButtonTimerControlSecondary.setOnClickListener(v -> {
+            presenter.textButtonTimerControlClicked(textButtonTimerControlSecondary.getText().toString());
+        });
+
+        this.view = view;
+        return view;
     }
+
+    public void setTextInfo(String text) {
+        this.textInfo.setText(text);
+    }
+
+    public void setTotalTimeOnCanvas(long time) {
+        timerCanvas.setTotalTime(time);
+    }
+
+    public void setCurrentTimeOnCanvas(long time) {
+        timerCanvas.setCurrentTime(time);
+    }
+
+    public void setTextTime(String text) {
+        textTime.setText(text);
+    }
+
+    public void setTextButtonTimerControlSecondary(String text) {
+        textButtonTimerControlSecondary.setText(text);
+    }
+
+    public void setTextButtonTimerControlPrimary(String text) {
+        buttonTimerControlPrimary.setText(text);
+    }
+
+    public void setTextItemTitle(String text) {
+        textItemTitle.setText(text);
+    }
+
+    public HabitModel getHabit() {
+        return habit;
+    }
+
+    @Nullable
+    @Override
+    public View getView() {
+        return view;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+        if (savedInstanceState == null) {
+            presenter = new TimerPresenter(habit);
+        } else {
+            presenter = PresenterManager.getInstance().restorePresenter(savedInstanceState);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.bindView(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        presenter.unbindView();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        PresenterManager.getInstance().savePresenter(presenter, outState);
+    }
+
 }

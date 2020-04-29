@@ -6,15 +6,11 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.strile.R;
 import com.example.strile.activities.case_activity.BaseCaseActivity;
 import com.example.strile.activities.case_activity.BaseCasePresenter;
 import com.example.strile.database.entities.TaskModel;
-import com.google.android.material.snackbar.Snackbar;
-
-import static com.example.strile.sevice.DifficultyManager.getColor;
 
 public class TaskActivity extends BaseCaseActivity {
 
@@ -25,8 +21,8 @@ public class TaskActivity extends BaseCaseActivity {
         task = getIntent().getParcelableExtra(TaskModel.class.getCanonicalName());
         super.onCreate(savedInstanceState);
         textTitle.setText("Task");
-        imageSpecialPurpose.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.basket, null));
-        imageSpecialPurpose.setColorFilter(getColor(R.color.colorGray), PorterDuff.Mode.SRC_ATOP);
+        imageSpecialPurposeRight.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.basket, null));
+        imageSpecialPurposeRight.setColorFilter(getColor(R.color.colorGray), PorterDuff.Mode.SRC_ATOP);
     }
 
     @Override

@@ -23,11 +23,11 @@ public class TaskHolder extends CaseHolder {
                       final OnClickListener<CaseModel> onClickCaseListener) {
         super(itemView, onModelChangedListener, onClickCaseListener);
         done.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (!isBinding())
+            if (!isBinding()) {
                 model.setState(isChecked);
-            changeStateDone();
-            if (onModelChangedListener != null)
-                onModelChangedListener.onChanged(model);
+                if (onModelChangedListener != null)
+                    onModelChangedListener.onChanged(model);
+            }
         });
         itemView.setOnClickListener(v -> {
             if (onClickCaseListener != null)

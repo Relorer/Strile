@@ -14,6 +14,7 @@ import com.example.strile.sevice.recycler_view_adapter.models.ButtonDateSelectio
 import com.example.strile.sevice.recycler_view_adapter.models.EditTextModel;
 import com.example.strile.sevice.recycler_view_adapter.models.SeekBarDifficultModel;
 import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
+import com.example.strile.sevice.structures.Subtask;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +28,8 @@ public class AddTaskPresenter extends BaseCasePresenter<TaskDatabaseModel, AddTa
     private ButtonDateSelectionModel buttonDateSelection = new ButtonDateSelectionModel();
     private EditTextModel nameEditText = new EditTextModel(2, 80);
     private EditTextModel descriptionEditText = new EditTextModel(0, 0);
+
+    private List<SubtaskModel> subtaskModels = new ArrayList<>();
 
     AddTaskPresenter() {
         model = App.getInstance().getTaskModel();
@@ -49,7 +52,7 @@ public class AddTaskPresenter extends BaseCasePresenter<TaskDatabaseModel, AddTa
         list.add(nameEditText);
         list.add(descriptionEditText);
         list.add(buttonDateSelection);
-        list.addAll(task.getSubtasks());
+        list.addAll(subtaskModels);
         list.add(buttonAddSubtask);
         list.add(seekBarDifficult);
         view().setSortedList(list);
@@ -59,9 +62,11 @@ public class AddTaskPresenter extends BaseCasePresenter<TaskDatabaseModel, AddTa
     public void specialPurposeButtonClicked() {
         if (task.getName().equals("")) {
             view().showToast("Task's name shouldn't be empty!");
-        }
-        else {
+        } else {
             task.setDateCreate(DateManager.getDateWithoutTime(Calendar.getInstance().getTimeInMillis()).getTime());
+            for (SubtaskModel subtaskModel : subtaskModels) {
+                task.getSubtasks().add(new Subtask(subtaskModel.getText(), subtaskModel.isComplete()));
+            }
             addCaseInDatabase(task);
             view().finish();
         }
@@ -88,14 +93,14 @@ public class AddTaskPresenter extends BaseCasePresenter<TaskDatabaseModel, AddTa
 
     @Override
     public void addSubtaskButtonClicked(ButtonAddSubtaskModel model) {
-        task.getSubtasks().add(new SubtaskModel());
+        subtaskModels.add(new SubtaskModel("", false, false));
         updateView();
     }
 
     @Override
     public void subtaskChanged(SubtaskModel model) {
         if (model.isDying()) {
-            task.getSubtasks().remove(model);
+            subtaskModels.remove(model);
             updateView();
         }
     }

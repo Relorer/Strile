@@ -77,7 +77,7 @@ public class CaseActivityListAdapter extends BaseRecyclerViewAdapter {
         registerRenderer(new ButtonAddSubtaskRenderer(onModelChangedListener, onClickItemListener));
         registerRenderer(new ButtonRepeatRenderer(onModelChangedListener));
         registerRenderer(new ButtonTimeGoalRenderer(onModelChangedListener));
-        registerRenderer(new ProgressBarElapsedTimeRenderer(onModelChangedListener));
+        registerRenderer(new ProgressBarElapsedTimeRenderer(onModelChangedListener, onClickItemListener));
         registerRenderer(new CurrentStreakRenderer(onModelChangedListener));
     }
 

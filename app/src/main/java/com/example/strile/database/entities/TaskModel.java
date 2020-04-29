@@ -11,7 +11,7 @@ import androidx.room.TypeConverters;
 import com.example.strile.sevice.DateManager;
 import com.example.strile.sevice.converters.SubtasksConverter;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
+import com.example.strile.sevice.structures.Subtask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,28 +27,30 @@ public class TaskModel extends CaseModel {
     private long dateComplete;
 
     @TypeConverters({SubtasksConverter.class})
-    private List<SubtaskModel> subtasks = new ArrayList<>();
+    private List<Subtask> subtasks = new ArrayList<>();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TaskModel taskModel = (TaskModel) o;
-        if (subtasks.size() != taskModel.subtasks.size()) return false;
-        for (int i = 0; i < subtasks.size(); i++) {
-            if (subtasks.get(i).getText() != taskModel.subtasks.get(i).getText()) return false;
-            if (subtasks.get(i).isComplete() != taskModel.subtasks.get(i).isComplete()) return false;
-        }
-        return dateCreate == taskModel.dateCreate &&
-                deadline == taskModel.deadline &&
-                dateComplete == taskModel.dateComplete &&
-                description.equals(taskModel.description);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(description, dateCreate, deadline, dateComplete);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        TaskModel taskModel = (TaskModel) o;
+//        if (subtasks.size() != taskModel.subtasks.size()) return false;
+//        taskModel.subtasks.sort((o1, o2) -> (int) (o2.getId() - o1.getId()));
+//        subtasks.sort((o1, o2) -> (int) (o2.getId() - o1.getId()));
+//        for (int i = 0; i < subtasks.size(); i++) {
+//            if (subtasks.get(i).getText() != taskModel.subtasks.get(i).getText()) return false;
+//            if (subtasks.get(i).isComplete() != taskModel.subtasks.get(i).isComplete()) return false;
+//        }
+//        return dateCreate == taskModel.dateCreate &&
+//                deadline == taskModel.deadline &&
+//                dateComplete == taskModel.dateComplete &&
+//                description.equals(taskModel.description);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(description, dateCreate, deadline, dateComplete, subtasks);
+//    }
 
     @Override
     public void setState(boolean complete) {
@@ -58,6 +60,7 @@ public class TaskModel extends CaseModel {
         } else {
             dateComplete = 0;
         }
+        notifyOfChanges();
     }
 
     @Override
@@ -98,11 +101,11 @@ public class TaskModel extends CaseModel {
         this.dateComplete = dateComplete;
     }
 
-    public List<SubtaskModel> getSubtasks() {
+    public List<Subtask> getSubtasks() {
         return subtasks;
     }
 
-    public void setSubtasks(List<SubtaskModel> subtasks) {
+    public void setSubtasks(List<Subtask> subtasks) {
         this.subtasks = subtasks;
     }
 

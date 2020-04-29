@@ -13,6 +13,7 @@ import com.example.strile.sevice.recycler_view_adapter.models.ButtonDateSelectio
 import com.example.strile.sevice.recycler_view_adapter.models.EditTextModel;
 import com.example.strile.sevice.recycler_view_adapter.models.SeekBarDifficultModel;
 import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
+import com.example.strile.sevice.structures.Subtask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,13 @@ public class TaskPresenter extends BaseCasePresenter<TaskDatabaseModel, TaskActi
     private EditTextModel nameEditText = new EditTextModel(2, 80);
     private EditTextModel descriptionEditText = new EditTextModel(0, 0);
 
+    private List<SubtaskModel> subtaskModels = new ArrayList<>();
+
     public TaskPresenter(TaskModel task) {
         model = App.getInstance().getTaskModel();
         this.task = task;
+
+        for (Subtask subtask : task.getSubtasks()) subtaskModels.add(new SubtaskModel(subtask.getName(), subtask.isComplete(), false));
 
         seekBarDifficult.setTopMargin(true);
         buttonDateSelection.setTopMargin(true);
@@ -45,6 +50,12 @@ public class TaskPresenter extends BaseCasePresenter<TaskDatabaseModel, TaskActi
     public void unbindView() {
         super.unbindView();
         if (task.getName().equals("")) task.setName("No name");
+
+        task.getSubtasks().clear();
+        for (SubtaskModel subtaskModel : subtaskModels) {
+            task.getSubtasks().add(new Subtask(subtaskModel.getText(), subtaskModel.isComplete()));
+        }
+
         updateCaseInDatabase(task);
     }
 
@@ -71,7 +82,7 @@ public class TaskPresenter extends BaseCasePresenter<TaskDatabaseModel, TaskActi
         list.add(nameEditText);
         list.add(descriptionEditText);
         list.add(buttonDateSelection);
-        list.addAll(task.getSubtasks());
+        list.addAll(subtaskModels);
         list.add(buttonAddSubtask);
         list.add(seekBarDifficult);
         view().setSortedList(list);
@@ -93,14 +104,14 @@ public class TaskPresenter extends BaseCasePresenter<TaskDatabaseModel, TaskActi
 
     @Override
     public void addSubtaskButtonClicked(ButtonAddSubtaskModel model) {
-        task.getSubtasks().add(new SubtaskModel());
+        subtaskModels.add(new SubtaskModel("", false, false));
         updateView();
     }
 
     @Override
     public void subtaskChanged(SubtaskModel model) {
         if (model.isDying()) {
-            task.getSubtasks().remove(model);
+            subtaskModels.remove(model);
             updateView();
         }
     }

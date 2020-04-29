@@ -2,6 +2,7 @@ package com.example.strile.sevice.recycler_view_adapter.holders;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
@@ -23,11 +24,11 @@ public class HabitHolder extends CaseHolder {
                        final OnClickListener<CaseModel> onClickCaseListener) {
         super(itemView, onModelChangedListener, onClickCaseListener);
         done.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            model.setState(isChecked);
-            info.setText(((HabitModel) model).getStreak() + " day streak");
-            changeStateDone();
-            if (onModelChangedListener != null) {
-                onModelChangedListener.onChanged(model);
+            if (!isBinding()) {
+                model.setState(isChecked);
+                if (onModelChangedListener != null) {
+                    onModelChangedListener.onChanged(model);
+                }
             }
         });
         itemView.setOnClickListener(v -> {

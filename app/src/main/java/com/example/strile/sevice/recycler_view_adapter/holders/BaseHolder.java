@@ -1,5 +1,6 @@
 package com.example.strile.sevice.recycler_view_adapter.holders;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 

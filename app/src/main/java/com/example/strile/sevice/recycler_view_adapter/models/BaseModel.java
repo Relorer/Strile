@@ -1,6 +1,7 @@
 package com.example.strile.sevice.recycler_view_adapter.models;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -69,6 +70,10 @@ public abstract class BaseModel {
         this.topMargin = topMargin;
     }
 
+    public OnModelChangedListener getOnChangeListener() {
+        return onChangeListener;
+    }
+
     public void setOnChangeListener(OnModelChangedListener onChangeListener) {
         this.onChangeListener = onChangeListener;
     }
@@ -77,4 +82,6 @@ public abstract class BaseModel {
         if (onChangeListener != null)
             onChangeListener.onChanged(this);
     }
+
+
 }

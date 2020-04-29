@@ -10,14 +10,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.strile.App;
 import com.example.strile.R;
-import com.example.strile.sevice.event_handler_interfaces.OnClickListener;
-import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
 import com.example.strile.sevice.presenter.PresenterManager;
 import com.example.strile.sevice.recycler_view_adapter.adapters.CaseActivityListAdapter;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
@@ -26,6 +24,7 @@ import com.example.strile.sevice.recycler_view_adapter.models.ButtonDateSelectio
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonRepeatModel;
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonTimeGoalModel;
 import com.example.strile.sevice.recycler_view_adapter.models.EditTextModel;
+import com.example.strile.sevice.recycler_view_adapter.models.ProgressBarElapsedTimeModel;
 import com.example.strile.sevice.recycler_view_adapter.models.SeekBarDifficultModel;
 import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
 import com.google.android.material.snackbar.Snackbar;
@@ -40,7 +39,8 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
     private CaseActivityListAdapter adapter = new CaseActivityListAdapter();
 
     protected TextView textTitle;
-    protected ImageView imageSpecialPurpose;
+    protected ImageView imageSpecialPurposeRight;
+    protected ImageView imageSpecialPurposeLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,53 +55,42 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_case);
 
         textTitle = findViewById(R.id.text_title);
-        imageSpecialPurpose = findViewById(R.id.image_special_purpose_button);
-        View specialPurposeButton = findViewById(R.id.special_purpose_button);
-        View backButton = findViewById(R.id.image_back);
+        imageSpecialPurposeRight = findViewById(R.id.image_special_purpose_button_right);
+        imageSpecialPurposeLeft = findViewById(R.id.image_special_purpose_button_left);
+        View specialPurposeButton = findViewById(R.id.special_purpose_button_right);
+        View backButton = findViewById(R.id.special_purpose_button_left);
         RecyclerView recycler = findViewById(R.id.recycler);
 
-        specialPurposeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.specialPurposeButtonClicked();
-            }
-        });
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.backButtonClicked();
-            }
-        });
+        imageSpecialPurposeLeft.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.back_arrow, null));
+
+        specialPurposeButton.setOnClickListener(v -> presenter.specialPurposeButtonClicked());
+        backButton.setOnClickListener(v -> presenter.backButtonClicked());
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
         adapter.setHasStableIds(true);
         recycler.setAdapter(adapter);
 
-        adapter.setOnModelChangedListener(new OnModelChangedListener<BaseModel>() {
-            @Override
-            public void onChanged(BaseModel model) {
-                if (model instanceof EditTextModel) {
-                    presenter.editTextChanged((EditTextModel) model);
-                } else if (model instanceof SubtaskModel) {
-                    presenter.subtaskChanged((SubtaskModel) model);
-                } else if (model instanceof SeekBarDifficultModel) {
-                    presenter.difficultChanged((SeekBarDifficultModel) model);
-                } else if (model instanceof ButtonDateSelectionModel) {
-                    presenter.dateSelectionChanged((ButtonDateSelectionModel) model);
-                } else if (model instanceof ButtonRepeatModel) {
-                    presenter.repeatChanged((ButtonRepeatModel) model);
-                } else if (model instanceof ButtonTimeGoalModel) {
-                    presenter.timeGoalChanged((ButtonTimeGoalModel) model);
-                }
+        adapter.setOnModelChangedListener(model -> {
+            if (model instanceof EditTextModel) {
+                presenter.editTextChanged((EditTextModel) model);
+            } else if (model instanceof SubtaskModel) {
+                presenter.subtaskChanged((SubtaskModel) model);
+            } else if (model instanceof SeekBarDifficultModel) {
+                presenter.difficultChanged((SeekBarDifficultModel) model);
+            } else if (model instanceof ButtonDateSelectionModel) {
+                presenter.dateSelectionChanged((ButtonDateSelectionModel) model);
+            } else if (model instanceof ButtonRepeatModel) {
+                presenter.repeatChanged((ButtonRepeatModel) model);
+            } else if (model instanceof ButtonTimeGoalModel) {
+                presenter.timeGoalChanged((ButtonTimeGoalModel) model);
             }
         });
 
-        adapter.setOnClickItemListener(new OnClickListener<BaseModel>() {
-            @Override
-            public void onClick(BaseModel sender) {
-                if (sender instanceof ButtonAddSubtaskModel) {
-                    presenter.addSubtaskButtonClicked((ButtonAddSubtaskModel) sender);
-                }
+        adapter.setOnClickItemListener(sender -> {
+            if (sender instanceof ButtonAddSubtaskModel) {
+                presenter.addSubtaskButtonClicked((ButtonAddSubtaskModel) sender);
+            } else if (sender instanceof ProgressBarElapsedTimeModel) {
+                presenter.elapsedTimeClicked((ProgressBarElapsedTimeModel)sender);
             }
         });
 
@@ -134,20 +123,16 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
 
     protected abstract BaseCasePresenter getNewPresenter();
 
-    protected CaseActivityListAdapter getAdapter() {
-        return adapter;
-    }
-
-    protected BaseCasePresenter getPresenter() {
-        return presenter;
-    }
-
     public static Fragment getCaller() {
         return lastCaller;
     }
 
     protected static void setCaller(Fragment caller) {
         lastCaller = caller;
+    }
+
+    protected BaseCasePresenter getPresenter() {
+        return presenter;
     }
 
     @Override

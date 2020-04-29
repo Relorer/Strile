@@ -10,12 +10,6 @@ import android.os.Bundle;
 import com.example.strile.R;
 import com.example.strile.activities.case_activity.BaseCaseActivity;
 import com.example.strile.activities.case_activity.BaseCasePresenter;
-import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonRepeatModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonTimeGoalModel;
-import com.example.strile.sevice.recycler_view_adapter.models.EditTextModel;
-import com.example.strile.sevice.recycler_view_adapter.models.SeekBarDifficultModel;
 
 public class AddHabitActivity extends BaseCaseActivity {
 
@@ -23,8 +17,8 @@ public class AddHabitActivity extends BaseCaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         textTitle.setText("Create Habit");
-        imageSpecialPurpose.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.tick, null));
-        imageSpecialPurpose.setColorFilter(getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        imageSpecialPurposeRight.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.tick, null));
+        imageSpecialPurposeRight.setColorFilter(getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
     }
 
     public static void start(Fragment caller) {

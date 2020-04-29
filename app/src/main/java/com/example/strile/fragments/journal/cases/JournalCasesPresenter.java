@@ -32,8 +32,10 @@ public abstract class JournalCasesPresenter extends BasePresenter<CaseDatabaseMo
         });
         button = new ButtonHidingModel();
         DateManager.addOnChangeVisibleDayListener(model -> {
-            if (setupDone())
+            if (setupDone()) {
+                Log.d("My", "day changed");
                 updateSortedListOnScreen();
+            }
         });
     }
 
@@ -68,6 +70,7 @@ public abstract class JournalCasesPresenter extends BasePresenter<CaseDatabaseMo
         button.setCount(forDay.size() - incomplete.size());
         if (setupDone()) {
             ArrayList<BaseModel> items = new ArrayList<>();
+            view().setSortedList(items);
             if (button.isChecked()) items.addAll(forDay);
             else items.addAll(incomplete);
             if (button.getCount() > 0) {
@@ -75,9 +78,6 @@ public abstract class JournalCasesPresenter extends BasePresenter<CaseDatabaseMo
             }
             view().setSortedList(items);
         }
-//        for(CaseModel model : full) {
-//                model.visibleDayChanged();
-//        }
     }
 
     private void updateCase(CaseModel c) {

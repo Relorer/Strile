@@ -20,6 +20,7 @@ public class ProgressBarElapsedTimeModel extends BaseModel {
 
     public void setProgress(int progress) {
         this.progress = progress;
+        notifyOfChanges();
     }
 
     public int getMax() {
@@ -28,5 +29,6 @@ public class ProgressBarElapsedTimeModel extends BaseModel {
 
     public void setMax(int max) {
         this.max = max;
+        notifyOfChanges();
     }
 }

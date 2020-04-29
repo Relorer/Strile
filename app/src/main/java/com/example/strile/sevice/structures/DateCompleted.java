@@ -8,7 +8,7 @@ public class DateCompleted {
     private long date;
     private boolean complete;
 
-    public DateCompleted(long date, boolean complete, Object object) {
+    public DateCompleted(long date, boolean complete) {
         this.date = date;
         this.complete = complete;
     }

@@ -1,6 +1,7 @@
 package com.example.strile.activities.case_activity.habit;
 
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class HabitPresenter extends BaseCasePresenter<HabitDatabaseModel, HabitActivity> {
 
-    private final HabitModel habit;
+    private HabitModel habit;
 
     private EditTextModel editTextName = new EditTextModel(2, 80);
     private ButtonRepeatModel buttonRepeat = new ButtonRepeatModel();
@@ -47,7 +48,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitDatabaseModel, HabitA
         buttonTimeGoal.setGoalTimeSeconds(habit.getGoalTimeSeconds());
         seekBarDifficult.setProgress(habit.getDifficulty());
         progressBarElapsedTime.setMax(habit.getGoalTimeSeconds() / 60);
-        progressBarElapsedTime.setProgress(habit.getElapsedTimeSeconds());
+        progressBarElapsedTime.setProgress((int) (habit.getElapsedTimeSeconds() / 60));
         currentStreak.setStreak(habit.getCurrentStreak());
     }
 
@@ -62,7 +63,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitDatabaseModel, HabitA
     protected void updateView() {
         List<BaseModel> list = new ArrayList<>();
         list.add(editTextName);
-        if (habit.getGoalTimeSeconds() != 0)
+        if (habit.getGoalTimeSeconds() != 0 && habit.getGoalTimeSeconds() != habit.getElapsedTimeSeconds())
             list.add(progressBarElapsedTime);
         list.add(currentStreak);
         list.add(buttonRepeat);
@@ -74,12 +75,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitDatabaseModel, HabitA
     @Override
     public void specialPurposeButtonClicked() {
         deleteCaseInDatabase(habit);
-        view().showSnackbar(view().getCaller(), "Habit deleted", "Undo", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addCaseInDatabase(habit);
-            }
-        });
+        view().showSnackbar(view().getCaller(), "Habit deleted", "Undo", v -> addCaseInDatabase(habit));
         view().finish();
     }
 
@@ -109,5 +105,23 @@ public class HabitPresenter extends BaseCasePresenter<HabitDatabaseModel, HabitA
     @Override
     public void difficultChanged(SeekBarDifficultModel model) {
         habit.setDifficulty(model.getProgress());
+    }
+
+    @Override
+    public void elapsedTimeClicked(ProgressBarElapsedTimeModel model) {
+        view().openTimer(habit);
+    }
+
+    public void setHabit(HabitModel habit) {
+        this.habit = habit;
+        Log.d("MY", "FROG");
+        editTextName.setText(habit.getName());
+        buttonRepeat.setDaysRepeatArray(habit.getDaysRepeatAsArray());
+        buttonTimeGoal.setGoalTimeSeconds(habit.getGoalTimeSeconds());
+        seekBarDifficult.setProgress(habit.getDifficulty());
+        Log.d("MY", String.valueOf(habit.getElapsedTimeSeconds()));
+        progressBarElapsedTime.setMax(habit.getGoalTimeSeconds() / 60);
+        progressBarElapsedTime.setProgress((int) (habit.getElapsedTimeSeconds() / 60));
+        currentStreak.setStreak(habit.getCurrentStreak());
     }
 }

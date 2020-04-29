@@ -1,22 +1,29 @@
 package com.example.strile.sevice.converters;
 
+import android.util.Log;
+
 import androidx.room.TypeConverter;
 
 import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
+import com.example.strile.sevice.structures.Subtask;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubtasksConverter {
+
+    private final Type type = new TypeToken<ArrayList<Subtask>>() {}.getType();
+
     @TypeConverter
-    public String fromList(List<SubtaskModel> items) {
-        return new Gson().toJson(items, new TypeToken<ArrayList<SubtaskModel>>() {}.getType());
+    public String fromList(List<Subtask> items) {
+        return new Gson().toJson(items, type);
     }
 
     @TypeConverter
-    public List<SubtaskModel> toList(String data) {
-        return new Gson().fromJson(data, new TypeToken<ArrayList<SubtaskModel>>() {}.getType());
+    public List<Subtask> toList(String data) {
+        return new Gson().fromJson(data, type);
     }
 }
