@@ -23,7 +23,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_base"
             android:layout_marginEnd="@dimen/margin_base"
-            android:text="Read books"
             android:textAppearance="@style/TextPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/text_info"
@@ -42,7 +41,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.example.strile.canvases.TimerCanvas
+    <com.example.strile.views.TimerCanvas
         android:id="@+id/view_canvas"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -56,7 +55,6 @@
         android:id="@+id/text_timer_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="23:15"
         android:textAppearance="@style/TextTimer"
         app:layout_constraintBottom_toTopOf="@+id/button_timer_control_primary"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +71,6 @@
         android:background="@drawable/button_timer_control"
         android:paddingStart="@dimen/padding_horizontal_button_timer_control"
         android:paddingEnd="@dimen/padding_horizontal_button_timer_control"
-        android:text="Continue"
         android:textAllCaps="true"
         android:textAppearance="@style/TextPrimary"
         android:textColor="@color/colorAccent"
@@ -86,7 +83,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_base"
-        android:text="stop"
         android:textAllCaps="true"
         android:textAppearance="@style/TextSecondary"
         android:textColor="@color/colorGray"

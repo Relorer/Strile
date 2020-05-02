@@ -2,10 +2,8 @@ package com.example.strile.fragments.timer;
 
 import android.os.Bundle;
 
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +15,7 @@ import com.example.strile.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.strile.activities.case_activity.add_case.add_habit.AddHabitActivity;
-import com.example.strile.canvases.TimerCanvas;
+import com.example.strile.views.TimerCanvas;
 import com.example.strile.database.entities.HabitModel;
 import com.example.strile.sevice.presenter.PresenterManager;
 

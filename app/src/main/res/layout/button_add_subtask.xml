@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_base"
         android:baselineAligned="false"
-        android:text="Add subtasks"
+        android:text="@string/add_subtasks"
         android:textAppearance="@style/TextPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

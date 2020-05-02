@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_base"
-        android:text="Today"
+        android:text="@string/today"
         android:textAppearance="@style/TextPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +25,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_base"
-        android:text="22/45 minutes"
         android:textAppearance="@style/TextPrimary"
         android:textColor="@color/colorGray"
         app:layout_constraintEnd_toEndOf="parent"

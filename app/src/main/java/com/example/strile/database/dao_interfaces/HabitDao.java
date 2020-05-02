@@ -23,6 +23,9 @@ public interface HabitDao {
     @Query("SELECT * FROM habit WHERE id = :id")
     HabitModel getById(long id);
 
+    @Query("SELECT COUNT(*) FROM habit")
+    int getCount();
+
     @Insert
     void insert(HabitModel habitModel);
 

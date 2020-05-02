@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/margin_between_blocks"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_base">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base"
+        android:layout_marginBottom="@dimen/margin_base"
+        android:background="#FFFFFF">
+
+        <TextView
+            android:id="@+id/text_completion_rate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_base"
+            android:text="@string/completion_rate"
+            android:textAppearance="@style/TextPrimary" />
+
+
+        <Spinner
+            android:id="@+id/spinner_case_type"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/text_completion_rate"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_base"
+            android:background="@drawable/spinner_arrow"
+            android:dropDownWidth="150dp"
+            android:entries="@array/case_type" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.example.strile.views.GraphProgressCanvas
+        android:id="@+id/frame_graph"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+</LinearLayout>

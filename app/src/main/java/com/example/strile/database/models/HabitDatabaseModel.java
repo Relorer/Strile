@@ -8,6 +8,8 @@ import com.example.strile.database.dao_interfaces.HabitDao;
 import com.example.strile.database.entities.CaseModel;
 import com.example.strile.sevice.call_back_interfaces.CompleteCallback;
 import com.example.strile.sevice.call_back_interfaces.CompleteLoadCallback;
+import com.example.strile.sevice.call_back_interfaces.CompleteWithReturnCallback;
+
 import java.util.List;
 
 public class HabitDatabaseModel implements CaseDatabaseModel {
@@ -20,6 +22,11 @@ public class HabitDatabaseModel implements CaseDatabaseModel {
     @Override
     public void loadCases(CompleteLoadCallback callback) {
         LoadHabitsTask loadHabitsTask = new LoadHabitsTask(callback, dao);
+        loadHabitsTask.execute();
+    }
+
+    public void getCount(CompleteWithReturnCallback<Integer> callback) {
+        LoadCountHabitsTask loadHabitsTask = new LoadCountHabitsTask(callback, dao);
         loadHabitsTask.execute();
     }
 
@@ -60,6 +67,29 @@ public class HabitDatabaseModel implements CaseDatabaseModel {
         protected void onPostExecute(LiveData<List<com.example.strile.database.entities.HabitModel>> habits) {
             if (callback != null) {
                 callback.onComplete(habits);
+            }
+        }
+    }
+
+    private static class LoadCountHabitsTask extends AsyncTask<Void, Void, Integer> {
+
+        private final HabitDao dao;
+        private final CompleteWithReturnCallback<Integer> callback;
+
+        LoadCountHabitsTask(CompleteWithReturnCallback<Integer> callback, HabitDao dao) {
+            this.callback = callback;
+            this.dao = dao;
+        }
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+            return dao.getCount();
+        }
+
+        @Override
+        protected void onPostExecute(Integer count) {
+            if (callback != null) {
+                callback.onComplete(count);
             }
         }
     }

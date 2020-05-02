@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_subtasks">Добавить подзадачу</string>
+    <string name="current_streak">Текущее комбо</string>
+    <string name="completion_rate">Темп выполнения</string>
+    <string name="level">Уровень</string>
+    <string name="enter_title">Введите название</string>
+    <string name="today">Сегодня</string>
+    <string name="difficulty">Сложность</string>
+</resources>

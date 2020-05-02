@@ -11,6 +11,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.TypeConverters;
 
+import com.example.strile.App;
+import com.example.strile.database.models.CompleteCaseDatabaseModel;
 import com.example.strile.sevice.DateManager;
 import com.example.strile.sevice.converters.DatesConverter;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
@@ -74,11 +76,21 @@ public class HabitModel extends CaseModel {
 
     @Override
     public void setState(boolean complete) {
+
+        CompleteCaseDatabaseModel databaseModel = App.getInstance().getCompleteCaseModel();
+        int experience;
+        if (complete) experience = (getStreak() + 1) * (difficulty + 10);
+        else experience = -1* (getStreak()) * (difficulty + 10);
+        long date = DateManager.getDateWithoutTime(DateManager.getVisibleDay()).getTime();
+        databaseModel.insertCompleteCase(new CompleteCaseModel(name, date, experience, HabitModel.class.getCanonicalName()), null);
+        App.getInstance().addExperience(experience);
+
         getCurrentDateCompleted().setComplete(complete);
         if (DateManager.getVisibleDay() == DateManager.getDateWithoutTime(Calendar.getInstance().getTimeInMillis()).getTime() && goalTimeSeconds != 0) {
             if (complete) elapsedTimeSeconds = goalTimeSeconds;
             else  elapsedTimeSeconds = 0;
         }
+
         notifyOfChanges();
     }
 

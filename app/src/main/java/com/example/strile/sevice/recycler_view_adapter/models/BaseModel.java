@@ -25,6 +25,9 @@ public abstract class BaseModel {
     public static final int PROGRESS_BAR_ELAPSED_TIME_TYPE = 11;
     public static final int CURRENT_STREAK_TYPE = 12;
     public static final int DAY_TYPE = 13;
+    public static final int GRAPH_PROGRESS_TYPE = 14;
+    public static final int INFO_PROGRESS_TYPE = 15;
+    public static final int COMPLETE_CASE_TYPE = 16;
 
     private static int maxId = 0;
 

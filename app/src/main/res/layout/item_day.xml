@@ -9,7 +9,6 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:textAppearance="@style/TextSecondary"
-    android:text="FRI"
     android:textSize="@dimen/font_size_text_short_day"
     android:layout_marginBottom="@dimen/margin_between_blocks"/>
     <FrameLayout
@@ -27,7 +26,6 @@
             android:id="@+id/text_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="24"
             android:textColor="@color/colorPrimary"
             android:textAppearance="@style/TextPrimary"
             android:layout_gravity="center"/>

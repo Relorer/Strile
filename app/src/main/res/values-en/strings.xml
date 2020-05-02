@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_subtasks">Add subtasks</string>
+    <string name="current_streak">Current streak</string>
+    <string name="completion_rate">Completion rate</string>
+    <string name="level">Level</string>
+    <string name="enter_title">Enter title</string>
+    <string name="today">Today</string>
+    <string name="difficulty">Difficulty</string>
+</resources>

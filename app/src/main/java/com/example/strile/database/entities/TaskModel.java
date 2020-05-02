@@ -8,12 +8,15 @@ import android.util.Log;
 import androidx.room.Entity;
 import androidx.room.TypeConverters;
 
+import com.example.strile.App;
+import com.example.strile.database.models.CompleteCaseDatabaseModel;
 import com.example.strile.sevice.DateManager;
 import com.example.strile.sevice.converters.SubtasksConverter;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 import com.example.strile.sevice.structures.Subtask;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,7 +57,17 @@ public class TaskModel extends CaseModel {
 
     @Override
     public void setState(boolean complete) {
-        Log.d("MY", String.valueOf(complete));
+
+
+        CompleteCaseDatabaseModel databaseModel = App.getInstance().getCompleteCaseModel();
+        int experience;
+        if (complete) experience = (difficulty + 10);
+        else experience = -1 * (difficulty + 10);
+        long date = DateManager.getDateWithoutTime(DateManager.getVisibleDay()).getTime();
+        databaseModel.insertCompleteCase(new CompleteCaseModel(name, date, experience, TaskModel.class.getCanonicalName()), null);
+        App.getInstance().addExperience(experience);
+
+
         if (complete) {
             dateComplete = DateManager.getVisibleDay();
         } else {
