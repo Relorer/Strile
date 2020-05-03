@@ -23,7 +23,7 @@ HabitModel habit;
     protected void onCreate(Bundle savedInstanceState) {
         habit = getIntent().getParcelableExtra(HabitModel.class.getCanonicalName());
         super.onCreate(savedInstanceState);
-        textTitle.setText("Habit");
+        textTitle.setText(R.string.t_habit);
         imageSpecialPurposeRight.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.basket, null));
         imageSpecialPurposeRight.setColorFilter(getColor(R.color.colorGray), PorterDuff.Mode.SRC_ATOP);
     }

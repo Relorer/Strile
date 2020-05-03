@@ -3,6 +3,7 @@ package com.example.strile.activities.case_activity.add_case.add_task;
 import android.util.Log;
 
 import com.example.strile.App;
+import com.example.strile.R;
 import com.example.strile.activities.case_activity.BaseCasePresenter;
 import com.example.strile.database.entities.TaskModel;
 import com.example.strile.database.models.TaskDatabaseModel;
@@ -41,14 +42,14 @@ public class AddTaskPresenter extends BaseCasePresenter<TaskDatabaseModel, AddTa
         buttonDateSelection.setTopMargin(true);
 
         seekBarDifficult.setProgress(task.getDifficulty());
-        nameEditText.setHint("Name");
-        descriptionEditText.setHint("Description");
         buttonDateSelection.setDate(task.getDeadline());
     }
 
     @Override
     protected void updateView() {
-        List<BaseModel> list = new ArrayList<BaseModel>();
+        nameEditText.setHint(view().getString(R.string.t_name));
+        descriptionEditText.setHint(view().getString(R.string.description));
+        List<BaseModel> list = new ArrayList<>();
         list.add(nameEditText);
         list.add(descriptionEditText);
         list.add(buttonDateSelection);
@@ -61,7 +62,7 @@ public class AddTaskPresenter extends BaseCasePresenter<TaskDatabaseModel, AddTa
     @Override
     public void specialPurposeButtonClicked() {
         if (task.getName().equals("")) {
-            view().showToast("Task's name shouldn't be empty!");
+            view().showToast(view().getString(R.string.w_task_name_empty));
         } else {
             task.setDateCreate(DateManager.getDateWithoutTime(Calendar.getInstance().getTimeInMillis()).getTime());
             for (SubtaskModel subtaskModel : subtaskModels) {

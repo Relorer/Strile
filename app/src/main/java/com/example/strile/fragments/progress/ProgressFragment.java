@@ -43,7 +43,7 @@ public class ProgressFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
 
         imageSettings = view.findViewById(R.id.image_special_purpose_button_right);
-        ((TextView) view.findViewById(R.id.text_title)).setText("Progress");
+        ((TextView) view.findViewById(R.id.text_title)).setText(R.string.progress);
         recycler = view.findViewById(R.id.recycler);
 
         imageSettings.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.settings, null));

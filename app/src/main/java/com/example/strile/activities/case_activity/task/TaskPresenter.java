@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.strile.App;
+import com.example.strile.R;
 import com.example.strile.activities.case_activity.BaseCasePresenter;
 import com.example.strile.database.entities.TaskModel;
 import com.example.strile.database.models.TaskDatabaseModel;
@@ -38,9 +39,7 @@ public class TaskPresenter extends BaseCasePresenter<TaskDatabaseModel, TaskActi
         seekBarDifficult.setTopMargin(true);
         buttonDateSelection.setTopMargin(true);
 
-        nameEditText.setHint("Name");
         nameEditText.setText(task.getName());
-        descriptionEditText.setHint("Description");
         descriptionEditText.setText(task.getDescription());
         seekBarDifficult.setProgress(task.getDifficulty());
         buttonDateSelection.setDate(task.getDeadline());
@@ -48,8 +47,10 @@ public class TaskPresenter extends BaseCasePresenter<TaskDatabaseModel, TaskActi
 
     @Override
     public void unbindView() {
+        descriptionEditText.setHint(view().getString(R.string.description));
+        nameEditText.setHint(view().getString(R.string.t_name));
         super.unbindView();
-        if (task.getName().equals("")) task.setName("No name");
+        if (task.getName().equals("")) task.setName(view().getString(R.string.t_no_name));
 
         task.getSubtasks().clear();
         for (SubtaskModel subtaskModel : subtaskModels) {
@@ -62,12 +63,7 @@ public class TaskPresenter extends BaseCasePresenter<TaskDatabaseModel, TaskActi
     @Override
     public void specialPurposeButtonClicked() {
         deleteCaseInDatabase(task);
-        view().showSnackbar(view().getCaller(), "Task deleted", "Undo", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addCaseInDatabase(task);
-            }
-        });
+        view().showSnackbar(view().getCaller(), view().getString(R.string.w_task_deleted), view().getString(R.string.undo), v -> addCaseInDatabase(task));
         view().finish();
     }
 

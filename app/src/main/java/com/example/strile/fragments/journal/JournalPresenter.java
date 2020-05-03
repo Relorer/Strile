@@ -1,5 +1,6 @@
 package com.example.strile.fragments.journal;
 
+import com.example.strile.R;
 import com.example.strile.sevice.DateManager;
 import com.example.strile.sevice.presenter.BasePresenter;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
@@ -33,7 +34,7 @@ public class JournalPresenter extends BasePresenter<Boolean, JournalFragment> {
 
     void addButtonClicked(String nameList) {
         if (nameList != null) {
-            if(nameList.equals("Habits")) view().startAddHabitFragment();
+            if(nameList.equals(view().getString(R.string.habits))) view().startAddHabitFragment();
             else view().startAddTaskFragment();
         }
     }

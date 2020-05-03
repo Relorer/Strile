@@ -20,7 +20,7 @@ public class TaskActivity extends BaseCaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         task = getIntent().getParcelableExtra(TaskModel.class.getCanonicalName());
         super.onCreate(savedInstanceState);
-        textTitle.setText("Task");
+        textTitle.setText(R.string.task);
         imageSpecialPurposeRight.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.basket, null));
         imageSpecialPurposeRight.setColorFilter(getColor(R.color.colorGray), PorterDuff.Mode.SRC_ATOP);
     }

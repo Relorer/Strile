@@ -1,6 +1,7 @@
 package com.example.strile.activities.case_activity.add_case.add_habit;
 
 import com.example.strile.App;
+import com.example.strile.R;
 import com.example.strile.activities.case_activity.BaseCasePresenter;
 import com.example.strile.database.entities.HabitModel;
 import com.example.strile.database.models.HabitDatabaseModel;
@@ -36,11 +37,11 @@ public class AddHabitPresenter extends BaseCasePresenter<HabitDatabaseModel, Add
         buttonRepeat.setDaysRepeatArray(habit.getDaysRepeatAsArray());
         buttonTimeGoal.setGoalTimeSeconds(habit.getGoalTimeSeconds());
         seekBarDifficult.setProgress(habit.getDifficulty());
-        editTextName.setHint("Name");
     }
 
     @Override
     protected void updateView() {
+        editTextName.setHint(view().getString(R.string.t_name));
         List<BaseModel> list = new ArrayList<>();
         list.add(editTextName);
         list.add(buttonRepeat);
@@ -51,9 +52,9 @@ public class AddHabitPresenter extends BaseCasePresenter<HabitDatabaseModel, Add
 
     @Override
     public void specialPurposeButtonClicked() {
-        if (habit.getName().equals("")) view().showToast("Habit's name shouldn't be empty!");
+        if (habit.getName().equals("")) view().showToast(view().getString(R.string.w_habit_name_empty));
         else if (habit.getDaysRepeat() == 0)
-            view().showToast("The habit should be repeated at least once a week!");
+            view().showToast(view().getString(R.string.w_habit_repeat_empty));
         else {
             addCaseInDatabase(habit);
             view().finish();

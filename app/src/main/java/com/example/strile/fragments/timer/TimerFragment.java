@@ -55,7 +55,7 @@ public class TimerFragment extends Fragment {
         textInfo = view.findViewById(R.id.text_info);
         textButtonTimerControlSecondary = view.findViewById(R.id.text_timer_control_secondary);
 
-        textTitle.setText("Focus Timer");
+        textTitle.setText(R.string.focus_timer);
 
         buttonTimerControlPrimary.setOnClickListener(v -> {
             presenter.buttonTimerControlClicked(buttonTimerControlPrimary.getText().toString());

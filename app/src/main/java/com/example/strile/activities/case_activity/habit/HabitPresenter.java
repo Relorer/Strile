@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.annotation.RequiresApi;
 
 import com.example.strile.App;
+import com.example.strile.R;
 import com.example.strile.activities.case_activity.BaseCasePresenter;
 import com.example.strile.database.entities.HabitModel;
 import com.example.strile.database.models.HabitDatabaseModel;
@@ -43,7 +44,6 @@ public class HabitPresenter extends BaseCasePresenter<HabitDatabaseModel, HabitA
         currentStreak.setTopMargin(true);
 
         editTextName.setText(habit.getName());
-        editTextName.setHint("Name");
         buttonRepeat.setDaysRepeatArray(habit.getDaysRepeatAsArray());
         buttonTimeGoal.setGoalTimeSeconds(habit.getGoalTimeSeconds());
         seekBarDifficult.setProgress(habit.getDifficulty());
@@ -54,8 +54,9 @@ public class HabitPresenter extends BaseCasePresenter<HabitDatabaseModel, HabitA
 
     @Override
     public void unbindView() {
+        editTextName.setHint(view().getString(R.string.t_name));
         super.unbindView();
-        if (habit.getName().equals("")) habit.setName("No name");
+        if (habit.getName().equals("")) habit.setName(view().getString(R.string.t_no_name));
         updateCaseInDatabase(habit);
     }
 
@@ -75,7 +76,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitDatabaseModel, HabitA
     @Override
     public void specialPurposeButtonClicked() {
         deleteCaseInDatabase(habit);
-        view().showSnackbar(view().getCaller(), "Habit deleted", "Undo", v -> addCaseInDatabase(habit));
+        view().showSnackbar(view().getCaller(), view().getString(R.string.w_habit_deleted), view().getString(R.string.undo), v -> addCaseInDatabase(habit));
         view().finish();
     }
 
@@ -114,12 +115,10 @@ public class HabitPresenter extends BaseCasePresenter<HabitDatabaseModel, HabitA
 
     public void setHabit(HabitModel habit) {
         this.habit = habit;
-        Log.d("MY", "FROG");
         editTextName.setText(habit.getName());
         buttonRepeat.setDaysRepeatArray(habit.getDaysRepeatAsArray());
         buttonTimeGoal.setGoalTimeSeconds(habit.getGoalTimeSeconds());
         seekBarDifficult.setProgress(habit.getDifficulty());
-        Log.d("MY", String.valueOf(habit.getElapsedTimeSeconds()));
         progressBarElapsedTime.setMax(habit.getGoalTimeSeconds() / 60);
         progressBarElapsedTime.setProgress((int) (habit.getElapsedTimeSeconds() / 60));
         currentStreak.setStreak(habit.getCurrentStreak());

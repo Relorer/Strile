@@ -7,8 +7,6 @@ import com.example.strile.sevice.presenter.BasePresenter;
 
 public class MainPresenter extends BasePresenter<Boolean, MainActivity> {
 
-    private int bottomNavigationSelectedItemID;
-
     public MainPresenter() {
         model = true;
     }
@@ -19,6 +17,5 @@ public class MainPresenter extends BasePresenter<Boolean, MainActivity> {
     }
 
     public void bottomNavigationSelectedItemChanged(int selectedID) {
-        bottomNavigationSelectedItemID = selectedID;
     }
 }

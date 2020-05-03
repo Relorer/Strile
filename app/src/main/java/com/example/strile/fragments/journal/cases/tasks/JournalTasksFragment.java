@@ -1,5 +1,6 @@
 package com.example.strile.fragments.journal.cases.tasks;
 
+import com.example.strile.R;
 import com.example.strile.activities.case_activity.task.TaskActivity;
 import com.example.strile.database.entities.CaseModel;
 import com.example.strile.database.entities.TaskModel;
@@ -22,6 +23,6 @@ public class JournalTasksFragment extends JournalCasesFragment implements Journa
 
     @Override
     public String getTitle() {
-        return "   Tasks   ";
+        return String.format("   %s   ", "Tasks");
     }
 }

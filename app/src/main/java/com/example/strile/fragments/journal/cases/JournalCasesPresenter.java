@@ -33,7 +33,6 @@ public abstract class JournalCasesPresenter extends BasePresenter<CaseDatabaseMo
         button = new ButtonHidingModel();
         DateManager.addOnChangeVisibleDayListener(model -> {
             if (setupDone()) {
-                Log.d("My", "day changed");
                 updateSortedListOnScreen();
             }
         });

@@ -4,6 +4,7 @@ import android.os.CountDownTimer;
 import android.util.Log;
 
 import com.example.strile.App;
+import com.example.strile.R;
 import com.example.strile.database.entities.HabitModel;
 import com.example.strile.database.models.HabitDatabaseModel;
 import com.example.strile.sevice.presenter.BasePresenter;
@@ -99,10 +100,10 @@ public class TimerPresenter extends BasePresenter<HabitDatabaseModel, TimerFragm
     private void donePomodoro() {
         if (currentNumberPomodoro % frequencyLongBreak == 0) {
             setCurrentTimeTimer(durationLongBreak);
-            if (view() != null) view().setTextItemTitle("Take a long break");
+            if (view() != null) view().setTextItemTitle(view().getString(R.string.take_a_long_break));
         } else {
             setCurrentTimeTimer(durationBreak);
-            if (view() != null) view().setTextItemTitle("Take a short break");
+            if (view() != null) view().setTextItemTitle(view().getString(R.string.take_a_short_break));
         }
         if (view() != null) view().setTextInfo("");
         setCurrentButtonPrimary(start);
@@ -118,7 +119,7 @@ public class TimerPresenter extends BasePresenter<HabitDatabaseModel, TimerFragm
         if (view() != null) {
             view().setTotalTimeOnCanvas(durationPomodoro);
             view().setTextInfo("#" + currentNumberPomodoro);
-            view().setTextItemTitle("Pomodoro");
+            view().setTextItemTitle(view().getString(R.string.pomodoro));
         }
         setCurrentButtonSecondary(letsgo);
         setCurrentButtonPrimary(start);

@@ -1,5 +1,6 @@
 package com.example.strile.fragments.journal.cases.habits;
 
+import com.example.strile.R;
 import com.example.strile.activities.case_activity.habit.HabitActivity;
 import com.example.strile.database.entities.CaseModel;
 import com.example.strile.database.entities.HabitModel;
@@ -20,6 +21,6 @@ public class JournalHabitsFragment extends JournalCasesFragment implements Journ
 
     @Override
     public String getTitle() {
-        return "   Habits   ";
+        return String.format("   %s   ", "Habits");
     }
 }
