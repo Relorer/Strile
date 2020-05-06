@@ -1,13 +1,15 @@
 package com.example.strile.sevice.recycler_view_adapter.models;
 
-import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
-
-import java.util.Objects;
-
 public class ProgressBarElapsedTimeModel extends BaseModel {
 
-    private int max;
-    private int progress;
+    private final int max;
+    private final int progress;
+
+    public ProgressBarElapsedTimeModel(boolean topMargin, int max, int progress) {
+        super(topMargin);
+        this.max = max;
+        this.progress = progress;
+    }
 
     @Override
     public int getType() {
@@ -18,17 +20,7 @@ public class ProgressBarElapsedTimeModel extends BaseModel {
         return progress;
     }
 
-    public void setProgress(int progress) {
-        this.progress = progress;
-        notifyOfChanges();
-    }
-
     public int getMax() {
         return max;
-    }
-
-    public void setMax(int max) {
-        this.max = max;
-        notifyOfChanges();
     }
 }

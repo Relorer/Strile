@@ -2,10 +2,8 @@ package com.example.strile.sevice.recycler_view_adapter.holders;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -16,44 +14,37 @@ import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
 
 public class SubtaskHolder extends BaseHolder<SubtaskModel> {
 
-    private View view;
-    private CheckBox state;
-    private EditText text;
-    private View buttonDelete;
+    private final CheckBox state;
+    private final EditText text;
+    private final View buttonDelete;
 
-    public SubtaskHolder(@NonNull View itemView, final OnModelChangedListener<SubtaskModel> onModelChangedListener) {
+    public SubtaskHolder(@NonNull View itemView,
+                         @NonNull OnModelChangedListener<SubtaskModel> onModelChangedListener) {
         super(itemView, onModelChangedListener);
-        view = itemView;
         state = view.findViewById(R.id.checkbox_done);
         text = view.findViewById(R.id.editText_subtask);
         buttonDelete = view.findViewById(R.id.image_cross);
 
         state.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (!isBinding()) {
-                model.setComplete(isChecked);
-                if (onModelChangedListener != null)
-                    onModelChangedListener.onChanged(model);
-            }
+            onModelChangedListener.onChanged(model.setState(isChecked));
         });
         buttonDelete.setOnClickListener(v -> {
             text.clearFocus();
-            model.setDying(true);
-            if (onModelChangedListener != null)
-                onModelChangedListener.onChanged(model);
+            onModelChangedListener.onChanged(model);
         });
         text.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                model.setText(s.toString());
-                if (onModelChangedListener != null)
-                    onModelChangedListener.onChanged(model);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                onModelChangedListener.onChanged(model.setText(s.toString()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
         });
         text.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) buttonDelete.setVisibility(View.VISIBLE);
@@ -62,8 +53,8 @@ public class SubtaskHolder extends BaseHolder<SubtaskModel> {
     }
 
     @Override
-    protected void _bind() {
-        super._bind();
+    public void bind(SubtaskModel model) {
+        super.bind(model);
         buttonDelete.setVisibility(View.INVISIBLE);
         text.setText(model.getText());
         state.setChecked(model.isComplete());

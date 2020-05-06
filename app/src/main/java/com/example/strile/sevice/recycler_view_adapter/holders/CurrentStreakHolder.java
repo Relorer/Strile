@@ -1,6 +1,6 @@
 package com.example.strile.sevice.recycler_view_adapter.holders;
 
-import android.util.Log;
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,16 +13,19 @@ import com.example.strile.sevice.recycler_view_adapter.models.CurrentStreakModel
 
 public class CurrentStreakHolder extends BaseHolder<CurrentStreakModel> {
 
-    private TextView streak;
+    private final TextView streak;
 
-    public CurrentStreakHolder(@NonNull View itemView, OnModelChangedListener<CurrentStreakModel> onModelChangedListener) {
+    public CurrentStreakHolder(@NonNull View itemView,
+                               @NonNull OnModelChangedListener<CurrentStreakModel> onModelChangedListener) {
         super(itemView, onModelChangedListener);
         streak = view.findViewById(R.id.text_streak);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
-    protected void _bind() {
-        super._bind();
-        streak.setText(model.getStreak() + " days");
+    public void bind(CurrentStreakModel model) {
+        super.bind(model);
+        streak.setText(String.format("%d %s", model.getStreak(),
+                view.getContext().getString(R.string.days)));
     }
 }

@@ -16,17 +16,18 @@ import com.example.strile.sevice.recycler_view_adapter.models.DayModel;
 
 public class DayRenderer extends BaseRenderer<DayModel, DayHolder> {
 
-    private OnClickListener onClickListener;
+    private final OnClickListener onClickListener;
 
-    public DayRenderer(OnModelChangedListener onModelChangedListener, OnClickListener onClickListener) {
+    public DayRenderer(@NonNull OnModelChangedListener onModelChangedListener,
+                       @NonNull OnClickListener onClickListener) {
         super(onModelChangedListener);
         this.onClickListener = onClickListener;
     }
 
     @NonNull
     @Override
-    public DayHolder createViewHolder(@Nullable ViewGroup parent) {
-        return new DayHolder( LayoutInflater.from(parent.getContext())
+    public DayHolder createViewHolder(@NonNull ViewGroup parent) {
+        return new DayHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_day, parent, false),
                 onModelChangedListener, onClickListener);
     }

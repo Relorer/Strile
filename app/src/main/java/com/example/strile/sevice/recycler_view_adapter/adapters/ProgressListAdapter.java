@@ -8,11 +8,7 @@ import com.example.strile.sevice.recycler_view_adapter.renderers.InfoProgressRen
 
 public class ProgressListAdapter extends BaseRecyclerViewAdapter {
 
-    private OnModelChangedListener<BaseModel> onModelChangedListener;
-
-    @Override
-    protected void updateRenderers() {
-        super.updateRenderers();
+    public ProgressListAdapter(OnModelChangedListener<BaseModel> onModelChangedListener) {
         registerRenderer(new InfoProgressRenderer(onModelChangedListener));
         registerRenderer(new GraphProgressRenderer(onModelChangedListener));
         registerRenderer(new CompleteCaseRenderer(onModelChangedListener));

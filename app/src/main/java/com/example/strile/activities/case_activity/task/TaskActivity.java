@@ -10,15 +10,15 @@ import android.os.Bundle;
 import com.example.strile.R;
 import com.example.strile.activities.case_activity.BaseCaseActivity;
 import com.example.strile.activities.case_activity.BaseCasePresenter;
-import com.example.strile.database.entities.TaskModel;
+import com.example.strile.database.entities.Task;
 
 public class TaskActivity extends BaseCaseActivity {
 
-    private TaskModel task;
+    private Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        task = getIntent().getParcelableExtra(TaskModel.class.getCanonicalName());
+        task = getIntent().getParcelableExtra(Task.class.getCanonicalName());
         super.onCreate(savedInstanceState);
         textTitle.setText(R.string.task);
         imageSpecialPurposeRight.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.basket, null));
@@ -27,13 +27,14 @@ public class TaskActivity extends BaseCaseActivity {
 
     @Override
     protected BaseCasePresenter getNewPresenter() {
-        return new TaskPresenter(task);
+        //todo
+        return new TaskPresenter();
     }
 
-    public static void start(Fragment caller, TaskModel taskModel) {
+    public static void start(Fragment caller, Task task) {
         setCaller(caller);
         Intent intent = new Intent(caller.getContext(), TaskActivity.class);
-        intent.putExtra(TaskModel.class.getCanonicalName(), taskModel);
+        intent.putExtra(Task.class.getCanonicalName(), task);
         caller.startActivity(intent);
     }
 

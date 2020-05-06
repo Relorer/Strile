@@ -2,14 +2,13 @@ package com.example.strile.sevice.recycler_view_adapter.models;
 
 public class SubtaskModel extends BaseModel {
 
-    private String text = "";
-    private boolean complete = false;
-    private boolean dying = false;
+    private final String text;
+    private final boolean complete;
 
-    public SubtaskModel(String text, boolean complete, boolean dying) {
+    public SubtaskModel(boolean topMargin, String text, boolean complete) {
+        super(topMargin);
         this.text = text;
         this.complete = complete;
-        this.dying = dying;
     }
 
     @Override
@@ -21,23 +20,15 @@ public class SubtaskModel extends BaseModel {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public boolean isComplete() {
         return complete;
     }
 
-    public void setComplete(boolean complete) {
-        this.complete = complete;
+    public SubtaskModel setState(boolean state) {
+        return new SubtaskModel(isTopMargin(), text, state);
     }
 
-    public boolean isDying() {
-        return dying;
-    }
-
-    public void setDying(boolean dying) {
-        this.dying = dying;
+    public SubtaskModel setText(String text) {
+        return new SubtaskModel(isTopMargin(), text, complete);
     }
 }

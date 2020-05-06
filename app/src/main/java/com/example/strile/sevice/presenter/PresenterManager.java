@@ -14,7 +14,7 @@ public class PresenterManager {
 
     private final AtomicLong currentId;
 
-    private final Cache<Long, BasePresenter<?, ?>> presenters;
+    private final Cache<Long, BasePresenter<?>> presenters;
 
     private PresenterManager(long maxSize, long expirationValue, TimeUnit expirationUnit) {
         currentId = new AtomicLong();
@@ -31,14 +31,14 @@ public class PresenterManager {
         return instance;
     }
 
-    public <P extends BasePresenter<?, ?>> P restorePresenter(Bundle savedInstanceState) {
+    public <P extends BasePresenter<?>> P restorePresenter(Bundle savedInstanceState) {
         Long presenterId = savedInstanceState.getLong(KEY_PRESENTER_ID);
         P presenter = (P) presenters.getIfPresent(presenterId);
         presenters.invalidate(presenterId);
         return presenter;
     }
 
-    public void savePresenter(BasePresenter<?, ?> presenter, Bundle outState) {
+    public void savePresenter(BasePresenter<?> presenter, Bundle outState) {
         long presenterId = currentId.incrementAndGet();
         presenters.put(presenterId, presenter);
         outState.putLong(KEY_PRESENTER_ID, presenterId);

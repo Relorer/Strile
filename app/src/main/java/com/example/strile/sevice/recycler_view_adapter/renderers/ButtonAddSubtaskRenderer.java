@@ -15,16 +15,17 @@ import com.example.strile.sevice.recycler_view_adapter.models.ButtonAddSubtaskMo
 
 public class ButtonAddSubtaskRenderer extends BaseRenderer<ButtonAddSubtaskModel, ButtonAddSubtaskHolder> {
 
-    public OnClickListener onClickListener;
+    private final OnClickListener onClickListener;
 
-    public ButtonAddSubtaskRenderer(OnModelChangedListener onModelChangedListener, OnClickListener onClickListener) {
+    public ButtonAddSubtaskRenderer(@NonNull OnModelChangedListener onModelChangedListener,
+                                    @NonNull OnClickListener onClickListener) {
         super(onModelChangedListener);
         this.onClickListener = onClickListener;
     }
 
     @NonNull
     @Override
-    public ButtonAddSubtaskHolder createViewHolder(@Nullable ViewGroup parent) {
+    public ButtonAddSubtaskHolder createViewHolder(@NonNull ViewGroup parent) {
         return new ButtonAddSubtaskHolder( LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.button_add_subtask, parent, false),
                 onModelChangedListener, onClickListener);

@@ -1,7 +1,8 @@
 package com.example.strile.fragments.journal;
 
-import com.example.strile.R;
-import com.example.strile.sevice.DateManager;
+import com.example.strile.fragments.journal.cases.JournalCasesPage;
+import com.example.strile.fragments.journal.cases.habits.JournalHabitsFragment;
+import com.example.strile.fragments.journal.cases.tasks.JournalTasksFragment;
 import com.example.strile.sevice.presenter.BasePresenter;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 import com.example.strile.sevice.recycler_view_adapter.models.DayModel;
@@ -10,21 +11,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class JournalPresenter extends BasePresenter<Boolean, JournalFragment> {
+public class JournalPresenter extends BasePresenter<JournalFragment> {
 
-    private List<BaseModel> days;
+    private final List<BaseModel> days;
     private DayModel selected;
 
     JournalPresenter() {
-        model = true;
         days = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        for (int i = 0; i < 30; i++){
-            days.add(new DayModel(calendar.getTimeInMillis(), false));
+        final Calendar calendar = Calendar.getInstance();
+        selected = new DayModel(false, calendar.getTime(), true);
+        days.add(selected);
+        for (int i = 1; i < 30; i++){
             calendar.add(Calendar.DATE, -1);
+            days.add(new DayModel(false, calendar.getTime(), false));
         }
-        selected = (DayModel) days.get(0);
-        selected.setSelected(true);
     }
 
     @Override
@@ -32,17 +32,22 @@ public class JournalPresenter extends BasePresenter<Boolean, JournalFragment> {
         view().setSortedListDays(days);
     }
 
-    void addButtonClicked(String nameList) {
-        if (nameList != null) {
-            if(nameList.equals(view().getString(R.string.habits))) view().startAddHabitFragment();
-            else view().startAddTaskFragment();
-        }
+    void addButtonClicked(JournalCasesPage page) {
+        if (page instanceof JournalHabitsFragment) view().startAddHabitFragment();
+        else if (page instanceof JournalTasksFragment) view().startAddTaskFragment();
     }
 
     void dayClicked(DayModel day) {
-        selected.setSelected(false);
-        selected = day;
-        selected.setSelected(true);
-        DateManager.setVisibleDay(selected.getDay());
+        if (day.getId() != selected.getId()) {
+            final int positionPrew = days.indexOf(selected);
+            days.set(positionPrew, selected.setState(false));
+
+            final int positionNew = days.indexOf(day);
+            if (positionNew >= 0) {
+                selected = day.setState(true);
+                days.set(positionNew, selected);
+            }
+            updateView();
+        }
     }
 }

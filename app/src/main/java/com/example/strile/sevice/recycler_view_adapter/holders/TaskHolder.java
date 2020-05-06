@@ -1,52 +1,57 @@
 package com.example.strile.sevice.recycler_view_adapter.holders;
 
-import android.annotation.SuppressLint;
 import android.view.View;
-import android.widget.CompoundButton;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.example.strile.R;
-import com.example.strile.database.entities.CaseModel;
-import com.example.strile.database.entities.TaskModel;
 import com.example.strile.sevice.event_handler_interfaces.OnClickListener;
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
+import com.example.strile.sevice.recycler_view_adapter.models.TaskModel;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class TaskHolder extends CaseHolder {
+public class TaskHolder extends BaseHolder<TaskModel> {
+
+
+    private final CheckBox done;
+    private final TextView name;
+    private final TextView info;
 
     public TaskHolder(@NonNull View itemView,
-                      final OnModelChangedListener<CaseModel> onModelChangedListener,
-                      final OnClickListener<CaseModel> onClickCaseListener) {
-        super(itemView, onModelChangedListener, onClickCaseListener);
+                       @NonNull final OnModelChangedListener<TaskModel> onModelChangedListener,
+                       @NonNull final OnClickListener<TaskModel> onClickCaseListener) {
+        super(itemView, onModelChangedListener);
+
+        done = itemView.findViewById(R.id.checkbox_done);
+        name = itemView.findViewById(R.id.text_name);
+        info = itemView.findViewById(R.id.text_info);
         done.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (!isBinding()) {
-                model.setState(isChecked);
-                if (onModelChangedListener != null)
-                    onModelChangedListener.onChanged(model);
-            }
+            onModelChangedListener.onChanged(model.setState(isChecked));
         });
         itemView.setOnClickListener(v -> {
-            if (onClickCaseListener != null)
-                onClickCaseListener.onClick(model);
+            onClickCaseListener.onClick(model);
         });
     }
 
     @Override
-    protected void _bind() {
-        super._bind();
-        TaskModel taskModel = (TaskModel) model;
-        if (new Date().getTime() >= taskModel.getDeadline() && taskModel.isDeadline())
+    public void bind(TaskModel model) {
+        super.bind(model);
+        name.setText(model.getName());
+        done.setChecked(model.isComplete());
+        final long deadline = model.getDeadline();
+        if (new Date().getTime() >= deadline && deadline != 0)
             info.setTextColor(view.getContext().getColor(R.color.colorRed));
         else
             info.setTextColor(view.getContext().getColor(R.color.colorLightGray));
-        if (!taskModel.isDeadline()) info.setText("No deadline");
+        if (deadline == 0) info.setText(R.string.no_deadline);
         else {
             Calendar c = Calendar.getInstance();
-            c.setTimeInMillis(taskModel.getDeadline());
+            c.setTimeInMillis(deadline);
             info.setText(c.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
                     + " " + c.get(Calendar.DAY_OF_MONTH) + ", " + c.get(Calendar.YEAR));
         }

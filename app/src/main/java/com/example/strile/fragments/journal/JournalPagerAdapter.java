@@ -1,20 +1,19 @@
 package com.example.strile.fragments.journal;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.strile.fragments.journal.cases.JournalCasesPage;
-import com.example.strile.fragments.journal.cases.habits.JournalHabitsFragment;
-import com.example.strile.fragments.journal.cases.tasks.JournalTasksFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class JournalPagerAdapter extends FragmentPagerAdapter {
 
-    private List<Fragment> fragments;
-    public JournalPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+    private final List<Fragment> fragments;
+
+    public JournalPagerAdapter(FragmentManager fm, @NonNull List<Fragment> fragments) {
         super(fm);
         this.fragments = fragments;
     }
@@ -35,5 +34,4 @@ public class JournalPagerAdapter extends FragmentPagerAdapter {
             return ((JournalCasesPage) fragment).getTitle();
         return "";
     }
-
 }

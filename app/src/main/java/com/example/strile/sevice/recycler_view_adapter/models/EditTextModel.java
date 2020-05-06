@@ -1,15 +1,16 @@
 package com.example.strile.sevice.recycler_view_adapter.models;
 
-import android.widget.EditText;
-
 public class EditTextModel extends BaseModel {
 
-    private String text = "";
-    private String hint = "";
-    private int lineCount;
-    private int maxLength;
+    private final String text;
+    private final String hint;
+    private final int lineCount;
+    private final int maxLength;
 
-    public EditTextModel(int lineCount, int maxLength) {
+    public EditTextModel(boolean topMargin, String text, String hint, int lineCount, int maxLength) {
+        super(topMargin);
+        this.text = text;
+        this.hint = hint;
         this.lineCount = lineCount;
         this.maxLength = maxLength;
     }
@@ -23,31 +24,19 @@ public class EditTextModel extends BaseModel {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public String getHint() {
         return hint;
-    }
-
-    public void setHint(String hint) {
-        this.hint = hint;
     }
 
     public int getLineCount() {
         return lineCount;
     }
 
-    public void setLineCount(int lineCount) {
-        this.lineCount = lineCount;
-    }
-
     public int getMaxLength() {
         return maxLength;
     }
 
-    public void setMaxLength(int maxLength) {
-        this.maxLength = maxLength;
+    public EditTextModel setText(String text) {
+        return new EditTextModel(isTopMargin(), text, hint, lineCount, maxLength);
     }
 }

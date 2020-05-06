@@ -1,22 +1,25 @@
 package com.example.strile.sevice.dialog;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.strile.sevice.call_back_interfaces.CompleteDialogRepeatCallback;
+import com.example.strile.R;
+import com.example.strile.sevice.call_back_interfaces.CompleteCallback;
+
+import java.text.DateFormatSymbols;
+import java.util.Locale;
+import java.util.Objects;
 
 public class DialogRepeatOptions extends DialogFragment {
 
-    CompleteDialogRepeatCallback callback;
+    private final CompleteCallback<boolean[]> callback;
+    private final boolean[] checkedDays;
 
-    boolean[] checkedDays;
-
-    public DialogRepeatOptions(boolean[] checkedDays, CompleteDialogRepeatCallback callback) {
+    public DialogRepeatOptions(@NonNull boolean[] checkedDays, @NonNull CompleteCallback<boolean[]> callback) {
         this.callback = callback;
         this.checkedDays = checkedDays;
     }
@@ -24,29 +27,19 @@ public class DialogRepeatOptions extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
-        final String[] repeatOptions = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final DateFormatSymbols symbols = new DateFormatSymbols(Locale.getDefault());
+        final String[] repeatOptions = symbols.getWeekdays();
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity(),
+                "When creating the dialog box getActivity returned null"));
         builder.setMultiChoiceItems(repeatOptions, checkedDays,
-                new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                        checkedDays[which] = isChecked;
-                    }
+                (dialog, which, isChecked) -> checkedDays[which] = isChecked)
+                .setPositiveButton(R.string.ok, (dialog, id) -> {
+                    callback.onComplete(checkedDays);
                 })
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        if (callback != null) {
-                            callback.onComplete(checkedDays);
-                        }
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
+                .setNegativeButton(R.string.cancel, (dialog, id) -> {
 
-                    }
                 });
 
 

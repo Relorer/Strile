@@ -1,50 +1,52 @@
 package com.example.strile.sevice.recycler_view_adapter.holders;
 
-import android.animation.Animator;
-import android.animation.ValueAnimator;
-import android.util.Log;
+import android.annotation.SuppressLint;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.example.strile.R;
-import com.example.strile.database.entities.CaseModel;
-import com.example.strile.database.entities.HabitModel;
-import com.example.strile.sevice.call_back_interfaces.CompleteCallback;
 import com.example.strile.sevice.event_handler_interfaces.OnClickListener;
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
+import com.example.strile.sevice.recycler_view_adapter.models.HabitModel;
 
-public class HabitHolder extends CaseHolder {
+public class HabitHolder extends BaseHolder<HabitModel> {
+
+    private final CheckBox done;
+    private final TextView name;
+    private final TextView info;
+    private final ImageView special;
 
     public HabitHolder(@NonNull View itemView,
-                       final OnModelChangedListener<CaseModel> onModelChangedListener,
-                       final OnClickListener<CaseModel> onClickCaseListener) {
-        super(itemView, onModelChangedListener, onClickCaseListener);
+                       @NonNull final OnModelChangedListener<HabitModel> onModelChangedListener,
+                       @NonNull final OnClickListener<HabitModel> onClickCaseListener) {
+        super(itemView, onModelChangedListener);
+
+        done = itemView.findViewById(R.id.checkbox_done);
+        name = itemView.findViewById(R.id.text_name);
+        info = itemView.findViewById(R.id.text_info);
+        special = itemView.findViewById(R.id.image_special);
         done.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (!isBinding()) {
-                model.setState(isChecked);
-                if (onModelChangedListener != null) {
-                    onModelChangedListener.onChanged(model);
-                }
-            }
+            onModelChangedListener.onChanged(model.setState(isChecked));
         });
         itemView.setOnClickListener(v -> {
-            if (onClickCaseListener != null)
-                onClickCaseListener.onClick(model);
+            onClickCaseListener.onClick(model);
         });
-
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
-    protected void _bind() {
-        super._bind();
-        info.setText(((HabitModel) model).getStreak() + " day streak");
-        if (((HabitModel) model).getGoalTimeSeconds() == 0) special.setImageDrawable(null);
+    public void bind(HabitModel model) {
+        super.bind(model);
+        name.setText(model.getName());
+        done.setChecked(model.isComplete());
+        info.setText(String.format("%d %s", model.getStreak(), view.getContext().getString(R.string.day_streak)));
+        if (model.isGoalTime()) special.setImageDrawable(null);
         else
             special.setImageDrawable(ResourcesCompat.getDrawable(view.getResources(), R.drawable.time_goal, null));
     }
-
 }

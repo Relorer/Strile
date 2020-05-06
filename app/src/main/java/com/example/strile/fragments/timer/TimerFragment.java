@@ -15,8 +15,8 @@ import com.example.strile.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.strile.database.entities.Habit;
 import com.example.strile.views.TimerCanvas;
-import com.example.strile.database.entities.HabitModel;
 import com.example.strile.sevice.presenter.PresenterManager;
 
 public class TimerFragment extends Fragment {
@@ -33,12 +33,12 @@ public class TimerFragment extends Fragment {
     private TextView textButtonTimerControlSecondary;
     private TimerCanvas timerCanvas;
 
-    private HabitModel habit;
+    private Habit habit;
 
     public TimerFragment() {
     }
 
-    public TimerFragment(HabitModel habit) {
+    public TimerFragment(Habit habit) {
         this.habit = habit;
     }
 
@@ -56,12 +56,12 @@ public class TimerFragment extends Fragment {
         textButtonTimerControlSecondary = view.findViewById(R.id.text_timer_control_secondary);
 
         textTitle.setText(R.string.focus_timer);
-
+//todo
         buttonTimerControlPrimary.setOnClickListener(v -> {
-            presenter.buttonTimerControlClicked(buttonTimerControlPrimary.getText().toString());
+//            presenter.buttonTimerControlClicked(buttonTimerControlPrimary.getText().toString());
         });
         textButtonTimerControlSecondary.setOnClickListener(v -> {
-            presenter.textButtonTimerControlClicked(textButtonTimerControlSecondary.getText().toString());
+//            presenter.textButtonTimerControlClicked(textButtonTimerControlSecondary.getText().toString());
         });
 
         this.view = view;
@@ -96,7 +96,7 @@ public class TimerFragment extends Fragment {
         textItemTitle.setText(text);
     }
 
-    public HabitModel getHabit() {
+    public Habit getHabit() {
         return habit;
     }
 
@@ -111,7 +111,8 @@ public class TimerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         if (savedInstanceState == null) {
-            presenter = new TimerPresenter(habit);
+            //todo
+            presenter = new TimerPresenter();
         } else {
             presenter = PresenterManager.getInstance().restorePresenter(savedInstanceState);
         }

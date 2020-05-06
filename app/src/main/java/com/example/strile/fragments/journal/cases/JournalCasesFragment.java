@@ -12,27 +12,37 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.strile.R;
-import com.example.strile.database.entities.CaseModel;
-import com.example.strile.sevice.event_handler_interfaces.OnCheckedChangeListener;
-import com.example.strile.sevice.event_handler_interfaces.OnClickListener;
-import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
 import com.example.strile.sevice.presenter.PresenterManager;
 import com.example.strile.sevice.recycler_view_adapter.adapters.JournalListAdapter;
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonHidingModel;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.models.CaseModel;
 
 import java.util.List;
 
 public abstract class JournalCasesFragment extends Fragment {
+
     private JournalCasesPresenter presenter;
 
-    private JournalListAdapter adapter = new JournalListAdapter();
+    private final JournalListAdapter adapter;
 
+    public JournalCasesFragment() {
+        adapter = new JournalListAdapter(sender -> {
+            if (sender instanceof CaseModel)
+                presenter.itemClicked((CaseModel) sender);
+        }, model -> {
+            if (model instanceof CaseModel) {
+                presenter.itemStateChanged((CaseModel) model);
+            }
+            else if (model instanceof ButtonHidingModel) {
+                presenter.buttonHidingStateChanged((ButtonHidingModel) model);
+            }
+        });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_recycler_view, container, false);
 
         RecyclerView recycler = view.findViewById(R.id.recycler);
@@ -41,27 +51,12 @@ public abstract class JournalCasesFragment extends Fragment {
         adapter.setHasStableIds(true);
         recycler.setAdapter(adapter);
 
-        adapter.setOnClickItemListener(model -> {
-            if (model instanceof CaseModel)
-                presenter.itemClicked((CaseModel) model);
-        });
-        adapter.setOnModelChangedListener(model -> {
-            if (model instanceof CaseModel) {
-                presenter.itemStateChanged((CaseModel) model);
-            }
-            else if (model instanceof ButtonHidingModel) {
-                presenter.buttonHidingStateChanged((ButtonHidingModel) model);
-            }
-        });
-
         return view;
     }
 
-    void setSortedList(@NonNull List<BaseModel> items) {
+    public void setSortedList(@NonNull List<BaseModel> items) {
         adapter.setItems(items);
     }
-
-    protected abstract void startCaseActivity(CaseModel c);
 
     protected abstract JournalCasesPresenter getPresenter();
 

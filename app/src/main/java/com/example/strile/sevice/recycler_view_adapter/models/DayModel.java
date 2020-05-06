@@ -1,14 +1,21 @@
 package com.example.strile.sevice.recycler_view_adapter.models;
 
-import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
+import java.util.Date;
 
 public class DayModel extends BaseModel {
 
-    private long day;
-    private boolean selected;
+    private final Date date;
+    private final boolean selected;
 
-    public DayModel(long day, boolean selected) {
-        this.day = day;
+    public DayModel(boolean topMargin, Date date, boolean selected) {
+        super(topMargin);
+        this.date = date;
+        this.selected = selected;
+    }
+
+    private DayModel(int id, boolean topMargin, Date date, boolean selected) {
+        super(id, topMargin);
+        this.date = date;
         this.selected = selected;
     }
 
@@ -17,20 +24,15 @@ public class DayModel extends BaseModel {
         return DAY_TYPE;
     }
 
-    public long getDay() {
-        return day;
-    }
-
-    public void setDay(long day) {
-        this.day = day;
+    public Date getDate() {
+        return date;
     }
 
     public boolean isSelected() {
         return selected;
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-        notifyOfChanges();
+    public DayModel setState(boolean state) {
+        return new DayModel(getId(), isTopMargin(), date, state);
     }
 }

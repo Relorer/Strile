@@ -1,12 +1,8 @@
 package com.example.strile.sevice.structures;
 
-import android.util.Log;
-
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-
-public class DateCompleted {
-    private long date;
-    private boolean complete;
+public class DateCompleted{
+    private final long date;
+    private final boolean complete;
 
     public DateCompleted(long date, boolean complete) {
         this.date = date;
@@ -17,15 +13,11 @@ public class DateCompleted {
         return date;
     }
 
-    public void setDate(long date) {
-        this.date = date;
-    }
-
     public boolean isComplete() {
         return complete;
     }
 
-    public void setComplete(boolean complete) {
-        this.complete = complete;
+    public DateCompleted setState(boolean state) {
+        return new DateCompleted(date, state);
     }
 }

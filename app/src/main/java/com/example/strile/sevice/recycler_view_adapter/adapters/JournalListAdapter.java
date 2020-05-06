@@ -1,27 +1,22 @@
 package com.example.strile.sevice.recycler_view_adapter.adapters;
 
-import android.util.Log;
-
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.SortedList;
 
-import com.example.strile.database.entities.CaseModel;
-import com.example.strile.database.entities.HabitModel;
 import com.example.strile.sevice.event_handler_interfaces.OnClickListener;
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonHidingModel;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.models.HabitModel;
+import com.example.strile.sevice.recycler_view_adapter.models.TaskModel;
 import com.example.strile.sevice.recycler_view_adapter.renderers.ButtonHidingRenderer;
 import com.example.strile.sevice.recycler_view_adapter.renderers.HabitRenderer;
 import com.example.strile.sevice.recycler_view_adapter.renderers.TaskRenderer;
-import com.example.strile.sevice.structures.DateCompleted;
 
 public class JournalListAdapter extends BaseRecyclerViewAdapter {
 
-    private OnClickListener<BaseModel> onClickItemListener;
-    private OnModelChangedListener<BaseModel> onModelChangedListener;
-
-    protected void updateRenderers() {
-        super.updateRenderers();
+    public JournalListAdapter(@NonNull OnClickListener<BaseModel> onClickItemListener,
+                              @NonNull OnModelChangedListener<BaseModel> onModelChangedListener) {
         registerRenderer(new HabitRenderer(onModelChangedListener, onClickItemListener));
         registerRenderer(new TaskRenderer(onModelChangedListener, onClickItemListener));
         registerRenderer(new ButtonHidingRenderer(onModelChangedListener));
@@ -34,16 +29,19 @@ public class JournalListAdapter extends BaseRecyclerViewAdapter {
             public int compare(BaseModel o1, BaseModel o2) {
                 if (o1 instanceof ButtonHidingModel) return 1;
                 if (o2 instanceof ButtonHidingModel) return -1;
-                CaseModel c1 = (CaseModel) o1;
-                CaseModel c2 = (CaseModel) o2;
-
-                if (!c2.isCompleted() && c1.isCompleted()) {
-                    return 1;
+                if (o1 instanceof HabitModel && o2 instanceof HabitModel) {
+                    final HabitModel hm1 = (HabitModel) o1;
+                    final HabitModel hm2 = (HabitModel) o2;
+                    if (!hm2.isComplete() && hm1.isComplete()) return 1;
+                    if (hm2.isComplete() && !hm1.isComplete()) return -1;
                 }
-                if (c2.isCompleted() && !c1.isCompleted()) {
-                    return -1;
+                else if (o1 instanceof TaskModel && o2 instanceof TaskModel) {
+                    final TaskModel tm1 = (TaskModel) o1;
+                    final TaskModel tm2 = (TaskModel) o2;
+                    if (!tm2.isComplete() && tm1.isComplete()) return 1;
+                    if (tm2.isComplete() && !tm1.isComplete()) return -1;
                 }
-                return (int) (c2.getId() - c1.getId());
+                return o1.getId() - o2.getId();
             }
 
             @Override
@@ -76,15 +74,5 @@ public class JournalListAdapter extends BaseRecyclerViewAdapter {
                 notifyItemMoved(fromPosition, toPosition);
             }
         });
-    }
-
-    public void setOnClickItemListener(OnClickListener<BaseModel> onClickItemListener) {
-        this.onClickItemListener = onClickItemListener;
-        updateRenderers();
-    }
-
-    public void setOnModelChangedListener(OnModelChangedListener<BaseModel> onModelChangedListener) {
-        this.onModelChangedListener = onModelChangedListener;
-        updateRenderers();
     }
 }

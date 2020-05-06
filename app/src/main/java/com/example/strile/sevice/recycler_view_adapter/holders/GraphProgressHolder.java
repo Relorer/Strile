@@ -13,42 +13,37 @@ import com.example.strile.views.GraphProgressCanvas;
 
 public class GraphProgressHolder extends BaseHolder<GraphProgressModel> {
 
-    private Spinner spinnerCaseType;
-    private GraphProgressCanvas graphProgressCanvas;
+    private final Spinner spinnerCaseType;
+    private final GraphProgressCanvas graphProgressCanvas;
 
-    public GraphProgressHolder(@NonNull View itemView, OnModelChangedListener<GraphProgressModel> onModelChangedListener) {
+    public GraphProgressHolder(@NonNull View itemView,
+                               @NonNull OnModelChangedListener<GraphProgressModel> onModelChangedListener) {
         super(itemView, onModelChangedListener);
-
         spinnerCaseType = view.findViewById(R.id.spinner_case_type);
         graphProgressCanvas = view.findViewById(R.id.frame_graph);
-
         spinnerCaseType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position % 2 == 0) {
-                    graphProgressCanvas.setMax(model.getMaxHabit());
-                    graphProgressCanvas.setPoints(model.getHabitsByDays());
-                }
-                else {
-                    graphProgressCanvas.setMax(model.getMaxTask());
-                    graphProgressCanvas.setPoints(model.getTasksByDays());
-                }
+                setGraphParams(position);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                graphProgressCanvas.setMax(model.getMaxHabit());
-                graphProgressCanvas.setPoints(model.getHabitsByDays());
+                setGraphParams(0);
             }
         });
     }
 
     @Override
-    protected void _bind() {
-        super._bind();
-        int pos = spinnerCaseType.getSelectedItemPosition();
-        if (pos % 2 == 0) {
+    public void bind(GraphProgressModel model) {
+        super.bind(model);
+        final int pos = spinnerCaseType.getSelectedItemPosition();
+        setGraphParams(pos);
+    }
+
+    private void setGraphParams(int position) {
+        if (position % 2 == 0) {
             graphProgressCanvas.setMax(model.getMaxHabit());
             graphProgressCanvas.setPoints(model.getHabitsByDays());
         }

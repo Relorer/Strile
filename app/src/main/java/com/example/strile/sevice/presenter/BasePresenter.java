@@ -1,25 +1,11 @@
 package com.example.strile.sevice.presenter;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
 
-public abstract class BasePresenter<M, V> {
-    protected M model;
+public abstract class BasePresenter<V> {
     private WeakReference<V> view;
-
-    public void setModel(M model) {
-        resetState();
-        this.model = model;
-        if (setupDone()) {
-            updateView();
-        }
-    }
-
-    protected void resetState() {
-    }
 
     public void bindView(@NonNull V view) {
         this.view = new WeakReference<>(view);
@@ -43,6 +29,6 @@ public abstract class BasePresenter<M, V> {
     protected abstract void updateView();
 
     protected boolean setupDone() {
-        return view() != null && model != null;
+        return view() != null;
     }
 }

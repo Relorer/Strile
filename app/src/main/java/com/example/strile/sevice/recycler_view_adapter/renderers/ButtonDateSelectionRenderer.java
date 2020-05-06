@@ -16,16 +16,15 @@ import com.example.strile.sevice.recycler_view_adapter.models.ButtonDateSelectio
 
 public class ButtonDateSelectionRenderer extends BaseRenderer<ButtonDateSelectionModel, ButtonDateSelectionHolder> {
 
-
-    public ButtonDateSelectionRenderer(OnModelChangedListener onModelChangedListener) {
+    public ButtonDateSelectionRenderer(@NonNull OnModelChangedListener onModelChangedListener) {
         super(onModelChangedListener);
     }
 
     @NonNull
     @Override
-    public ButtonDateSelectionHolder createViewHolder(@Nullable ViewGroup parent) {
-        return new ButtonDateSelectionHolder( LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.button_selection_date, parent, false),
+    public ButtonDateSelectionHolder createViewHolder(@NonNull ViewGroup parent) {
+        return new ButtonDateSelectionHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.button_selection_date, parent, false),
                 onModelChangedListener);
     }
 

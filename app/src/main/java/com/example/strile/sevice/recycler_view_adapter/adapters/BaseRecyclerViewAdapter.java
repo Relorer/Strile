@@ -16,14 +16,13 @@ import java.util.List;
 public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter {
 
     @NonNull
-    private SortedList<BaseModel> sortedItems;
+    private final SortedList<BaseModel> sortedItems;
 
     @NonNull
     private final SparseArray<BaseRenderer> renderers = new SparseArray<>();
 
     protected BaseRecyclerViewAdapter() {
         sortedItems = getSortedItems();
-        updateRenderers();
     }
 
     protected SortedList<BaseModel> getSortedItems() {
@@ -113,10 +112,6 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter {
         } else {
             throw new RuntimeException("ViewRenderer already exist with this type: " + type);
         }
-    }
-
-    protected void updateRenderers() {
-        renderers.clear();
     }
 
     public void setItems(@NonNull List<BaseModel> items) {

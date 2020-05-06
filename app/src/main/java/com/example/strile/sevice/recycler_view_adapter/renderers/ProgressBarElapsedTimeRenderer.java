@@ -15,18 +15,19 @@ import com.example.strile.sevice.recycler_view_adapter.models.ProgressBarElapsed
 
 public class ProgressBarElapsedTimeRenderer extends BaseRenderer<ProgressBarElapsedTimeModel, ProgressBarElapsedTimeHolder> {
 
-    private OnClickListener onClickListener;
+    private final OnClickListener onClickListener;
 
-    public ProgressBarElapsedTimeRenderer(OnModelChangedListener onModelChangedListener, OnClickListener onClickListener) {
+    public ProgressBarElapsedTimeRenderer(@NonNull OnModelChangedListener onModelChangedListener,
+                                          @NonNull OnClickListener onClickListener) {
         super(onModelChangedListener);
         this.onClickListener = onClickListener;
     }
 
     @NonNull
     @Override
-    public ProgressBarElapsedTimeHolder createViewHolder(@Nullable ViewGroup parent) {
-        return new ProgressBarElapsedTimeHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_bar_elapsed_time, parent, false),
+    public ProgressBarElapsedTimeHolder createViewHolder(@NonNull ViewGroup parent) {
+        return new ProgressBarElapsedTimeHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.progress_bar_elapsed_time, parent, false),
                 onModelChangedListener, onClickListener);
     }
 

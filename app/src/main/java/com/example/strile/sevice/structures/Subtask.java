@@ -1,8 +1,8 @@
 package com.example.strile.sevice.structures;
 
 public class Subtask {
-    private String name;
-    private boolean complete;
+    private final String name;
+    private final boolean complete;
 
     public Subtask(String name, boolean complete) {
         this.name = name;
@@ -13,15 +13,11 @@ public class Subtask {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public boolean isComplete() {
         return complete;
     }
 
-    public void setComplete(boolean complete) {
-        this.complete = complete;
+    public Subtask setState(boolean state) throws CloneNotSupportedException {
+        return new Subtask(name, state);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.strile.sevice.recycler_view_adapter.holders;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -13,25 +14,26 @@ import com.example.strile.sevice.recycler_view_adapter.models.ProgressBarElapsed
 
 public class ProgressBarElapsedTimeHolder extends BaseHolder<ProgressBarElapsedTimeModel> {
 
-    private ProgressBar progressBar;
-    private TextView text;
+    private final ProgressBar progressBar;
+    private final TextView text;
 
     public ProgressBarElapsedTimeHolder(@NonNull View itemView,
-                                        OnModelChangedListener<ProgressBarElapsedTimeModel> onModelChangedListener,
-                                        OnClickListener<ProgressBarElapsedTimeModel> onClickListener) {
+                                        @NonNull OnModelChangedListener<ProgressBarElapsedTimeModel> onModelChangedListener,
+                                        @NonNull OnClickListener<ProgressBarElapsedTimeModel> onClickListener) {
         super(itemView, onModelChangedListener);
         progressBar = view.findViewById(R.id.progressBar_elapsedTime);
         text = view.findViewById(R.id.text_elapsedTime);
         view.setOnClickListener(v -> {
-            if (onClickListener != null)
                 onClickListener.onClick(model);
         });
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
-    protected void _bind() {
-        super._bind();
-        text.setText(model.getProgress() + "/" + model.getMax() + " minutes");
+    public void bind(ProgressBarElapsedTimeModel model) {
+        super.bind(model);
+        text.setText(String.format("%d/%d %s", model.getProgress(), model.getMax(),
+                view.getContext().getString(R.string.minutes)));
         progressBar.setProgress(model.getProgress());
         progressBar.setMax(model.getMax());
     }

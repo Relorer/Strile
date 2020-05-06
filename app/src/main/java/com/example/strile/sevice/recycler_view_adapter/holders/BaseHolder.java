@@ -1,6 +1,5 @@
 package com.example.strile.sevice.recycler_view_adapter.holders;
 
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,35 +12,21 @@ import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 
 public abstract class BaseHolder<M extends BaseModel> extends RecyclerView.ViewHolder {
 
-    protected OnModelChangedListener onModelChangedListener;
-
+    protected final OnModelChangedListener onModelChangedListener;
+    protected final View view;
     protected M model;
 
-    protected View view;
-
-    private boolean binding;
-
-    public BaseHolder(@NonNull View itemView, OnModelChangedListener<M> onModelChangedListener) {
+    public BaseHolder(@NonNull View itemView,
+                      @NonNull OnModelChangedListener<M> onModelChangedListener) {
         super(itemView);
         this.onModelChangedListener = onModelChangedListener;
         this.view = itemView;
     }
 
     public void bind(M model) {
-        binding = true;
         this.model = model;
-        _bind();
-        binding = false;
-        model.setOnChangeListener(model1 -> {binding = true; _bind(); binding = false;});
-    }
-
-    protected void _bind() {
         if (model.isTopMargin()) setTopMargin(view.getResources().getDimensionPixelSize(R.dimen.margin_between_blocks));
         else setTopMargin(0);
-    }
-
-    protected boolean isBinding() {
-        return binding;
     }
 
     private void setTopMargin(int top) {

@@ -15,16 +15,15 @@ import com.example.strile.sevice.recycler_view_adapter.models.ButtonRepeatModel;
 
 public class ButtonRepeatRenderer extends BaseRenderer<ButtonRepeatModel, ButtonRepeatHolder> {
 
-
-    public ButtonRepeatRenderer(OnModelChangedListener onModelChangedListener) {
+    public ButtonRepeatRenderer(@NonNull OnModelChangedListener onModelChangedListener) {
         super(onModelChangedListener);
     }
 
     @NonNull
     @Override
-    public ButtonRepeatHolder createViewHolder(@Nullable ViewGroup parent) {
-        return new ButtonRepeatHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.button_repeat, parent, false),
+    public ButtonRepeatHolder createViewHolder(@NonNull ViewGroup parent) {
+        return new ButtonRepeatHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.button_repeat, parent, false),
                 onModelChangedListener);
     }
 

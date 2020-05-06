@@ -1,17 +1,12 @@
 package com.example.strile.sevice.recycler_view_adapter.adapters;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.SortedList;
 
-import com.example.strile.sevice.event_handler_interfaces.OnCheckedChangeListener;
 import com.example.strile.sevice.event_handler_interfaces.OnClickListener;
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
-import com.example.strile.sevice.event_handler_interfaces.OnSeekBarChangeListener;
-import com.example.strile.sevice.event_handler_interfaces.OnTextChangeListener;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.EditTextModel;
-import com.example.strile.sevice.recycler_view_adapter.models.SeekBarDifficultModel;
 import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonAddSubtaskModel;
 import com.example.strile.sevice.recycler_view_adapter.renderers.ButtonAddSubtaskRenderer;
 import com.example.strile.sevice.recycler_view_adapter.renderers.ButtonDateSelectionRenderer;
 import com.example.strile.sevice.recycler_view_adapter.renderers.ButtonRepeatRenderer;
@@ -24,8 +19,18 @@ import com.example.strile.sevice.recycler_view_adapter.renderers.SubtaskRenderer
 
 public class CaseActivityListAdapter extends BaseRecyclerViewAdapter {
 
-    private OnClickListener<BaseModel> onClickItemListener;
-    private OnModelChangedListener<BaseModel> onModelChangedListener;
+    public CaseActivityListAdapter(@NonNull OnClickListener<BaseModel> onClickItemListener,
+                                   @NonNull OnModelChangedListener<BaseModel> onModelChangedListener) {
+        registerRenderer(new SubtaskRenderer(onModelChangedListener));
+        registerRenderer(new SeekBarDifficultRenderer(onModelChangedListener));
+        registerRenderer(new EditTextRenderer(onModelChangedListener));
+        registerRenderer(new ButtonDateSelectionRenderer(onModelChangedListener));
+        registerRenderer(new ButtonAddSubtaskRenderer(onModelChangedListener, onClickItemListener));
+        registerRenderer(new ButtonRepeatRenderer(onModelChangedListener));
+        registerRenderer(new ButtonTimeGoalRenderer(onModelChangedListener));
+        registerRenderer(new ProgressBarElapsedTimeRenderer(onModelChangedListener, onClickItemListener));
+        registerRenderer(new CurrentStreakRenderer(onModelChangedListener));
+    }
 
     @Override
     protected SortedList<BaseModel> getSortedItems() {
@@ -66,28 +71,5 @@ public class CaseActivityListAdapter extends BaseRecyclerViewAdapter {
                 notifyItemMoved(fromPosition, toPosition);
             }
         });
-    }
-
-    protected void updateRenderers() {
-        super.updateRenderers();
-        registerRenderer(new SubtaskRenderer(onModelChangedListener));
-        registerRenderer(new SeekBarDifficultRenderer(onModelChangedListener));
-        registerRenderer(new EditTextRenderer(onModelChangedListener));
-        registerRenderer(new ButtonDateSelectionRenderer(onModelChangedListener));
-        registerRenderer(new ButtonAddSubtaskRenderer(onModelChangedListener, onClickItemListener));
-        registerRenderer(new ButtonRepeatRenderer(onModelChangedListener));
-        registerRenderer(new ButtonTimeGoalRenderer(onModelChangedListener));
-        registerRenderer(new ProgressBarElapsedTimeRenderer(onModelChangedListener, onClickItemListener));
-        registerRenderer(new CurrentStreakRenderer(onModelChangedListener));
-    }
-
-    public void setOnClickItemListener(OnClickListener<BaseModel> onClickItemListener) {
-        this.onClickItemListener = onClickItemListener;
-        updateRenderers();
-    }
-
-    public void setOnModelChangedListener(OnModelChangedListener<BaseModel> onModelChangedListener) {
-        this.onModelChangedListener = onModelChangedListener;
-        updateRenderers();
     }
 }

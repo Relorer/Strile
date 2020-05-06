@@ -13,15 +13,16 @@ import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 import com.example.strile.sevice.recycler_view_adapter.models.GraphProgressModel;
 
 public class GraphProgressRenderer extends BaseRenderer<GraphProgressModel, GraphProgressHolder> {
-    public GraphProgressRenderer(OnModelChangedListener onModelChangedListener) {
+
+    public GraphProgressRenderer(@NonNull OnModelChangedListener onModelChangedListener) {
         super(onModelChangedListener);
     }
 
     @NonNull
     @Override
-    public GraphProgressHolder createViewHolder(@Nullable ViewGroup parent) {
-        return new GraphProgressHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.graph_progress, parent, false),
+    public GraphProgressHolder createViewHolder(@NonNull ViewGroup parent) {
+        return new GraphProgressHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.graph_progress, parent, false),
                 onModelChangedListener);
     }
 

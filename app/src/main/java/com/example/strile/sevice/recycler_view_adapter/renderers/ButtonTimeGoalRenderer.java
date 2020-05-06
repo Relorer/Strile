@@ -15,16 +15,15 @@ import com.example.strile.sevice.recycler_view_adapter.models.ButtonTimeGoalMode
 
 public class ButtonTimeGoalRenderer extends BaseRenderer<ButtonTimeGoalModel, ButtonTimeGoalHolder> {
 
-
-    public ButtonTimeGoalRenderer(OnModelChangedListener onModelChangedListener) {
+    public ButtonTimeGoalRenderer(@NonNull OnModelChangedListener onModelChangedListener) {
         super(onModelChangedListener);
     }
 
     @NonNull
     @Override
-    public ButtonTimeGoalHolder createViewHolder(@Nullable ViewGroup parent) {
-        return new ButtonTimeGoalHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.button_time_goal, parent, false),
+    public ButtonTimeGoalHolder createViewHolder(@NonNull ViewGroup parent) {
+        return new ButtonTimeGoalHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.button_time_goal, parent, false),
                 onModelChangedListener);
     }
 

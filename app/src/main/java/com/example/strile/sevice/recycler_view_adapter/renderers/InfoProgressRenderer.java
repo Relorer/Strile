@@ -13,15 +13,16 @@ import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 import com.example.strile.sevice.recycler_view_adapter.models.InfoProgressModel;
 
 public class InfoProgressRenderer extends BaseRenderer<InfoProgressModel, InfoProgressHolder> {
-    public InfoProgressRenderer(OnModelChangedListener onModelChangedListener) {
+
+    public InfoProgressRenderer(@NonNull OnModelChangedListener onModelChangedListener) {
         super(onModelChangedListener);
     }
 
     @NonNull
     @Override
-    public InfoProgressHolder createViewHolder(@Nullable ViewGroup parent) {
-        return new InfoProgressHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.info_progress, parent, false),
+    public InfoProgressHolder createViewHolder(@NonNull ViewGroup parent) {
+        return new InfoProgressHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.info_progress, parent, false),
                 onModelChangedListener);
     }
 

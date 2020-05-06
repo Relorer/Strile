@@ -1,6 +1,5 @@
 package com.example.strile.fragments.progress;
 
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,25 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.strile.R;
-import com.example.strile.fragments.timer.TimerPresenter;
 import com.example.strile.sevice.presenter.PresenterManager;
 import com.example.strile.sevice.recycler_view_adapter.adapters.ProgressListAdapter;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 
 import java.util.List;
 
-import static com.example.strile.sevice.DifficultyManager.getColor;
-
 public class ProgressFragment extends Fragment {
 
     private ProgressPresenter presenter;
-
-    private ProgressListAdapter adapter = new ProgressListAdapter();
+//todo
+    private ProgressListAdapter adapter = new ProgressListAdapter(model -> {});
 
     private View buttonSettings;
     private ImageView imageSettings;

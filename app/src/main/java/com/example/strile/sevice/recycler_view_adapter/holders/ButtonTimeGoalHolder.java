@@ -1,5 +1,6 @@
 package com.example.strile.sevice.recycler_view_adapter.holders;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,58 +10,50 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.strile.R;
 import com.example.strile.sevice.dialog.DialogTimeGoalOptions;
-import com.example.strile.sevice.call_back_interfaces.CompleteDialogTimeGoalCallback;
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonTimeGoalModel;
 
 public class ButtonTimeGoalHolder extends BaseHolder<ButtonTimeGoalModel> {
 
-    private View view;
-    private TextView text;
+    private final TextView text;
 
-    public ButtonTimeGoalHolder(@NonNull View itemView, final OnModelChangedListener<ButtonTimeGoalModel> onModelChangedListener) {
+    public ButtonTimeGoalHolder(@NonNull View itemView,
+                                @NonNull final OnModelChangedListener<ButtonTimeGoalModel> onModelChangedListener) {
         super(itemView, onModelChangedListener);
-        view = itemView;
         text = view.findViewById(R.id.text_goal);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDialogTimeGoalOptions(model.getGoalTimeSeconds());
-            }
-        });
+        view.setOnClickListener(v -> openDialogTimeGoalOptions(model.getGoalTime()));
     }
 
     @Override
-    protected void _bind() {
-        super._bind();
+    public void bind(ButtonTimeGoalModel model) {
+        super.bind(model);
         changeTextGoalTime();
     }
 
+    @SuppressLint("DefaultLocale")
     private void changeTextGoalTime() {
-        int goalMinutes = model.getGoalTimeSeconds() / 60;
+        final int goalMinutes = (int) (model.getGoalTime() / 60);
         switch (goalMinutes) {
             case 0:
-                text.setText("No time goal");
+                text.setText(R.string.no_time_goal);
                 break;
             case 60:
-                text.setText("For 1 hour");
+                text.setText(String.format("%s 1 %s",
+                        view.getContext().getString(R.string.for_time),
+                        view.getContext().getString(R.string.hour)));
                 break;
             default:
-                text.setText("For " + goalMinutes + " minutes");
+                text.setText(String.format("%s %d %s",
+                        view.getContext().getString(R.string.for_time), goalMinutes,
+                        view.getContext().getString(R.string.minutes)));
                 break;
         }
     }
 
-    void openDialogTimeGoalOptions(int timeSeconds) {
-        FragmentManager manager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
-        DialogTimeGoalOptions dialog = new DialogTimeGoalOptions(timeSeconds, new CompleteDialogTimeGoalCallback() {
-            @Override
-            public void onComplete(int timeSeconds) {
-                model.setGoalTimeSeconds(timeSeconds);
-                changeTextGoalTime();
-                if (onModelChangedListener != null)
-                    onModelChangedListener.onChanged(model);
-            }
+    private void openDialogTimeGoalOptions(long time) {
+        final FragmentManager manager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
+        final DialogTimeGoalOptions dialog = new DialogTimeGoalOptions(time, result -> {
+                onModelChangedListener.onChanged(new ButtonTimeGoalModel(model.isTopMargin(), result));
         });
         dialog.show(manager, "TimeGoal");
     }

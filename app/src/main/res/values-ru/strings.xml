@@ -31,4 +31,22 @@
     <string name="hard">Сложно</string>
     <string name="normal">Нормально</string>
     <string name="simple">Просто</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="hour">hour</string>
+    <string name="minutes">minutes</string>
+    <string name="no_time">no time</string>
+    <string name="add_deadline">Add deadline</string>
+    <string name="deadline_by">By</string>
+    <string name="show_completed">Show Сompleted</string>
+    <string name="hide_completed">Hide Сompleted</string>
+    <string name="everyday">everyday</string>
+    <string name="no_repeat">No repeat</string>
+    <string name="no_time_goal">No time goal</string>
+    <string name="for_time">For</string>
+    <string name="day_streak">day streak</string>
+    <string name="no_deadline">No deadline</string>
+    <string name="days">days</string>
+    <string name="days_of_active">days of active</string>
+    <string name="points_more">points more</string>
 </resources>

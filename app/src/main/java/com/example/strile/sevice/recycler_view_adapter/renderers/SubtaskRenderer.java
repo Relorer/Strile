@@ -15,16 +15,16 @@ import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
 
 public class SubtaskRenderer extends BaseRenderer<SubtaskModel, SubtaskHolder> {
 
-
-    public SubtaskRenderer(OnModelChangedListener onModelChangedListener) {
+    public SubtaskRenderer(@NonNull OnModelChangedListener onModelChangedListener) {
         super(onModelChangedListener);
     }
 
     @NonNull
     @Override
-    public SubtaskHolder createViewHolder(@Nullable ViewGroup parent) {
+    public SubtaskHolder createViewHolder(@NonNull ViewGroup parent) {
         return new SubtaskHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_subtask, parent, false), onModelChangedListener);
+                .inflate(R.layout.item_subtask, parent, false),
+                onModelChangedListener);
     }
 
     @Override

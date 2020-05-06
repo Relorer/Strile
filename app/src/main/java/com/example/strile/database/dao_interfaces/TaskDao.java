@@ -7,29 +7,21 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.strile.database.entities.TaskModel;
+import com.example.strile.database.entities.Task;
 
 import java.util.List;
 
 @Dao
 public interface TaskDao {
-
-    @Query("SELECT * FROM task")
-    List<TaskModel> getAll();
-
-    @Query("SELECT * FROM task")
-    LiveData<List<TaskModel>> getLiveDataAll();
-
-    @Query("SELECT * FROM task WHERE id = :id")
-    TaskModel getById(long id);
+    @Query("SELECT * FROM task ORDER BY name ASC")
+    LiveData<List<Task>> getAlphabetizedAll();
 
     @Insert
-    void insert(TaskModel taskModel);
+    void insert(Task task);
 
     @Update
-    void update(TaskModel taskModel);
+    void update(Task task);
 
     @Delete
-    void delete(TaskModel taskModel);
-
+    void delete(Task task);
 }

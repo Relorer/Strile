@@ -11,9 +11,9 @@ import com.example.strile.sevice.recycler_view_adapter.holders.BaseHolder;
 
 public abstract class BaseRenderer<M extends BaseModel, VH extends BaseHolder<M>> {
 
-    protected OnModelChangedListener onModelChangedListener;
+    protected final OnModelChangedListener onModelChangedListener;
 
-    public BaseRenderer(OnModelChangedListener onModelChangedListener) {
+    public BaseRenderer(@NonNull OnModelChangedListener onModelChangedListener) {
         this.onModelChangedListener = onModelChangedListener;
     }
 
@@ -22,7 +22,7 @@ public abstract class BaseRenderer<M extends BaseModel, VH extends BaseHolder<M>
     }
 
     @NonNull
-    public abstract VH createViewHolder(@Nullable ViewGroup parent);
+    public abstract VH createViewHolder(@NonNull ViewGroup parent);
 
     public abstract int getType();
 }

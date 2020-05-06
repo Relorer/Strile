@@ -14,13 +14,13 @@ import com.example.strile.sevice.recycler_view_adapter.models.CurrentStreakModel
 
 public class CurrentStreakRenderer extends BaseRenderer<CurrentStreakModel, CurrentStreakHolder> {
 
-    public CurrentStreakRenderer(OnModelChangedListener onModelChangedListener) {
+    public CurrentStreakRenderer(@NonNull OnModelChangedListener onModelChangedListener) {
         super(onModelChangedListener);
     }
 
     @NonNull
     @Override
-    public CurrentStreakHolder createViewHolder(@Nullable ViewGroup parent) {
+    public CurrentStreakHolder createViewHolder(@NonNull ViewGroup parent) {
         return new CurrentStreakHolder( LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.current_streak, parent, false),
                 onModelChangedListener);

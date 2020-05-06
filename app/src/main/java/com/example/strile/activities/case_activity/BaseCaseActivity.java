@@ -36,7 +36,7 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
 
     private BaseCasePresenter presenter;
 
-    private CaseActivityListAdapter adapter = new CaseActivityListAdapter();
+    private CaseActivityListAdapter adapter = new CaseActivityListAdapter(sender -> {}, model -> {});
 
     protected TextView textTitle;
     protected ImageView imageSpecialPurposeRight;
@@ -70,29 +70,31 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
         adapter.setHasStableIds(true);
         recycler.setAdapter(adapter);
 
-        adapter.setOnModelChangedListener(model -> {
-            if (model instanceof EditTextModel) {
-                presenter.editTextChanged((EditTextModel) model);
-            } else if (model instanceof SubtaskModel) {
-                presenter.subtaskChanged((SubtaskModel) model);
-            } else if (model instanceof SeekBarDifficultModel) {
-                presenter.difficultChanged((SeekBarDifficultModel) model);
-            } else if (model instanceof ButtonDateSelectionModel) {
-                presenter.dateSelectionChanged((ButtonDateSelectionModel) model);
-            } else if (model instanceof ButtonRepeatModel) {
-                presenter.repeatChanged((ButtonRepeatModel) model);
-            } else if (model instanceof ButtonTimeGoalModel) {
-                presenter.timeGoalChanged((ButtonTimeGoalModel) model);
-            }
-        });
+        //todo
 
-        adapter.setOnClickItemListener(sender -> {
-            if (sender instanceof ButtonAddSubtaskModel) {
-                presenter.addSubtaskButtonClicked((ButtonAddSubtaskModel) sender);
-            } else if (sender instanceof ProgressBarElapsedTimeModel) {
-                presenter.elapsedTimeClicked((ProgressBarElapsedTimeModel)sender);
-            }
-        });
+//        adapter.setOnModelChangedListener(model -> {
+//            if (model instanceof EditTextModel) {
+//                presenter.editTextChanged((EditTextModel) model);
+//            } else if (model instanceof SubtaskModel) {
+//                presenter.subtaskChanged((SubtaskModel) model);
+//            } else if (model instanceof SeekBarDifficultModel) {
+//                presenter.difficultChanged((SeekBarDifficultModel) model);
+//            } else if (model instanceof ButtonDateSelectionModel) {
+//                presenter.dateSelectionChanged((ButtonDateSelectionModel) model);
+//            } else if (model instanceof ButtonRepeatModel) {
+//                presenter.repeatChanged((ButtonRepeatModel) model);
+//            } else if (model instanceof ButtonTimeGoalModel) {
+//                presenter.timeGoalChanged((ButtonTimeGoalModel) model);
+//            }
+//        });
+//
+//        adapter.setOnClickItemListener(sender -> {
+//            if (sender instanceof ButtonAddSubtaskModel) {
+//                presenter.addSubtaskButtonClicked((ButtonAddSubtaskModel) sender);
+//            } else if (sender instanceof ProgressBarElapsedTimeModel) {
+//                presenter.elapsedTimeClicked((ProgressBarElapsedTimeModel)sender);
+//            }
+//        });
 
     }
 

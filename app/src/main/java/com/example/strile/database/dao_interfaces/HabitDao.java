@@ -7,32 +7,24 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.strile.database.entities.HabitModel;
+import com.example.strile.database.entities.Habit;
 
 import java.util.List;
 
 @Dao
 public interface HabitDao {
-
-    @Query("SELECT * FROM habit")
-    List<HabitModel> getAll();
-
-    @Query("SELECT * FROM habit")
-    LiveData<List<HabitModel>> getLiveDataAll();
-
-    @Query("SELECT * FROM habit WHERE id = :id")
-    HabitModel getById(long id);
+    @Query("SELECT * FROM habit ORDER BY name ASC")
+    LiveData<List<Habit>> getAlphabetizedAll();
 
     @Query("SELECT COUNT(*) FROM habit")
     int getCount();
 
     @Insert
-    void insert(HabitModel habitModel);
+    void insert(Habit habit);
 
     @Update
-    void update(HabitModel habitModel);
+    void update(Habit habit);
 
     @Delete
-    void delete(HabitModel habitModel);
-
+    void delete(Habit habit);
 }

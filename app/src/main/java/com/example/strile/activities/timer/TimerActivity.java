@@ -2,32 +2,25 @@ package com.example.strile.activities.timer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.example.strile.R;
-import com.example.strile.database.entities.HabitModel;
-import com.example.strile.database.entities.TaskModel;
+import com.example.strile.database.entities.Habit;
 import com.example.strile.fragments.timer.TimerFragment;
 
 public class TimerActivity extends AppCompatActivity {
-    private HabitModel habit;
+    private Habit habit;
 
     private TimerFragment timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        habit = getIntent().getParcelableExtra(HabitModel.class.getCanonicalName());
+        habit = getIntent().getParcelableExtra(Habit.class.getCanonicalName());
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_timer);
@@ -50,7 +43,7 @@ public class TimerActivity extends AppCompatActivity {
         });
 
         Intent intent = new Intent();
-        intent.putExtra(HabitModel.class.getCanonicalName(), timer.getHabit());
+        intent.putExtra(Habit.class.getCanonicalName(), timer.getHabit());
         setResult(RESULT_OK, intent);
     }
 
@@ -59,9 +52,9 @@ public class TimerActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    public static void startForResult(Activity caller, HabitModel habitModel) {
+    public static void startForResult(Activity caller, Habit habit) {
         Intent intent = new Intent(caller, TimerActivity.class);
-        intent.putExtra(HabitModel.class.getCanonicalName(), habitModel);
+        intent.putExtra(Habit.class.getCanonicalName(), habit);
         caller.startActivityForResult(intent, 12);
     }
 }

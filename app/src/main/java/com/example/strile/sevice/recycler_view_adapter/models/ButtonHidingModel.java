@@ -1,14 +1,18 @@
 package com.example.strile.sevice.recycler_view_adapter.models;
 
 public class ButtonHidingModel extends BaseModel {
-    private boolean checked;
-    private String text;
-    private int count;
 
-    @Override
-    public int getId() {
-        return id;
+    private final boolean checked;
+    private final int count;
+
+    public ButtonHidingModel(boolean topMargin, boolean checked, int count) {
+        super(topMargin);
+        this.checked = checked;
+        this.count = count;
     }
+
+
+
 
     @Override
     public int getType()  {
@@ -19,23 +23,11 @@ public class ButtonHidingModel extends BaseModel {
         return checked;
     }
 
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public int getCount() {
         return count;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public ButtonHidingModel setState(boolean state) {
+        return  new ButtonHidingModel(isTopMargin(), state, count);
     }
 }

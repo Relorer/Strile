@@ -7,26 +7,28 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.strile.R;
-import com.example.strile.database.entities.CaseModel;
-import com.example.strile.sevice.event_handler_interfaces.OnCheckedChangeListener;
 import com.example.strile.sevice.event_handler_interfaces.OnClickListener;
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
 import com.example.strile.sevice.recycler_view_adapter.holders.TaskHolder;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.models.TaskModel;
 
-public class TaskRenderer extends BaseRenderer<CaseModel, TaskHolder> {
+public class TaskRenderer extends BaseRenderer<TaskModel, TaskHolder> {
 
-    private OnClickListener onClickListener;
+    private final OnClickListener onClickListener;
 
-    public TaskRenderer(OnModelChangedListener onModelChangedListener, OnClickListener onClickListener) {
+    public TaskRenderer(@NonNull OnModelChangedListener onModelChangedListener,
+                        @NonNull OnClickListener onClickListener) {
         super(onModelChangedListener);
         this.onClickListener = onClickListener;
     }
 
     @NonNull
     @Override
-    public TaskHolder createViewHolder(@Nullable ViewGroup parent) {
-        return new TaskHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_journal, parent, false), onModelChangedListener, onClickListener);
+    public TaskHolder createViewHolder(@NonNull ViewGroup parent) {
+        return new TaskHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_journal, parent, false),
+                onModelChangedListener, onClickListener);
     }
 
     @Override

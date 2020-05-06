@@ -11,19 +11,12 @@ import com.example.strile.sevice.recycler_view_adapter.models.ButtonAddSubtaskMo
 
 public class ButtonAddSubtaskHolder extends BaseHolder<ButtonAddSubtaskModel> {
 
-    private OnClickListener onClickListener;
-
     public ButtonAddSubtaskHolder(@NonNull View itemView,
-                                  final OnModelChangedListener<ButtonAddSubtaskModel> onModelChangedListener,
-                                  final OnClickListener<BaseModel> onClickListener) {
+                                  @NonNull final OnModelChangedListener<ButtonAddSubtaskModel> onModelChangedListener,
+                                  @NonNull final OnClickListener<BaseModel> onClickListener) {
         super(itemView, onModelChangedListener);
-        this.onClickListener = onClickListener;
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onClickListener != null)
-                    onClickListener.onClick(model);
-            }
+        itemView.setOnClickListener(v -> {
+            onClickListener.onClick(model);
         });
     }
 }
