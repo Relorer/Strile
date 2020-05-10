@@ -21,6 +21,8 @@ public class HabitHolder extends BaseHolder<HabitModel> {
     private final TextView info;
     private final ImageView special;
 
+    private boolean binding = false;
+
     public HabitHolder(@NonNull View itemView,
                        @NonNull final OnModelChangedListener<HabitModel> onModelChangedListener,
                        @NonNull final OnClickListener<HabitModel> onClickCaseListener) {
@@ -31,7 +33,8 @@ public class HabitHolder extends BaseHolder<HabitModel> {
         info = itemView.findViewById(R.id.text_info);
         special = itemView.findViewById(R.id.image_special);
         done.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            onModelChangedListener.onChanged(model.setState(isChecked));
+            if (!binding)
+                onModelChangedListener.onChanged(model.setState(isChecked));
         });
         itemView.setOnClickListener(v -> {
             onClickCaseListener.onClick(model);
@@ -41,6 +44,7 @@ public class HabitHolder extends BaseHolder<HabitModel> {
     @SuppressLint("DefaultLocale")
     @Override
     public void bind(HabitModel model) {
+        binding = true;
         super.bind(model);
         name.setText(model.getName());
         done.setChecked(model.isComplete());
@@ -48,5 +52,6 @@ public class HabitHolder extends BaseHolder<HabitModel> {
         if (model.isGoalTime()) special.setImageDrawable(null);
         else
             special.setImageDrawable(ResourcesCompat.getDrawable(view.getResources(), R.drawable.time_goal, null));
+        binding = false;
     }
 }
