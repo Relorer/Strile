@@ -2,7 +2,7 @@ package com.example.strile.sevice.recycler_view_adapter.models;
 
 public class SeekBarDifficultModel extends BaseModel {
 
-    private final int progress;
+    private int progress;
 
     public SeekBarDifficultModel(boolean topMargin, int progress) {
         super(topMargin);
@@ -16,5 +16,10 @@ public class SeekBarDifficultModel extends BaseModel {
 
     public int getProgress() {
         return progress;
+    }
+
+    public SeekBarDifficultModel setProgress(int progress) {
+        this.progress = progress;
+        return this;
     }
 }

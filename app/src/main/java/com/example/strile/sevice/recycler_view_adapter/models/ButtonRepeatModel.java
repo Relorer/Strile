@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 public class ButtonRepeatModel extends BaseModel {
 
-    private final boolean[] daysRepeat;
+    private boolean[] daysRepeat;
 
     public ButtonRepeatModel(boolean topMargin, @NonNull boolean[] daysRepeat) {
         super(topMargin);
@@ -18,5 +18,10 @@ public class ButtonRepeatModel extends BaseModel {
 
     public boolean[] getDaysRepeat() {
         return daysRepeat;
+    }
+
+    public ButtonRepeatModel setDaysRepeat(boolean[] daysRepeat) {
+        this.daysRepeat = daysRepeat;
+        return this;
     }
 }

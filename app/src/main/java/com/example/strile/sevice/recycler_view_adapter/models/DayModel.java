@@ -5,16 +5,10 @@ import java.util.Date;
 public class DayModel extends BaseModel {
 
     private final Date date;
-    private final boolean selected;
+    private boolean selected;
 
     public DayModel(boolean topMargin, Date date, boolean selected) {
         super(topMargin);
-        this.date = date;
-        this.selected = selected;
-    }
-
-    private DayModel(int id, boolean topMargin, Date date, boolean selected) {
-        super(id, topMargin);
         this.date = date;
         this.selected = selected;
     }
@@ -33,6 +27,7 @@ public class DayModel extends BaseModel {
     }
 
     public DayModel setState(boolean state) {
-        return new DayModel(getId(), isTopMargin(), date, state);
+        selected = state;
+        return this;
     }
 }

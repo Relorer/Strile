@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ButtonDateSelectionModel extends BaseModel {
 
-    private final Date date;
+    private Date date;
 
     public ButtonDateSelectionModel(boolean topMargin, Date date) {
         super(topMargin);
@@ -18,5 +18,10 @@ public class ButtonDateSelectionModel extends BaseModel {
 
     public Date getDate() {
         return date;
+    }
+
+    public ButtonDateSelectionModel setDate(Date date) {
+        this.date = date;
+        return this;
     }
 }

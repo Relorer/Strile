@@ -2,7 +2,7 @@ package com.example.strile.sevice.recycler_view_adapter.models;
 
 public class ButtonTimeGoalModel extends BaseModel {
 
-    private final long goalTime;
+    private long goalTime;
 
     public ButtonTimeGoalModel(boolean topMargin, long goalTime) {
         super(topMargin);
@@ -16,5 +16,10 @@ public class ButtonTimeGoalModel extends BaseModel {
 
     public long getGoalTime() {
         return goalTime;
+    }
+
+    public ButtonTimeGoalModel setGoalTime(long goalTime) {
+        this.goalTime = goalTime;
+        return this;
     }
 }

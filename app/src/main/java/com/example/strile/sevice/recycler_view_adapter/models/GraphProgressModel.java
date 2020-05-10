@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 public class GraphProgressModel extends BaseModel {
 
+    //todo graph add setters for params
+
     private final int maxHabit;
     private final int maxTask;
     private final int[] habitsByDays;

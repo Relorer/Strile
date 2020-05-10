@@ -3,7 +3,7 @@ package com.example.strile.sevice.recycler_view_adapter.models;
 public class ProgressBarElapsedTimeModel extends BaseModel {
 
     private final int max;
-    private final int progress;
+    private int progress;
 
     public ProgressBarElapsedTimeModel(boolean topMargin, int max, int progress) {
         super(topMargin);
@@ -22,5 +22,10 @@ public class ProgressBarElapsedTimeModel extends BaseModel {
 
     public int getMax() {
         return max;
+    }
+
+    public ProgressBarElapsedTimeModel setProgress(int progress) {
+        this.progress = progress;
+        return this;
     }
 }

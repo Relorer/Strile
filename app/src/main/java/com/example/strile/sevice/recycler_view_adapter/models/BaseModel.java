@@ -22,17 +22,12 @@ public abstract class BaseModel {
     private static int maxId = 0;
 
     private final int id;
-    private final boolean topMargin;
+    private boolean topMargin;
 
     public BaseModel(boolean topMargin) {
         this.topMargin = topMargin;
         id = maxId;
         maxId++;
-    }
-
-    protected BaseModel(int id, boolean topMargin) {
-        this.id = id;
-        this.topMargin = topMargin;
     }
 
     public int getId() {

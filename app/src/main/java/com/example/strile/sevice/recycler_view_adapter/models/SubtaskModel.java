@@ -2,8 +2,8 @@ package com.example.strile.sevice.recycler_view_adapter.models;
 
 public class SubtaskModel extends BaseModel {
 
-    private final String text;
-    private final boolean complete;
+    private String text;
+    private boolean complete;
 
     public SubtaskModel(boolean topMargin, String text, boolean complete) {
         super(topMargin);
@@ -25,10 +25,12 @@ public class SubtaskModel extends BaseModel {
     }
 
     public SubtaskModel setState(boolean state) {
-        return new SubtaskModel(isTopMargin(), text, state);
+        complete = state;
+        return this;
     }
 
     public SubtaskModel setText(String text) {
-        return new SubtaskModel(isTopMargin(), text, complete);
+        this.text = text;
+        return this;
     }
 }

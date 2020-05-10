@@ -1,16 +1,18 @@
 package com.example.strile.sevice.recycler_view_adapter.models;
 
+import com.example.strile.database.entities.Task;
+
+import java.util.Date;
+
 public class TaskModel extends BaseModel implements CaseModel {
 
-    private final String name;
-    private final long deadline;
-    private final boolean complete;
+    private final Task task;
+    private Date dateComplete;
 
-    public TaskModel(boolean topMargin, String name, long deadline, boolean complete) {
+    public TaskModel(boolean topMargin, Task task, Date dateComplete) {
         super(topMargin);
-        this.name = name;
-        this.deadline = deadline;
-        this.complete = complete;
+        this.task = task;
+        this.dateComplete = dateComplete;
     }
 
     @Override
@@ -19,18 +21,28 @@ public class TaskModel extends BaseModel implements CaseModel {
     }
 
     public String getName() {
-        return name;
+        return task.getName();
     }
 
     public long getDeadline() {
-        return deadline;
+        return task.getDeadline();
     }
 
     public boolean isComplete() {
-        return complete;
+        return task.isCompleteOnDay(dateComplete);
     }
 
     public TaskModel setState(boolean state) {
-        return new TaskModel(isTopMargin(), name, deadline, state);
+        task.setStateForDay(state, dateComplete);
+        return this;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public TaskModel setDateComplete(Date dateComplete) {
+        this.dateComplete = dateComplete;
+        return this;
     }
 }

@@ -3,10 +3,10 @@ package com.example.strile.sevice.recycler_view_adapter.models;
 public class InfoProgressModel extends BaseModel {
 
     private final String name;
-    private final long level;
-    private final long experience;
-    private final long remained;
     private final long days;
+    private long level;
+    private long experience;
+    private long remained;
 
     public InfoProgressModel(boolean topMargin, String name, long level, long experience, long remained, long days) {
         super(topMargin);
@@ -40,5 +40,20 @@ public class InfoProgressModel extends BaseModel {
 
     public long getDays() {
         return days;
+    }
+
+    public InfoProgressModel setLevel(long level) {
+        this.level = level;
+        return this;
+    }
+
+    public InfoProgressModel setExperience(long experience) {
+        this.experience = experience;
+        return this;
+    }
+
+    public InfoProgressModel setRemained(long remained) {
+        this.remained = remained;
+        return this;
     }
 }

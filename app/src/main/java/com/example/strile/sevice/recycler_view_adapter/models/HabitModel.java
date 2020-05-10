@@ -1,18 +1,18 @@
 package com.example.strile.sevice.recycler_view_adapter.models;
 
+import com.example.strile.database.entities.Habit;
+
+import java.util.Date;
+
 public class HabitModel extends BaseModel implements CaseModel {
 
-    private final String name;
-    private final boolean goalTime;
-    private final int streak;
-    private final boolean complete;
+    private final Habit habit;
+    private Date date;
 
-    public HabitModel(boolean topMargin, String name, boolean goalTime, int streak, boolean complete) {
+    public HabitModel(boolean topMargin, Habit habit, Date date) {
         super(topMargin);
-        this.name = name;
-        this.goalTime = goalTime;
-        this.streak = streak;
-        this.complete = complete;
+        this.habit = habit;
+        this.date = date;
     }
 
     @Override
@@ -21,22 +21,32 @@ public class HabitModel extends BaseModel implements CaseModel {
     }
 
     public String getName() {
-        return name;
+        return habit.getName();
     }
 
     public boolean isGoalTime() {
-        return goalTime;
+        return habit.getGoalTime() != 0;
     }
 
     public int getStreak() {
-        return streak;
+        return habit.getStreakByDay(date);
     }
 
     public boolean isComplete() {
-        return complete;
+        return habit.isCompleteOnDay(date);
     }
 
     public HabitModel setState(boolean state) {
-        return new HabitModel(isTopMargin(), name, goalTime, streak, state);
+        habit.setStateForDay(state, date);
+        return this;
+    }
+
+    public Habit getHabit() {
+        return habit;
+    }
+
+    public HabitModel setDate(Date date) {
+        this.date = date;
+        return this;
     }
 }
