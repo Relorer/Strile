@@ -28,7 +28,7 @@ public class SeekBarDifficultHolder extends BaseHolder<SeekBarDifficultModel> {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    onModelChangedListener.onChanged(new SeekBarDifficultModel(model.isTopMargin(), progress));
+                    onModelChangedListener.onChanged(model.setProgress(progress));
             }
 
             @Override

@@ -66,7 +66,7 @@ public class ButtonRepeatHolder extends BaseHolder<ButtonRepeatModel> {
     private void openDialogRepeatOptions(boolean[] checkedDays) {
         final FragmentManager manager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
         final DialogRepeatOptions dialog = new DialogRepeatOptions(checkedDays, result -> {
-            onModelChangedListener.onChanged(new ButtonRepeatModel(model.isTopMargin(), result));
+            onModelChangedListener.onChanged(model.setDaysRepeat(result));
         });
         dialog.show(manager, "Repeat");
     }

@@ -23,8 +23,7 @@ public class ButtonHidingHolder extends BaseHolder<ButtonHidingModel> {
         count = view.findViewById(R.id.text_count);
         checkBox = view.findViewById(R.id.checkbox_done);
         view.setOnClickListener(v -> {
-            ButtonHidingModel chModel = model.setState(!model.isChecked());
-            onModelChangedListener.onChanged(chModel);
+            onModelChangedListener.onChanged(model.setState(!model.isChecked()));
         });
     }
 
