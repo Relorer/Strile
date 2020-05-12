@@ -18,6 +18,7 @@ import com.example.strile.sevice.recycler_view_adapter.models.ButtonHidingModel;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 import com.example.strile.sevice.recycler_view_adapter.models.CaseModel;
 
+import java.util.Date;
 import java.util.List;
 
 public abstract class JournalCasesFragment extends Fragment {
@@ -33,8 +34,7 @@ public abstract class JournalCasesFragment extends Fragment {
         }, model -> {
             if (model instanceof CaseModel) {
                 presenter.itemStateChanged((CaseModel) model);
-            }
-            else if (model instanceof ButtonHidingModel) {
+            } else if (model instanceof ButtonHidingModel) {
                 presenter.buttonHidingStateChanged((ButtonHidingModel) model);
             }
         });
@@ -56,6 +56,11 @@ public abstract class JournalCasesFragment extends Fragment {
 
     public void setSortedList(@NonNull List<BaseModel> items) {
         adapter.setItems(items);
+    }
+
+    public void setVisibleDay(Date day) {
+        if (presenter != null)
+            presenter.setVisibleDay(day);
     }
 
     protected abstract JournalCasesPresenter getPresenter();

@@ -6,6 +6,7 @@ import com.example.strile.fragments.journal.cases.tasks.JournalTasksFragment;
 import com.example.strile.sevice.presenter.BasePresenter;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 import com.example.strile.sevice.recycler_view_adapter.models.DayModel;
+import com.example.strile.sevice.recycler_view_adapter.models.HabitModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,14 +40,17 @@ public class JournalPresenter extends BasePresenter<JournalFragment> {
 
     void dayClicked(DayModel day) {
         if (day.getId() != selected.getId()) {
-            final int positionPrew = days.indexOf(selected);
-            days.set(positionPrew, selected.setState(false));
-
-            final int positionNew = days.indexOf(day);
-            if (positionNew >= 0) {
-                selected = day.setState(true);
-                days.set(positionNew, selected);
+            int posBefore = days.indexOf(selected);
+            int posAfter = days.indexOf(day);
+            if (posBefore >= 0) {
+                DayModel model = new DayModel(selected.getId(), selected.isTopMargin(), selected.getDate(), false);
+                days.set(posBefore, model);
             }
+            if (posAfter >= 0) {
+                selected = new DayModel(day.getId(), day.isTopMargin(), day.getDate(), true);
+                days.set(posAfter, selected);
+            }
+            view().setVisibleDayOnPages(day.getDate());
             updateView();
         }
     }

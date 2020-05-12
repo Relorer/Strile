@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import com.example.strile.R;
 import com.example.strile.activities.case_activity.add_case.add_habit.AddHabitActivity;
 import com.example.strile.activities.case_activity.add_case.add_task.AddTaskActivity;
+import com.example.strile.fragments.journal.cases.JournalCasesFragment;
 import com.example.strile.fragments.journal.cases.JournalCasesPage;
 import com.example.strile.fragments.journal.cases.habits.JournalHabitsFragment;
 import com.example.strile.fragments.journal.cases.tasks.JournalTasksFragment;
@@ -34,6 +35,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class JournalFragment extends Fragment {
@@ -41,6 +43,7 @@ public class JournalFragment extends Fragment {
     private JournalPresenter presenter;
 
     private DaysListAdapter daysListAdapter;
+    private final List<Fragment> pages = new ArrayList<>();
 
     private boolean topBlockVisible = false;
     private int countMove;
@@ -48,7 +51,7 @@ public class JournalFragment extends Fragment {
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, //todo need refactoring
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_journal, container, false);
 
@@ -62,7 +65,6 @@ public class JournalFragment extends Fragment {
         final int minMargin = getResources().getDimensionPixelOffset(R.dimen.margin_vertical_journal_top_block_hide);
         final int maxMargin = getResources().getDimensionPixelOffset(R.dimen.margin_vertical_journal_top_block_visible);
 
-        List<Fragment> pages = new ArrayList<>();
         pages.add(new JournalHabitsFragment());
         pages.add(new JournalTasksFragment());
         JournalPagerAdapter journalPagerAdapter = new JournalPagerAdapter(getChildFragmentManager(), pages);
@@ -138,11 +140,17 @@ public class JournalFragment extends Fragment {
     }
 
     void startAddHabitFragment() {
-        AddHabitActivity.start(this);
+        AddHabitActivity.start(this.getActivity());
     }
 
     void startAddTaskFragment() {
-        AddTaskActivity.start(this);
+        AddTaskActivity.start(this.getActivity());
+    }
+
+    public void setVisibleDayOnPages(Date day) {
+        for (int i = 0; i < pages.size(); i++) {
+            ((JournalCasesFragment)pages.get(i)).setVisibleDay(day);
+        }
     }
 
     @Override
