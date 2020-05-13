@@ -2,6 +2,7 @@ package com.example.strile.sevice.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -11,6 +12,7 @@ import com.example.strile.R;
 import com.example.strile.sevice.call_back_interfaces.CompleteCallback;
 
 import java.text.DateFormatSymbols;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -29,7 +31,8 @@ public class DialogRepeatOptions extends DialogFragment {
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
 
         final DateFormatSymbols symbols = new DateFormatSymbols(Locale.getDefault());
-        final String[] repeatOptions = symbols.getWeekdays();
+        final String[] repeatOptions = new String[7];
+        System.arraycopy(symbols.getWeekdays(), 1, repeatOptions, 0, 7);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity(),
                 "When creating the dialog box getActivity returned null"));
@@ -41,7 +44,6 @@ public class DialogRepeatOptions extends DialogFragment {
                 .setNegativeButton(R.string.cancel, (dialog, id) -> {
 
                 });
-
 
         return builder.create();
     }

@@ -2,7 +2,7 @@ package com.example.strile.sevice.structures;
 
 public class DateCompleted{
     private final long date;
-    private final boolean complete;
+    private boolean complete;
 
     public DateCompleted(long date, boolean complete) {
         this.date = date;
@@ -18,6 +18,7 @@ public class DateCompleted{
     }
 
     public DateCompleted setState(boolean state) {
-        return new DateCompleted(date, state);
+        complete = state;
+        return this;
     }
 }

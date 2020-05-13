@@ -16,6 +16,9 @@ public interface HabitDao {
     @Query("SELECT * FROM habit ORDER BY name ASC")
     LiveData<List<Habit>> getAlphabetizedAll();
 
+    @Query("SELECT * FROM habit WHERE id = :id")
+    LiveData<Habit> getById(long id);
+
     @Query("SELECT COUNT(*) FROM habit")
     int getCount();
 

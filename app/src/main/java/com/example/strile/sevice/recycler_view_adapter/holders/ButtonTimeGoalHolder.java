@@ -32,7 +32,7 @@ public class ButtonTimeGoalHolder extends BaseHolder<ButtonTimeGoalModel> {
 
     @SuppressLint("DefaultLocale")
     private void changeTextGoalTime() {
-        final int goalMinutes = (int) (model.getGoalTime() / 60);
+        final int goalMinutes = (int) (model.getGoalTime() / 60 / 1000);
         switch (goalMinutes) {
             case 0:
                 text.setText(R.string.no_time_goal);
@@ -54,6 +54,7 @@ public class ButtonTimeGoalHolder extends BaseHolder<ButtonTimeGoalModel> {
         final FragmentManager manager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
         final DialogTimeGoalOptions dialog = new DialogTimeGoalOptions(time, result -> {
                 onModelChangedListener.onChanged(model.setGoalTime(result));
+            changeTextGoalTime();
         });
         dialog.show(manager, "TimeGoal");
     }

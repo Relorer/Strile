@@ -2,11 +2,10 @@ package com.example.strile.sevice.recycler_view_adapter.models;
 
 public class CurrentStreakModel extends BaseModel {
 
-    private final int streak;
+    private int streak;
 
-    public CurrentStreakModel(boolean topMargin, int streak) {
+    public CurrentStreakModel(boolean topMargin) {
         super(topMargin);
-        this.streak = streak;
     }
 
     @Override
@@ -16,5 +15,10 @@ public class CurrentStreakModel extends BaseModel {
 
     public int getStreak() {
         return streak;
+    }
+
+    public CurrentStreakModel setStreak(int streak) {
+        this.streak = streak;
+        return this;
     }
 }

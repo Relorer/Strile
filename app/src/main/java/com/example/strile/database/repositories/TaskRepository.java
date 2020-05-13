@@ -3,12 +3,16 @@ package com.example.strile.database.repositories;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 
 import com.example.strile.database.AppDatabase;
 import com.example.strile.database.dao_interfaces.TaskDao;
+import com.example.strile.database.entities.Habit;
 import com.example.strile.database.entities.Task;
 
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 public class TaskRepository implements Repository<Task>{
     private final TaskDao taskDao;
@@ -22,6 +26,15 @@ public class TaskRepository implements Repository<Task>{
 
     public LiveData<List<Task>> getAll() {
         return allTask;
+    }
+
+    @Nullable
+    public LiveData<Task> getById(long id) {
+        return Transformations.map(allTask, input -> input.stream()
+                .filter(m -> m.getId() == id)
+                .findAny()
+                .orElse(null)
+        );
     }
 
     public void insert(Task task) {

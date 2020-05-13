@@ -30,6 +30,7 @@ public class SubtaskHolder extends BaseHolder<SubtaskModel> {
         });
         buttonDelete.setOnClickListener(v -> {
             text.clearFocus();
+            model.setDying(true);
             onModelChangedListener.onChanged(model);
         });
         text.addTextChangedListener(new TextWatcher() {

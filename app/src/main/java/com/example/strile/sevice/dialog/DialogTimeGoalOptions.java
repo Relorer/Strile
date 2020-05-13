@@ -31,7 +31,7 @@ public class DialogTimeGoalOptions extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
-        final String minutes = String.valueOf(R.string.minutes);
+        final String minutes = getString(R.string.minutes);
         final String[] timeOptions = {
                 getString(R.string.no_time),
                 String.format("5 %s", minutes),

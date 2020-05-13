@@ -1,5 +1,6 @@
 package com.example.strile.activities.case_activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.strile.App;
 import com.example.strile.R;
 import com.example.strile.sevice.presenter.PresenterManager;
 import com.example.strile.sevice.recycler_view_adapter.adapters.CaseActivityListAdapter;
@@ -32,11 +34,13 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 
 public abstract class BaseCaseActivity extends AppCompatActivity {
-    private static Fragment lastCaller;
+
+    //todo remove static
+    private static Activity lastCaller;
 
     private BaseCasePresenter presenter;
 
-    private CaseActivityListAdapter adapter = new CaseActivityListAdapter(sender -> {}, model -> {});
+    private CaseActivityListAdapter adapter;
 
     protected TextView textTitle;
     protected ImageView imageSpecialPurposeRight;
@@ -61,41 +65,36 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
         View backButton = findViewById(R.id.special_purpose_button_left);
         RecyclerView recycler = findViewById(R.id.recycler);
 
-        imageSpecialPurposeLeft.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.back_arrow, null));
+        imageSpecialPurposeLeft.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
+                R.drawable.back_arrow, null));
 
         specialPurposeButton.setOnClickListener(v -> presenter.specialPurposeButtonClicked());
         backButton.setOnClickListener(v -> presenter.backButtonClicked());
 
-        recycler.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new CaseActivityListAdapter(sender -> {
+            if (sender instanceof ButtonAddSubtaskModel) {
+                presenter.addSubtaskButtonClicked((ButtonAddSubtaskModel) sender);
+            } else if (sender instanceof ProgressBarElapsedTimeModel) {
+                presenter.elapsedTimeClicked((ProgressBarElapsedTimeModel) sender);
+            }
+        }, model -> {
+            if (model instanceof EditTextModel) {
+                presenter.editTextChanged((EditTextModel) model);
+            } else if (model instanceof SubtaskModel) {
+                presenter.subtaskChanged((SubtaskModel) model);
+            } else if (model instanceof SeekBarDifficultModel) {
+                presenter.difficultChanged((SeekBarDifficultModel) model);
+            } else if (model instanceof ButtonDateSelectionModel) {
+                presenter.dateSelectionChanged((ButtonDateSelectionModel) model);
+            } else if (model instanceof ButtonRepeatModel) {
+                presenter.repeatChanged((ButtonRepeatModel) model);
+            } else if (model instanceof ButtonTimeGoalModel) {
+                presenter.timeGoalChanged((ButtonTimeGoalModel) model);
+            }
+        });
         adapter.setHasStableIds(true);
+        recycler.setLayoutManager(new LinearLayoutManager(this));
         recycler.setAdapter(adapter);
-
-        //todo
-
-//        adapter.setOnModelChangedListener(model -> {
-//            if (model instanceof EditTextModel) {
-//                presenter.editTextChanged((EditTextModel) model);
-//            } else if (model instanceof SubtaskModel) {
-//                presenter.subtaskChanged((SubtaskModel) model);
-//            } else if (model instanceof SeekBarDifficultModel) {
-//                presenter.difficultChanged((SeekBarDifficultModel) model);
-//            } else if (model instanceof ButtonDateSelectionModel) {
-//                presenter.dateSelectionChanged((ButtonDateSelectionModel) model);
-//            } else if (model instanceof ButtonRepeatModel) {
-//                presenter.repeatChanged((ButtonRepeatModel) model);
-//            } else if (model instanceof ButtonTimeGoalModel) {
-//                presenter.timeGoalChanged((ButtonTimeGoalModel) model);
-//            }
-//        });
-//
-//        adapter.setOnClickItemListener(sender -> {
-//            if (sender instanceof ButtonAddSubtaskModel) {
-//                presenter.addSubtaskButtonClicked((ButtonAddSubtaskModel) sender);
-//            } else if (sender instanceof ProgressBarElapsedTimeModel) {
-//                presenter.elapsedTimeClicked((ProgressBarElapsedTimeModel)sender);
-//            }
-//        });
-
     }
 
     public void setSortedList(@NonNull List<BaseModel> items) {
@@ -109,9 +108,9 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
         toast.show();
     }
 
-    public void showSnackbar(Fragment fragment, String text, String actionName, View.OnClickListener onClickListener) {
-        if (fragment != null) {
-            Snackbar snackbar = Snackbar.make(fragment.getView(), text, 5000)
+    public void showSnackbar(Activity activity, String text, String actionName, View.OnClickListener onClickListener) {
+        if (activity != null) {
+            Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.addButton), text, 5000)
                     .setAction(actionName, onClickListener);
 
             View view = snackbar.getView();
@@ -125,11 +124,11 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
 
     protected abstract BaseCasePresenter getNewPresenter();
 
-    public static Fragment getCaller() {
+    public static Activity getCaller() {
         return lastCaller;
     }
 
-    protected static void setCaller(Fragment caller) {
+    protected static void setCaller(Activity caller) {
         lastCaller = caller;
     }
 

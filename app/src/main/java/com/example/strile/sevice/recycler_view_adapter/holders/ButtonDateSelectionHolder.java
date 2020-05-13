@@ -13,6 +13,7 @@ import com.example.strile.sevice.recycler_view_adapter.models.ButtonDateSelectio
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class ButtonDateSelectionHolder extends BaseHolder<ButtonDateSelectionModel> {
 
@@ -43,19 +44,11 @@ public class ButtonDateSelectionHolder extends BaseHolder<ButtonDateSelectionMod
 
     private void changeTextDeadline() {
         if (model.getDate().getTime() != 0) {
-//            Calendar calendar = Calendar.getInstance();
-//            calendar.setTime(model.getDate());
-
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy");
-//todo data format no checked
+            final String format = view.getContext().getString(R.string.dateFormatForDeadlineSelection);
+            final SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.getDefault());
             text.setText(String.format("%s %s",
                     view.getContext().getString(R.string.deadline_by),
-                    simpleDateFormat.format(model.getDate())));
-
-//            text.setText(String.format("%s%s %d, %d", view.getContext().getString(R.string.deadline_by),
-//                    calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()),
-//                    calendar.get(Calendar.DAY_OF_MONTH),
-//                    calendar.get(Calendar.YEAR)));
+                    dateFormat.format(model.getDate())));
 
         } else {
             text.setText(R.string.add_deadline);
@@ -69,6 +62,7 @@ public class ButtonDateSelectionHolder extends BaseHolder<ButtonDateSelectionMod
         final DatePickerDialog dialog = new DatePickerDialog(view.getContext(), (view, year, month, dayOfMonth) -> {
             dateAndTime.set(year, month, dayOfMonth, 0, 0, 0);
             onModelChangedListener.onChanged(model.setDate(dateAndTime.getTime()));
+            changeTextDeadline();
         },
                 dateAndTime.get(Calendar.YEAR),
                 dateAndTime.get(Calendar.MONTH),

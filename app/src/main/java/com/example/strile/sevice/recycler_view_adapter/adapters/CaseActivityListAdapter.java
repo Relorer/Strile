@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.SortedList;
 import com.example.strile.sevice.event_handler_interfaces.OnClickListener;
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.models.CaseModel;
 import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
 import com.example.strile.sevice.recycler_view_adapter.renderers.ButtonAddSubtaskRenderer;
 import com.example.strile.sevice.recycler_view_adapter.renderers.ButtonDateSelectionRenderer;

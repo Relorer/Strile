@@ -3,6 +3,7 @@ package com.example.strile.activities.case_activity.task;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -31,9 +32,9 @@ public class TaskActivity extends BaseCaseActivity {
         return new TaskPresenter();
     }
 
-    public static void start(Fragment caller, Task task) {
+    public static void start(Activity caller, Task task) {
         setCaller(caller);
-        Intent intent = new Intent(caller.getContext(), TaskActivity.class);
+        Intent intent = new Intent(caller, TaskActivity.class);
         intent.putExtra(Task.class.getCanonicalName(), task);
         caller.startActivity(intent);
     }

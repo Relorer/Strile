@@ -6,13 +6,17 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import com.example.strile.sevice.Day;
+import com.example.strile.sevice.Difficulty;
 import com.example.strile.sevice.converters.SubtasksConverter;
 import com.example.strile.sevice.structures.Subtask;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @SuppressLint("ParcelCreator")
@@ -20,16 +24,27 @@ import java.util.List;
 public class Task implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
-    private final long id;
-    private final String name;
-    private final int difficulty;
-    private final String description;
-    private final long dateCreate;
-    private final long deadline;
-    private final long dateComplete;
+    private long id;
+    private String name;
+    private int difficulty;
+    private String description;
+    private long dateCreate;
+    private long deadline;
+    private long dateComplete;
 
     @TypeConverters({SubtasksConverter.class})
     private final List<Subtask> subtasks;
+
+    @Ignore
+    public Task() {
+        name = "";
+        difficulty = Difficulty.maxDifficulty / 3;
+        description = "";
+        dateCreate = new Day(new Date()).getDateOfDayWithoutTime().getTime();
+        deadline = 0;
+        dateComplete = 0;
+        subtasks = new ArrayList<>();
+    }
 
     public Task(long id, String name, int difficulty, String description, long dateCreate,
                 long deadline, long dateComplete, @NonNull List<Subtask> subtasks) {
@@ -47,8 +62,8 @@ public class Task implements Parcelable {
         return dateCreate <= date && (dateComplete == 0 || dateComplete >= date);
     }
 
-    public boolean isCompleteOnDay(long date) {
-        return dateComplete == date;
+    public boolean isCompleteOnDay(Date date) {
+        return dateComplete == date.getTime();
     }
 
     public boolean isDeadline() {
@@ -87,10 +102,26 @@ public class Task implements Parcelable {
         return dateCreate;
     }
 
-    public Task setStateForDay(boolean state, long date) {
-        long dateComplete = 0;
-        if (state) dateComplete = date;
-        return new Task(id, name, difficulty, description, dateCreate, deadline, dateComplete, new ArrayList<>(subtasks));
+    public Task setStateForDay(boolean state, Date date) {
+        dateComplete = 0;
+        if (state) dateComplete = date.getTime();
+        return this;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline.getTime();
     }
 
     @Override

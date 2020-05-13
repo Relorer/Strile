@@ -13,6 +13,12 @@ public class DayModel extends BaseModel {
         this.selected = selected;
     }
 
+    public DayModel(int id, boolean topMargin, Date date, boolean selected) {
+        super(id, topMargin);
+        this.date = date;
+        this.selected = selected;
+    }
+
     @Override
     public int getType() {
         return DAY_TYPE;

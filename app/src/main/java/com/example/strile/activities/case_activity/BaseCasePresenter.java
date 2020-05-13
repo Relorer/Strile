@@ -22,17 +22,4 @@ public abstract class BaseCasePresenter<V> extends BasePresenter<V>{
     public void dateSelectionChanged(ButtonDateSelectionModel model) {}
     public void addSubtaskButtonClicked(ButtonAddSubtaskModel model) {}
     public void elapsedTimeClicked(ProgressBarElapsedTimeModel model) {}
-//todo
-
-//    protected void addCaseInDatabase(CaseModel c) {
-//        model.insertCase(c, null);
-//    }
-//
-//    protected void updateCaseInDatabase(CaseModel c) {
-//        model.updateCase(c, null);
-//    }
-//
-//    protected void deleteCaseInDatabase(CaseModel c) {
-//        model.deleteCase(c, null);
-//    }
 }

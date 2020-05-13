@@ -4,6 +4,11 @@ public class SeekBarDifficultModel extends BaseModel {
 
     private int progress;
 
+    public SeekBarDifficultModel(boolean topMargin) {
+        super(topMargin);
+        progress = 0;
+    }
+
     public SeekBarDifficultModel(boolean topMargin, int progress) {
         super(topMargin);
         this.progress = progress;

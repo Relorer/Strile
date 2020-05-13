@@ -1,5 +1,6 @@
 package com.example.strile.sevice.recycler_view_adapter.adapters;
 
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
@@ -25,44 +26,45 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter {
         sortedItems = getSortedItems();
     }
 
-    protected SortedList<BaseModel> getSortedItems() {
-        return new SortedList<>(BaseModel.class, new SortedList.Callback<BaseModel>() {
-            @Override
-            public int compare(BaseModel o1, BaseModel o2) {
-                return 0;
-            }
-
-            @Override
-            public void onChanged(int position, int count) {
-                notifyItemRangeChanged(position, count);
-            }
-
-            @Override
-            public boolean areContentsTheSame(BaseModel oldItem, BaseModel newItem) {
-                return oldItem.equals(newItem);
-            }
-
-            @Override
-            public boolean areItemsTheSame(BaseModel item1, BaseModel item2) {
-                return item1.getId() == item2.getId();
-            }
-
-            @Override
-            public void onInserted(int position, int count) {
-                notifyItemRangeInserted(position, count);
-            }
-
-            @Override
-            public void onRemoved(int position, int count) {
-                notifyItemRangeRemoved(position, count);
-            }
-
-            @Override
-            public void onMoved(int fromPosition, int toPosition) {
-                notifyItemMoved(fromPosition, toPosition);
-            }
-        });
-    }
+    protected abstract SortedList<BaseModel> getSortedItems();
+//    {
+//        return new SortedList<>(BaseModel.class, new SortedList.Callback<BaseModel>() {
+//            @Override
+//            public int compare(BaseModel o1, BaseModel o2) {
+//                return 0;
+//            }
+//
+//            @Override
+//            public void onChanged(int position, int count) {
+//                notifyItemRangeChanged(position, count);
+//            }
+//
+//            @Override
+//            public boolean areContentsTheSame(BaseModel oldItem, BaseModel newItem) {
+//                return oldItem.equals(newItem);
+//            }
+//
+//            @Override
+//            public boolean areItemsTheSame(BaseModel item1, BaseModel item2) {
+//                return item1.getId() == item2.getId();
+//            }
+//
+//            @Override
+//            public void onInserted(int position, int count) {
+//                notifyItemRangeInserted(position, count);
+//            }
+//
+//            @Override
+//            public void onRemoved(int position, int count) {
+//                notifyItemRangeRemoved(position, count);
+//            }
+//
+//            @Override
+//            public void onMoved(int fromPosition, int toPosition) {
+//                notifyItemMoved(fromPosition, toPosition);
+//            }
+//        });
+//    }
 
     @Override
     public long getItemId(int position) {

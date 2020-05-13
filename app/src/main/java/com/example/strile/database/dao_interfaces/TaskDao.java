@@ -16,6 +16,9 @@ public interface TaskDao {
     @Query("SELECT * FROM task ORDER BY name ASC")
     LiveData<List<Task>> getAlphabetizedAll();
 
+    @Query("SELECT * FROM task WHERE id = :id")
+    LiveData<Task> getById(long id);
+
     @Insert
     void insert(Task task);
 

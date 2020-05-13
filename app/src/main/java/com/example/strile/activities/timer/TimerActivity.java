@@ -14,17 +14,21 @@ import com.example.strile.database.entities.Habit;
 import com.example.strile.fragments.timer.TimerFragment;
 
 public class TimerActivity extends AppCompatActivity {
-    private Habit habit;
+
+    private static final String HABIT_ID = "habit_id";
+
+    private long habitId;
 
     private TimerFragment timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        habit = getIntent().getParcelableExtra(Habit.class.getCanonicalName());
+        habitId = getIntent().getLongExtra(HABIT_ID, -1);
+        if (habitId == -1) throw new IllegalArgumentException("Habit activity received an incorrect id");
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_timer);
-        timer = new TimerFragment(habit);
+        timer = new TimerFragment();
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.frame, timer, "timer")
                 .commit();
@@ -52,9 +56,9 @@ public class TimerActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    public static void startForResult(Activity caller, Habit habit) {
+    public static void start(Activity caller, long habitId) {
         Intent intent = new Intent(caller, TimerActivity.class);
-        intent.putExtra(Habit.class.getCanonicalName(), habit);
-        caller.startActivityForResult(intent, 12);
+        intent.putExtra(HABIT_ID, habitId);
+        caller.startActivity(intent);
     }
 }

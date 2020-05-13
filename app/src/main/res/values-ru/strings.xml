@@ -37,7 +37,7 @@
     <string name="minutes">minutes</string>
     <string name="no_time">no time</string>
     <string name="add_deadline">Add deadline</string>
-    <string name="deadline_by">By</string>
+    <string name="deadline_by">До</string>
     <string name="show_completed">Show Сompleted</string>
     <string name="hide_completed">Hide Сompleted</string>
     <string name="everyday">everyday</string>
@@ -49,4 +49,5 @@
     <string name="days">days</string>
     <string name="days_of_active">days of active</string>
     <string name="points_more">points more</string>
+    <string name="dateFormatForDeadlineSelection">dd MMM, yyyy</string>
 </resources>

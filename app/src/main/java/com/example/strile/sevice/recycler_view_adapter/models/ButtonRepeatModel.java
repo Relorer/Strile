@@ -6,7 +6,12 @@ public class ButtonRepeatModel extends BaseModel {
 
     private boolean[] daysRepeat;
 
-    public ButtonRepeatModel(boolean topMargin, @NonNull boolean[] daysRepeat) {
+    public ButtonRepeatModel(boolean topMargin) {
+        super(topMargin);
+        daysRepeat = new boolean[7];
+    }
+
+    public ButtonRepeatModel(boolean topMargin, boolean[] daysRepeat) {
         super(topMargin);
         this.daysRepeat = daysRepeat;
     }

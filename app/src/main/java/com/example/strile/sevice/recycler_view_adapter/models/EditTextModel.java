@@ -2,15 +2,13 @@ package com.example.strile.sevice.recycler_view_adapter.models;
 
 public class EditTextModel extends BaseModel {
 
-    private final String hint;
     private final int lineCount;
     private final int maxLength;
-    private String text;
+    private String text = "";
+    private String hint = "";
 
-    public EditTextModel(boolean topMargin, String text, String hint, int lineCount, int maxLength) {
+    public EditTextModel(boolean topMargin, int lineCount, int maxLength) {
         super(topMargin);
-        this.text = text;
-        this.hint = hint;
         this.lineCount = lineCount;
         this.maxLength = maxLength;
     }
@@ -38,6 +36,11 @@ public class EditTextModel extends BaseModel {
 
     public EditTextModel setText(String text) {
         this.text = text;
+        return this;
+    }
+
+    public EditTextModel setHint(String hint) {
+        this.hint = hint;
         return this;
     }
 }

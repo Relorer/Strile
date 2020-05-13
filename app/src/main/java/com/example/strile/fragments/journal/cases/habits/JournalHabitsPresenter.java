@@ -1,11 +1,6 @@
 package com.example.strile.fragments.journal.cases.habits;
 
-
-import android.util.Log;
-
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.Transformations;
 
 import com.example.strile.App;
@@ -13,7 +8,6 @@ import com.example.strile.database.entities.Habit;
 import com.example.strile.database.repositories.HabitRepository;
 import com.example.strile.database.repositories.Repository;
 import com.example.strile.fragments.journal.cases.JournalCasesPresenter;
-import com.example.strile.sevice.Day;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonHidingModel;
 import com.example.strile.sevice.recycler_view_adapter.models.CaseModel;
@@ -23,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.annotation.Nullable;
 
 public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsFragment> {
 
@@ -42,7 +34,6 @@ public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsF
                 .map(model -> modelList.getModel(false, model, visibleDay))
                 .collect(Collectors.toList()));
         idButton = new ButtonHidingModel(false, false, 0).getId();
-        //repository.insert(new Habit("asd", 12, 123, 1, new boolean[]{true, true, true, true, true, true, true}, new ArrayList<>())); //todo remove
     }
 
     @Override
@@ -55,7 +46,7 @@ public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsF
     @Override
     public void itemClicked(CaseModel model) {
         Habit habit = ((HabitModel) model).getHabit();
-        view().startHabitActivity(habit);
+        view().startHabitActivity(habit.getId());
     }
 
     @Override

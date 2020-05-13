@@ -28,7 +28,10 @@ public class SeekBarDifficultHolder extends BaseHolder<SeekBarDifficultModel> {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    onModelChangedListener.onChanged(model.setProgress(progress));
+                onModelChangedListener.onChanged(model.setProgress(progress));
+                Difficulty difficulty = new Difficulty(progress);
+                changeTextDifficult(difficulty);
+                changeColorThumb(difficulty);
             }
 
             @Override
@@ -54,12 +57,12 @@ public class SeekBarDifficultHolder extends BaseHolder<SeekBarDifficultModel> {
 
     private void changeTextDifficult(Difficulty difficulty) {
         text.setText(difficulty.getName(view.getContext()));
-        text.setTextColor(difficulty.getColor());
+        text.setTextColor(view.getContext().getColor(difficulty.getColor()));
     }
 
     private void changeColorThumb(Difficulty difficulty) {
         Drawable thumb = seekBar.getThumb();
-        thumb.setColorFilter(difficulty.getColor(), PorterDuff.Mode.SRC_ATOP);
+        thumb.setColorFilter(view.getContext().getColor(difficulty.getColor()), PorterDuff.Mode.SRC_ATOP);
         seekBar.setThumb(thumb);
     }
 }

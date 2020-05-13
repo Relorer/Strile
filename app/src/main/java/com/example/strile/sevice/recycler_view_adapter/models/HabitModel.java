@@ -15,6 +15,12 @@ public class HabitModel extends BaseModel implements CaseModel {
         this.date = date;
     }
 
+    public HabitModel(int id, boolean topMargin, Habit habit, Date date) {
+        super(id, topMargin);
+        this.habit = habit;
+        this.date = date;
+    }
+
     @Override
     public int getType() {
         return HABIT_TYPE;
@@ -43,10 +49,5 @@ public class HabitModel extends BaseModel implements CaseModel {
 
     public Habit getHabit() {
         return habit;
-    }
-
-    public HabitModel setDate(Date date) {
-        this.date = date;
-        return this;
     }
 }

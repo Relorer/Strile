@@ -1,9 +1,8 @@
 package com.example.strile.activities.case_activity.habit;
 
-import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -16,11 +15,14 @@ import com.example.strile.database.entities.Habit;
 
 public class HabitActivity extends BaseCaseActivity {
 
-Habit habit;
+    private static final String HABIT_ID = "habit_id";
+
+    private long habitId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        habit = getIntent().getParcelableExtra(Habit.class.getCanonicalName());
+        habitId = getIntent().getLongExtra(HABIT_ID, -1);
+        if (habitId == -1) throw new IllegalArgumentException("Habit activity received an incorrect id");
         super.onCreate(savedInstanceState);
         textTitle.setText(R.string.t_habit);
         imageSpecialPurposeRight.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.basket, null));
@@ -29,25 +31,17 @@ Habit habit;
 
     @Override
     protected BaseCasePresenter getNewPresenter() {
-        //todo
-        return new HabitPresenter();
+        return new HabitPresenter(habitId);
     }
 
-    public static void start(Fragment caller, Habit habit) {
+    public static void start(Activity caller, long habitId) {
         setCaller(caller);
-        Intent intent = new Intent(caller.getContext(), HabitActivity.class);
-        intent.putExtra(Habit.class.getCanonicalName(), habit);
+        Intent intent = new Intent(caller, HabitActivity.class);
+        intent.putExtra(HABIT_ID, habitId);
         caller.startActivity(intent);
     }
 
-    public void openTimer(Habit habit) {
-        TimerActivity.startForResult(this, habit);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        Habit habit = data.getParcelableExtra(Habit.class.getCanonicalName());
-//        ((HabitPresenter)getPresenter()).setHabit(habit);
+    public void openTimer(long habitId) {
+        TimerActivity.start(this, habitId);
     }
 }

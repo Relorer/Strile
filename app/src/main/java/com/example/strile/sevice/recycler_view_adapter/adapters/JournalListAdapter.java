@@ -1,8 +1,11 @@
 package com.example.strile.sevice.recycler_view_adapter.adapters;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.SortedList;
 
+import com.example.strile.database.entities.Habit;
 import com.example.strile.sevice.event_handler_interfaces.OnClickListener;
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonHidingModel;
@@ -41,7 +44,7 @@ public class JournalListAdapter extends BaseRecyclerViewAdapter {
                     if (!tm2.isComplete() && tm1.isComplete()) return 1;
                     if (tm2.isComplete() && !tm1.isComplete()) return -1;
                 }
-                return o1.getId() - o2.getId();
+                return 0;
             }
 
             @Override
@@ -51,12 +54,16 @@ public class JournalListAdapter extends BaseRecyclerViewAdapter {
 
             @Override
             public boolean areContentsTheSame(BaseModel oldItem, BaseModel newItem) {
-                return oldItem.equals(newItem);
+                HabitModel h1 = (HabitModel)oldItem;
+                HabitModel h2 = (HabitModel)newItem;
+                return h1.getHabit().equals(h2.getHabit());
             }
 
             @Override
             public boolean areItemsTheSame(BaseModel item1, BaseModel item2) {
-                return item1.getId() == item2.getId();
+                HabitModel h1 = (HabitModel)item1;
+                HabitModel h2 = (HabitModel)item2;
+                return h1.getHabit().getId() == h2.getHabit().getId();
             }
 
             @Override

@@ -41,7 +41,9 @@ public class ButtonRepeatHolder extends BaseHolder<ButtonRepeatModel> {
 
     private String fromArrayDaysToString(boolean[] days) {
         final DateFormatSymbols symbols = new DateFormatSymbols(Locale.getDefault());
-        final String[] weekdays = symbols.getWeekdays();
+
+        final String[] weekdays = new String[7];
+        System.arraycopy(symbols.getShortWeekdays(), 1, weekdays, 0, 7);
 
         //todo days maybe not work
 
@@ -67,6 +69,7 @@ public class ButtonRepeatHolder extends BaseHolder<ButtonRepeatModel> {
         final FragmentManager manager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
         final DialogRepeatOptions dialog = new DialogRepeatOptions(checkedDays, result -> {
             onModelChangedListener.onChanged(model.setDaysRepeat(result));
+            changeTextRepeat();
         });
         dialog.show(manager, "Repeat");
     }

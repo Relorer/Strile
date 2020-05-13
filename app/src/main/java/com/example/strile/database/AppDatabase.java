@@ -16,7 +16,7 @@ import com.example.strile.database.entities.Task;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Habit.class, Task.class, Executed.class}, version = 1)
+@Database(entities = {Habit.class, Task.class, Executed.class}, version = 11)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract HabitDao habitDao();
 
@@ -37,6 +37,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             AppDatabase.class, "app_database")
+                            .fallbackToDestructiveMigration() //todo delete
                             .build();
                 }
             }

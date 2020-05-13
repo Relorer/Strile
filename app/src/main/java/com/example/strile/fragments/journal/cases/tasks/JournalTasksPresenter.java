@@ -5,7 +5,7 @@ import com.example.strile.fragments.journal.cases.JournalCasesPresenter;
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonHidingModel;
 import com.example.strile.sevice.recycler_view_adapter.models.CaseModel;
 
-public class JournalTasksPresenter extends JournalCasesPresenter {
+public class JournalTasksPresenter extends JournalCasesPresenter<JournalTasksFragment> {
 
     @Override
     public void itemClicked(CaseModel model) {
