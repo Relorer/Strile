@@ -45,11 +45,9 @@ public class ButtonRepeatHolder extends BaseHolder<ButtonRepeatModel> {
         final String[] weekdays = new String[7];
         System.arraycopy(symbols.getShortWeekdays(), 1, weekdays, 0, 7);
 
-        //todo days maybe not work
-
         int count = 0;
         for(boolean d : days) count += d ? 1 : 0;
-        String text = "Repeat ";
+        String text = view.getContext().getString(R.string.repeat) + " ";
         if (count == 7) text += view.getContext().getString(R.string.everyday);
         else if (count == 0) text = view.getContext().getString(R.string.no_repeat);
         else {

@@ -1,21 +1,23 @@
-package com.example.strile.activities.timer.timer_states;
+package com.example.strile.activities.timer.states;
 
 import android.app.Activity;
 import android.os.CountDownTimer;
 
 import com.example.strile.R;
 import com.example.strile.database.entities.Habit;
+import com.example.strile.sevice.TimerController;
+import com.example.strile.sevice.TimerState;
 import com.example.strile.sevice.TimerView;
 
-public class TimerRunning implements HabitTimerState {
+public class HabitTimerRunning implements TimerState {
 
     private final TimerView view;
-    private final HabitTimer timer;
+    private final TimerController timer;
     private final Habit habit;
 
     private CountDownTimer countDownTimer;
 
-    public TimerRunning(TimerView view, HabitTimer timer, Habit habit) {
+    public HabitTimerRunning(TimerView view, TimerController timer, Habit habit) {
         this.view = view;
         this.timer = timer;
         this.habit = habit;
@@ -26,7 +28,7 @@ public class TimerRunning implements HabitTimerState {
     @Override
     public void primaryButtonClicked() {
         countDownTimer.cancel();
-        timer.setState(new TimerPause(view, timer, habit));
+        timer.setState(new HabitTimerPause(view, timer, habit));
     }
 
     @Override

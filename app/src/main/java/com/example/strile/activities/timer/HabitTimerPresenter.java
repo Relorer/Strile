@@ -3,20 +3,20 @@ package com.example.strile.activities.timer;
 import androidx.lifecycle.LiveData;
 
 import com.example.strile.App;
-import com.example.strile.activities.timer.timer_states.HabitTimer;
-import com.example.strile.activities.timer.timer_states.HabitTimerState;
-import com.example.strile.activities.timer.timer_states.TimerNoActive;
+import com.example.strile.sevice.TimerController;
+import com.example.strile.sevice.TimerState;
+import com.example.strile.activities.timer.states.HabitTimerNoActive;
 import com.example.strile.database.entities.Habit;
 import com.example.strile.database.repositories.HabitRepository;
 import com.example.strile.database.repositories.Repository;
 import com.example.strile.sevice.presenter.BasePresenter;
 
-public class HabitTimerPresenter extends BasePresenter<HabitTimerActivity> implements HabitTimer {
+public class HabitTimerPresenter extends BasePresenter<HabitTimerActivity> implements TimerController {
 
     private final Repository<Habit> repository;
     private final LiveData<Habit> habit;
 
-    private HabitTimerState state;
+    private TimerState state;
 
     public HabitTimerPresenter(long habitId) {
         repository = new HabitRepository(App.getInstance());
@@ -38,7 +38,7 @@ public class HabitTimerPresenter extends BasePresenter<HabitTimerActivity> imple
         habit.observe(view(), habit -> {
             if (habit != null && view() != null) {
                  view().setTextItemTitle(habit.getName());
-                 state = new TimerNoActive(view(), this, habit);
+                 state = new HabitTimerNoActive(view(), this, habit);
             }
         });
     }
@@ -52,7 +52,7 @@ public class HabitTimerPresenter extends BasePresenter<HabitTimerActivity> imple
     }
 
     @Override
-    public void setState(HabitTimerState state) {
+    public void setState(TimerState state) {
         this.state = state;
     }
 }

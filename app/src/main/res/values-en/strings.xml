@@ -56,4 +56,6 @@
     <string name="stop">Stop</string>
     <string name="resume">Resume</string>
     <string name="done">Done</string>
+    <string name="repeat">Repeat</string>
+    <string name="skip">skip</string>
 </resources>

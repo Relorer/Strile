@@ -76,12 +76,12 @@
         android:textAllCaps="true"
         android:textAppearance="@style/TextPrimary"
         android:textColor="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@id/text_timer_control_secondary"
+        app:layout_constraintBottom_toTopOf="@id/button_timer_control_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/text_timer_control_secondary"
+        android:id="@+id/button_timer_control_secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_base"

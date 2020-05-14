@@ -1,18 +1,20 @@
-package com.example.strile.activities.timer.timer_states;
+package com.example.strile.activities.timer.states;
 
 import android.app.Activity;
 
 import com.example.strile.R;
 import com.example.strile.database.entities.Habit;
+import com.example.strile.sevice.TimerController;
+import com.example.strile.sevice.TimerState;
 import com.example.strile.sevice.TimerView;
 
-public class TimerPause implements HabitTimerState {
+public class HabitTimerPause implements TimerState {
 
     private final TimerView view;
-    private final HabitTimer timer;
+    private final TimerController timer;
     private final Habit habit;
 
-    public TimerPause(TimerView view, HabitTimer timer, Habit habit) {
+    public HabitTimerPause(TimerView view, TimerController timer, Habit habit) {
         this.view = view;
         this.timer = timer;
         this.habit = habit;
@@ -21,7 +23,7 @@ public class TimerPause implements HabitTimerState {
 
     @Override
     public void primaryButtonClicked() {
-        timer.setState(new TimerRunning(view, timer, habit));
+        timer.setState(new HabitTimerRunning(view, timer, habit));
     }
 
     @Override

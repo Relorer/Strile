@@ -1,18 +1,29 @@
 package com.example.strile.fragments.timer;
 
-import android.os.CountDownTimer;
-import android.util.Log;
-
-import com.example.strile.App;
-import com.example.strile.R;
-import com.example.strile.database.entities.Habit;
+import com.example.strile.fragments.timer.states.TimerPomodoroNoActive;
+import com.example.strile.sevice.TimerController;
+import com.example.strile.sevice.TimerState;
 import com.example.strile.sevice.presenter.BasePresenter;
 
-public class TimerPresenter extends BasePresenter<TimerFragment> {
+public class TimerPresenter extends BasePresenter<TimerFragment> implements TimerController {
+
+    private TimerState state;
+
     @Override
     protected void updateView() {
-        //todo
+        state = new TimerPomodoroNoActive(view(), this, 1);
     }
 
+    public void buttonTimerControlSecondaryClicked() {
+        state.secondaryButtonClicked();
+    }
 
+    public void buttonTimerControlPrimaryClicked() {
+        state.primaryButtonClicked();
+    }
+
+    @Override
+    public void setState(TimerState state) {
+        this.state = state;
+    }
 }

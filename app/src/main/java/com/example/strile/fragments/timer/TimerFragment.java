@@ -1,5 +1,6 @@
 package com.example.strile.fragments.timer;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,17 +16,14 @@ import com.example.strile.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.strile.database.entities.Habit;
+import com.example.strile.sevice.TimerView;
 import com.example.strile.views.TimerCanvas;
 import com.example.strile.sevice.presenter.PresenterManager;
 
-public class TimerFragment extends Fragment {
+public class TimerFragment extends Fragment implements TimerView {
 
     private TimerPresenter presenter;
 
-    private View view;
-
-    private TextView textTitle;
     private TextView textTime;
     private Button buttonTimerControlPrimary;
     private TextView textItemTitle;
@@ -33,38 +31,28 @@ public class TimerFragment extends Fragment {
     private TextView textButtonTimerControlSecondary;
     private TimerCanvas timerCanvas;
 
-    private Habit habit;
-
-    public TimerFragment() {
-    }
-
-    public TimerFragment(Habit habit) {
-        this.habit = habit;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.timer_view, container, false);
 
-        textTitle = view.findViewById(R.id.text_title);
+        TextView textTitle = view.findViewById(R.id.text_title);
         textTime = view.findViewById(R.id.text_timer_time);
-        buttonTimerControlPrimary = view.findViewById(R.id.button_timer_control_primary);
         textItemTitle = view.findViewById(R.id.text_item_title);
         timerCanvas = view.findViewById(R.id.view_canvas);
         textInfo = view.findViewById(R.id.text_info);
-        textButtonTimerControlSecondary = view.findViewById(R.id.text_timer_control_secondary);
+        buttonTimerControlPrimary = view.findViewById(R.id.button_timer_control_primary);
+        textButtonTimerControlSecondary = view.findViewById(R.id.button_timer_control_secondary);
 
         textTitle.setText(R.string.focus_timer);
-//todo
+
         buttonTimerControlPrimary.setOnClickListener(v -> {
-//            presenter.buttonTimerControlClicked(buttonTimerControlPrimary.getText().toString());
+            presenter.buttonTimerControlPrimaryClicked();
         });
         textButtonTimerControlSecondary.setOnClickListener(v -> {
-//            presenter.textButtonTimerControlClicked(textButtonTimerControlSecondary.getText().toString());
+            presenter.buttonTimerControlSecondaryClicked();
         });
 
-        this.view = view;
         return view;
     }
 
@@ -80,8 +68,12 @@ public class TimerFragment extends Fragment {
         timerCanvas.setCurrentTime(time);
     }
 
-    public void setTextTime(String text) {
-        textTime.setText(text);
+    @SuppressLint("DefaultLocale")
+    @Override
+    public void setTextTime(long time) {
+        final long minutes = time / 60000;
+        final long seconds = time / 1000 % 60;
+        textTime.setText(String.format("%02d:%02d", minutes, seconds));
     }
 
     public void setTextButtonTimerControlSecondary(String text) {
@@ -96,22 +88,11 @@ public class TimerFragment extends Fragment {
         textItemTitle.setText(text);
     }
 
-    public Habit getHabit() {
-        return habit;
-    }
-
-    @Nullable
-    @Override
-    public View getView() {
-        return view;
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         if (savedInstanceState == null) {
-            //todo
             presenter = new TimerPresenter();
         } else {
             presenter = PresenterManager.getInstance().restorePresenter(savedInstanceState);
