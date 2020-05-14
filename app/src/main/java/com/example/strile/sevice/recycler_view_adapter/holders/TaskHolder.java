@@ -47,7 +47,7 @@ public class TaskHolder extends BaseHolder<TaskModel> {
         name.setText(model.getName());
         done.setChecked(model.isComplete());
         final long deadline = model.getDeadline();
-        if (new Date().getTime() >= deadline && deadline != 0)
+        if (new Date().getTime() >= deadline && deadline != 0 && !model.isComplete())
             info.setTextColor(view.getContext().getColor(R.color.colorRed));
         else
             info.setTextColor(view.getContext().getColor(R.color.colorLightGray));

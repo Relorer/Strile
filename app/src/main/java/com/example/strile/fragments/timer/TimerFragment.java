@@ -45,7 +45,7 @@ public class TimerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_timer, container, false);
+        View view = inflater.inflate(R.layout.timer_view, container, false);
 
         textTitle = view.findViewById(R.id.text_title);
         textTime = view.findViewById(R.id.text_timer_time);

@@ -9,7 +9,15 @@ import java.util.Date;
 
 public abstract class JournalCasesPresenter<T extends JournalCasesFragment> extends BasePresenter<T> {
 
+    protected boolean showCompleted = false;
+
+    protected final int idButton;
+
     protected Date visibleDay = new Day(new Date()).getDateOfDayWithoutTime();
+
+    protected JournalCasesPresenter() {
+        idButton = new ButtonHidingModel(false, false, 0).getId();
+    }
 
     public void setVisibleDay(Date visibleDay) {
         this.visibleDay = visibleDay;
@@ -19,5 +27,7 @@ public abstract class JournalCasesPresenter<T extends JournalCasesFragment> exte
 
     public abstract void itemStateChanged(CaseModel model);
 
-    public abstract void buttonHidingStateChanged(ButtonHidingModel button);
+    public void buttonHidingStateChanged(ButtonHidingModel button) {
+        showCompleted = button.isChecked();
+    }
 }

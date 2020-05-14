@@ -54,16 +54,12 @@ public class JournalListAdapter extends BaseRecyclerViewAdapter {
 
             @Override
             public boolean areContentsTheSame(BaseModel oldItem, BaseModel newItem) {
-                HabitModel h1 = (HabitModel)oldItem;
-                HabitModel h2 = (HabitModel)newItem;
-                return h1.getHabit().equals(h2.getHabit());
+                return oldItem.equals(newItem);
             }
 
             @Override
             public boolean areItemsTheSame(BaseModel item1, BaseModel item2) {
-                HabitModel h1 = (HabitModel)item1;
-                HabitModel h2 = (HabitModel)item2;
-                return h1.getHabit().getId() == h2.getHabit().getId();
+                return item1.getId() == item2.getId();
             }
 
             @Override

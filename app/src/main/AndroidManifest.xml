@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.timer.TimerActivity" />
+        <activity android:name=".activities.timer.HabitTimerActivity" />
         <activity android:name=".activities.case_activity.task.TaskActivity" />
         <activity android:name=".activities.case_activity.habit.HabitActivity" />
         <activity

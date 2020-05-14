@@ -6,6 +6,11 @@ public class ButtonDateSelectionModel extends BaseModel {
 
     private Date date;
 
+    public ButtonDateSelectionModel(boolean topMargin) {
+        super(topMargin);
+        date = new Date(0);
+    }
+
     public ButtonDateSelectionModel(boolean topMargin, Date date) {
         super(topMargin);
         this.date = date;

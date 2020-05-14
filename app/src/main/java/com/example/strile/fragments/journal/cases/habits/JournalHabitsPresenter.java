@@ -23,9 +23,6 @@ public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsF
     private final Repository<Habit> repository;
     private final LiveData<List<HabitModel>> habits;
 
-    private boolean showCompleted = false;
-    private final int idButton;
-
     public JournalHabitsPresenter() {
         repository = new HabitRepository(App.getInstance());
         final LiveData<List<Habit>> habits = repository.getAll();
@@ -33,7 +30,6 @@ public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsF
         this.habits = Transformations.map(habits, input -> input.stream()
                 .map(model -> modelList.getModel(false, model, visibleDay))
                 .collect(Collectors.toList()));
-        idButton = new ButtonHidingModel(false, false, 0).getId();
     }
 
     @Override
@@ -57,7 +53,7 @@ public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsF
 
     @Override
     public void buttonHidingStateChanged(ButtonHidingModel button) {
-        showCompleted = button.isChecked();
+        super.buttonHidingStateChanged(button);
         buildDisplayedList(habits.getValue());
     }
 
@@ -67,20 +63,23 @@ public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsF
     }
 
     private void buildDisplayedList(List<HabitModel> habits) {
-        final List<BaseModel> models = new ArrayList<>();
-        final List<HabitModel> forDay = getPlannedForDay(habits, visibleDay);
-        final List<HabitModel> unfulfilled = getUnfulfilledOnDay(forDay, visibleDay);
-        final int countCompleted = forDay.size() - unfulfilled.size();
-        if (showCompleted) {
-            models.addAll(forDay);
+        if (view() != null) {
+            final List<BaseModel> models = new ArrayList<>();
+            final List<HabitModel> forDay = getPlannedForDay(habits, visibleDay);
+            final List<HabitModel> unfulfilled = getUnfulfilledOnDay(forDay, visibleDay);
+            final int countCompleted = forDay.size() - unfulfilled.size();
+            if (showCompleted) {
+                models.addAll(forDay);
+            }
+            else {
+                models.addAll(unfulfilled);
+            }
+            if (countCompleted > 0) {
+                models.add(new ButtonHidingModel(idButton, false, showCompleted, countCompleted));
+            }
+            view().setSortedList(models);
+
         }
-        else {
-            models.addAll(unfulfilled);
-        }
-        if (countCompleted > 0) {
-            models.add(new ButtonHidingModel(idButton, false, showCompleted, countCompleted));
-        }
-        view().setSortedList(models);
     }
 
     private List<HabitModel> getPlannedForDay(List<HabitModel> models, Date day) {

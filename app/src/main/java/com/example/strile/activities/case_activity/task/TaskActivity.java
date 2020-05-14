@@ -1,7 +1,6 @@
 package com.example.strile.activities.case_activity.task;
 
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,11 +14,14 @@ import com.example.strile.database.entities.Task;
 
 public class TaskActivity extends BaseCaseActivity {
 
-    private Task task;
+    private static final String TASK_ID = "task_id";
+
+    private long taskId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        task = getIntent().getParcelableExtra(Task.class.getCanonicalName());
+        taskId = getIntent().getLongExtra(TASK_ID, -1);
+        if (taskId == -1) throw new IllegalArgumentException("Task activity received an incorrect id");
         super.onCreate(savedInstanceState);
         textTitle.setText(R.string.task);
         imageSpecialPurposeRight.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.basket, null));
@@ -28,14 +30,13 @@ public class TaskActivity extends BaseCaseActivity {
 
     @Override
     protected BaseCasePresenter getNewPresenter() {
-        //todo
-        return new TaskPresenter();
+        return new TaskPresenter(taskId);
     }
 
-    public static void start(Activity caller, Task task) {
+    public static void start(Activity caller, long taskId) {
         setCaller(caller);
         Intent intent = new Intent(caller, TaskActivity.class);
-        intent.putExtra(Task.class.getCanonicalName(), task);
+        intent.putExtra(TASK_ID, taskId);
         caller.startActivity(intent);
     }
 

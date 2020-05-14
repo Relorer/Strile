@@ -28,7 +28,9 @@ public class ButtonDateSelectionHolder extends BaseHolder<ButtonDateSelectionMod
 
         view.setOnClickListener(v -> openDialogSetDate(model.getDate()));
         buttonDelete.setOnClickListener(v -> {
-            onModelChangedListener.onChanged(model.setDate(new Date()));
+            onModelChangedListener.onChanged(model.setDate(new Date(0)));
+            changeTextDeadline();
+            buttonDelete.setVisibility(View.INVISIBLE);
         });
     }
 
@@ -63,6 +65,7 @@ public class ButtonDateSelectionHolder extends BaseHolder<ButtonDateSelectionMod
             dateAndTime.set(year, month, dayOfMonth, 0, 0, 0);
             onModelChangedListener.onChanged(model.setDate(dateAndTime.getTime()));
             changeTextDeadline();
+            buttonDelete.setVisibility(View.VISIBLE);
         },
                 dateAndTime.get(Calendar.YEAR),
                 dateAndTime.get(Calendar.MONTH),

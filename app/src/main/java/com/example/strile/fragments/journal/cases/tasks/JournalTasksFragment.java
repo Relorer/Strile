@@ -8,8 +8,8 @@ import com.example.strile.fragments.journal.cases.JournalCasesPresenter;
 
 public class JournalTasksFragment extends JournalCasesFragment implements JournalCasesPage {
 
-    private void startCaseActivity(Task task) {
-        TaskActivity.start(this.getActivity(), task);
+    public void startTaskActivity(long TaskId) {
+        TaskActivity.start(this.getActivity(), TaskId);
     }
 
     @Override

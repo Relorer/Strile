@@ -27,7 +27,7 @@ import javax.security.auth.callback.Callback;
 @Entity(tableName = "habit")
 public class Habit implements Parcelable {
 
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private String name;
     private int difficulty;
@@ -47,6 +47,7 @@ public class Habit implements Parcelable {
         this.elapsedTime = elapsedTime;
         this.daysRepeat = daysRepeat;
         this.datesCompleted = datesCompleted;
+        getDateCompleted(new Date());
     }
 
     @Ignore
@@ -66,7 +67,7 @@ public class Habit implements Parcelable {
         difficulty = Difficulty.maxDifficulty / 3;
         goalTime = 0;
         elapsedTime = 0;
-        daysRepeat = arrayRepeatToInt(new boolean[] {true, true, true, true, true, true, true});
+        daysRepeat = arrayRepeatToInt(new boolean[]{true, true, true, true, true, true, true});
         datesCompleted = new ArrayList<>();
     }
 
@@ -110,21 +111,22 @@ public class Habit implements Parcelable {
     }
 
     public int getStreakByDay(Date date) {
+        date = new Day(date).getDateOfDayWithoutTime();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Day(date).getDateOfDayWithoutTime());
+        calendar.setTime(date);
         datesCompleted.sort((o1, o2) -> (int) (o2.getDate() - o1.getDate()));
         int streak = 0;
         for (DateCompleted item : datesCompleted) {
 
             final long itemDate = item.getDate();
-            if (itemDate < date.getTime()) {
+            if (itemDate <= date.getTime()) {
                 while (calendar.getTimeInMillis() != itemDate) {
                     calendar.add(Calendar.DATE, -1);
                     if (calendar.getTimeInMillis() == itemDate) break;
                     if (plannedForDay(calendar.getTime())) return streak;
                 }
                 if (item.isComplete()) streak++;
-                else if (plannedForDay(new Date(itemDate))) break;
+                else if (itemDate != date.getTime() && plannedForDay(new Date(itemDate))) break;
             }
 
         }
@@ -154,10 +156,21 @@ public class Habit implements Parcelable {
     }
 
     public void setGoalTime(long goalTime) {
+        Date day = new Day(new Date()).getDateOfDayWithoutTime();
+        if (elapsedTime < goalTime && isCompleteOnDay(day)) {
+            setStateForDay(false, day);
+        }
+        else if (elapsedTime >= goalTime && !isCompleteOnDay(day)) {
+            setStateForDay(true, day);
+        }
         this.goalTime = goalTime;
     }
 
     public void setElapsedTime(long elapsedTime) {
+        Date day = new Day(new Date()).getDateOfDayWithoutTime();
+        if (elapsedTime >= goalTime && !isCompleteOnDay(day)) {
+            setStateForDay(true, day);
+        }
         this.elapsedTime = elapsedTime;
     }
 
@@ -182,6 +195,7 @@ public class Habit implements Parcelable {
         if (found == null) {
             DateCompleted newDateCompleted = new DateCompleted(dateOfDayWithoutTime.getTime(), false);
             datesCompleted.add(newDateCompleted);
+            if (dateOfDayWithoutTime.getTime() == new Day(new Date()).getDateOfDayWithoutTime().getTime()) elapsedTime = 0;
             return newDateCompleted;
         }
         return found;

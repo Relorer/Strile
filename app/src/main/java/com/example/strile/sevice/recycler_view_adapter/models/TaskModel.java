@@ -15,6 +15,12 @@ public class TaskModel extends BaseModel implements CaseModel {
         this.dateComplete = dateComplete;
     }
 
+    public TaskModel(int id, boolean topMargin, Task task, Date dateComplete) {
+        super(id, topMargin);
+        this.task = task;
+        this.dateComplete = dateComplete;
+    }
+
     @Override
     public int getType() {
         return TASK_TYPE;

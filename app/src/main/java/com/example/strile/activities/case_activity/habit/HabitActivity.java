@@ -10,8 +10,7 @@ import android.os.Bundle;
 import com.example.strile.R;
 import com.example.strile.activities.case_activity.BaseCaseActivity;
 import com.example.strile.activities.case_activity.BaseCasePresenter;
-import com.example.strile.activities.timer.TimerActivity;
-import com.example.strile.database.entities.Habit;
+import com.example.strile.activities.timer.HabitTimerActivity;
 
 public class HabitActivity extends BaseCaseActivity {
 
@@ -42,6 +41,6 @@ public class HabitActivity extends BaseCaseActivity {
     }
 
     public void openTimer(long habitId) {
-        TimerActivity.start(this, habitId);
+        HabitTimerActivity.start(this, habitId);
     }
 }

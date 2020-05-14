@@ -39,7 +39,7 @@ public class AddTaskPresenter extends BaseCasePresenter<AddTaskActivity> {
         task = new Task();
 
         editTextName = new EditTextModel(false, 1, 80);
-        editTextDescription = new EditTextModel(false, 1, 80);
+        editTextDescription = new EditTextModel(false, 0, 0);
         buttonDateSelection = new ButtonDateSelectionModel(true, new Date(0));
         buttonAddSubtask = new ButtonAddSubtaskModel(false);
         seekBarDifficult = new SeekBarDifficultModel(true, task.getDifficulty());
@@ -67,7 +67,7 @@ public class AddTaskPresenter extends BaseCasePresenter<AddTaskActivity> {
 
     @Override
     protected void updateView() {
-        List<BaseModel> models = new ArrayList<>();
+        final List<BaseModel> models = new ArrayList<>();
         editTextName.setHint(view().getString(R.string.t_name));
         editTextDescription.setHint(view().getString(R.string.description));
         models.add(editTextName);

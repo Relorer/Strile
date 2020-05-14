@@ -3,6 +3,7 @@ package com.example.strile.fragments.journal;
 import com.example.strile.fragments.journal.cases.JournalCasesPage;
 import com.example.strile.fragments.journal.cases.habits.JournalHabitsFragment;
 import com.example.strile.fragments.journal.cases.tasks.JournalTasksFragment;
+import com.example.strile.sevice.Day;
 import com.example.strile.sevice.presenter.BasePresenter;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 import com.example.strile.sevice.recycler_view_adapter.models.DayModel;
@@ -10,6 +11,7 @@ import com.example.strile.sevice.recycler_view_adapter.models.HabitModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class JournalPresenter extends BasePresenter<JournalFragment> {
@@ -20,6 +22,7 @@ public class JournalPresenter extends BasePresenter<JournalFragment> {
     JournalPresenter() {
         days = new ArrayList<>();
         final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Day(new Date()).getDateOfDayWithoutTime());
         selected = new DayModel(false, calendar.getTime(), true);
         days.add(selected);
         for (int i = 1; i < 30; i++){

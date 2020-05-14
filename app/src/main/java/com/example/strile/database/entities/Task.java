@@ -58,8 +58,8 @@ public class Task implements Parcelable {
         this.subtasks = subtasks;
     }
 
-    public boolean plannedForDay(long date) {
-        return dateCreate <= date && (dateComplete == 0 || dateComplete >= date);
+    public boolean plannedForDay(Date date) {
+        return dateCreate <= date.getTime() && (dateComplete == 0 || dateComplete >= date.getTime());
     }
 
     public boolean isCompleteOnDay(Date date) {

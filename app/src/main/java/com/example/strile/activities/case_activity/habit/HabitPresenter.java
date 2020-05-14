@@ -1,5 +1,7 @@
 package com.example.strile.activities.case_activity.habit;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 
 import com.example.strile.App;
@@ -51,6 +53,9 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
         this.habit.removeObservers(view());
         Habit habit = this.habit.getValue();
         if (habit.getName().equals("")) habit.setName(view().getString(R.string.t_no_name));
+        if (habit.getDaysRepeat() == 0) habit.setDaysRepeat(new boolean[] {
+                true, true, true, true, true, true, true //7 days
+        });
         repository.update(habit);
         super.unbindView();
     }
@@ -73,7 +78,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
     @Override
     protected void updateView() {
         habit.observe(view(), habit -> {
-            if (habit != null) {
+            if (habit != null && view() != null) {
                 final List<BaseModel> models = new ArrayList<>();
 
                 editTextName.setHint(view().getString(R.string.t_name));
@@ -88,7 +93,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
                 currentStreak.setStreak(habit.getStreakByDay(new Day(new Date()).getDateOfDayWithoutTime()));
 
                 models.add(editTextName);
-                if (habit.getGoalTime() != habit.getElapsedTime())
+                if (habit.getGoalTime() > habit.getElapsedTime())
                     models.add(progressBarElapsedTime);
                 models.add(currentStreak);
                 models.add(buttonRepeat);

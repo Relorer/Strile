@@ -2,6 +2,7 @@ package com.example.strile.sevice.recycler_view_adapter.holders;
 
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.TextView;
@@ -43,13 +44,20 @@ public class EditTextHolder extends BaseHolder<EditTextModel> {
         super.bind(model);
         text.setHint(model.getHint());
         text.setText(model.getText());
-
         if (model.getLineCount() != 0) text.setMaxLines(model.getLineCount());
         else text.setMaxLines(Integer.MAX_VALUE);
 
+        if (model.getLineCount() == 1) {
+            text.setInputType(InputType.TYPE_CLASS_TEXT |
+                    InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        } else {
+            text.setInputType(InputType.TYPE_CLASS_TEXT |
+                    InputType.TYPE_TEXT_FLAG_MULTI_LINE |
+                    InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        }
+
         if (model.getMaxLength() != 0) {
             text.setFilters(new InputFilter[]{new InputFilter.LengthFilter(model.getMaxLength())});
-        }
-        else text.setFilters(new InputFilter[]{});
+        } else text.setFilters(new InputFilter[]{});
     }
 }

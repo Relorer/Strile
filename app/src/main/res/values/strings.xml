@@ -58,4 +58,10 @@
     <string name="days_of_active">days of active</string>
     <string name="points_more">points more</string>
     <string name="dateFormatForDeadlineSelection">dd MMM, yyyy</string>
+    <string name="start">Start</string>
+    <string name="lets_go">Let\'s go!</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
+    <string name="resume">Resume</string>
+    <string name="done">Done</string>
 </resources>
