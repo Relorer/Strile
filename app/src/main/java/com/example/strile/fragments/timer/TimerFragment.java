@@ -16,7 +16,7 @@ import com.example.strile.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.strile.sevice.TimerView;
+import com.example.strile.sevice.timer.TimerView;
 import com.example.strile.views.TimerCanvas;
 import com.example.strile.sevice.presenter.PresenterManager;
 

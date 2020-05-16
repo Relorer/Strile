@@ -22,7 +22,7 @@ public class ExecutedRepository implements Repository<Executed> {
     public ExecutedRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         executedDao = db.executedDao();
-        allExecuted = executedDao.getAlphabetizedAll();
+        allExecuted = executedDao.getAll();
     }
 
     public LiveData<List<Executed>> getAll() {

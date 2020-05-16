@@ -1,4 +1,4 @@
-package com.example.strile.sevice;
+package com.example.strile.sevice.settings;
 
 import android.content.Context;
 

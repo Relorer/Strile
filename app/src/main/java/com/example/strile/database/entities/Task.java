@@ -10,8 +10,8 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.example.strile.sevice.Day;
-import com.example.strile.sevice.Difficulty;
+import com.example.strile.sevice.date.Day;
+import com.example.strile.sevice.settings.Difficulty;
 import com.example.strile.sevice.converters.SubtasksConverter;
 import com.example.strile.sevice.structures.Subtask;
 

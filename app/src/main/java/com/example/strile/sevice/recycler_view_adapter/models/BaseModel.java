@@ -9,7 +9,7 @@ public abstract class BaseModel {
     public static final int DAY_TYPE = 6;
     public static final int GRAPH_PROGRESS_TYPE = 7;
     public static final int INFO_PROGRESS_TYPE = 8;
-    public static final int COMPLETE_CASE_TYPE = 9;
+    public static final int EXECUTED_TYPE = 9;
     public static final int SEEK_BAR_DIFFICULT_TYPE = 10;
     public static final int PROGRESS_BAR_ELAPSED_TIME_TYPE = 11;
     public static final int BUTTON_HIDING_TYPE = 12;
@@ -17,12 +17,12 @@ public abstract class BaseModel {
     public static final int BUTTON_TIME_GOAL_TYPE = 14;
     public static final int BUTTON_REPEAT_TYPE = 15;
     public static final int BUTTON_DATE_SELECTION_TYPE = 16;
-    public static final int EXECUTED_TYPE = 17;
 
     private static int maxId = 0;
 
     private final int id;
     private boolean topMargin;
+    private boolean bottomMargin;
 
     protected BaseModel(boolean topMargin) {
         this.topMargin = topMargin;
@@ -43,5 +43,13 @@ public abstract class BaseModel {
 
     public boolean isTopMargin() {
         return topMargin;
+    }
+
+    public boolean isBottomMargin() {
+        return bottomMargin;
+    }
+
+    public void setBottomMargin(boolean bottomMargin) {
+        this.bottomMargin = bottomMargin;
     }
 }

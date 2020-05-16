@@ -3,7 +3,6 @@ package com.example.strile.database.entities;
 import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
@@ -11,8 +10,8 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.example.strile.sevice.Day;
-import com.example.strile.sevice.Difficulty;
+import com.example.strile.sevice.date.Day;
+import com.example.strile.sevice.settings.Difficulty;
 import com.example.strile.sevice.converters.DatesConverter;
 import com.example.strile.sevice.structures.DateCompleted;
 
@@ -20,8 +19,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import javax.security.auth.callback.Callback;
 
 @SuppressLint("ParcelCreator")
 @Entity(tableName = "habit")
@@ -159,8 +156,7 @@ public class Habit implements Parcelable {
         Date day = new Day(new Date()).getDateOfDayWithoutTime();
         if (elapsedTime < goalTime && isCompleteOnDay(day)) {
             setStateForDay(false, day);
-        }
-        else if (elapsedTime >= goalTime && !isCompleteOnDay(day)) {
+        } else if (elapsedTime >= goalTime && !isCompleteOnDay(day) && goalTime > 0) {
             setStateForDay(true, day);
         }
         this.goalTime = goalTime;
@@ -168,7 +164,7 @@ public class Habit implements Parcelable {
 
     public void setElapsedTime(long elapsedTime) {
         Date day = new Day(new Date()).getDateOfDayWithoutTime();
-        if (elapsedTime >= goalTime && !isCompleteOnDay(day)) {
+        if (elapsedTime >= goalTime && !isCompleteOnDay(day) && goalTime > 0) {
             setStateForDay(true, day);
         }
         this.elapsedTime = elapsedTime;
@@ -195,7 +191,8 @@ public class Habit implements Parcelable {
         if (found == null) {
             DateCompleted newDateCompleted = new DateCompleted(dateOfDayWithoutTime.getTime(), false);
             datesCompleted.add(newDateCompleted);
-            if (dateOfDayWithoutTime.getTime() == new Day(new Date()).getDateOfDayWithoutTime().getTime()) elapsedTime = 0;
+            if (dateOfDayWithoutTime.getTime() == new Day(new Date()).getDateOfDayWithoutTime().getTime())
+                elapsedTime = 0;
             return newDateCompleted;
         }
         return found;

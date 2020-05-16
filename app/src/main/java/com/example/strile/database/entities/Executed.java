@@ -9,20 +9,23 @@ import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 public class Executed {
 
     @PrimaryKey(autoGenerate = true)
-    private final long id;
+    private long id;
     private final long caseId;
     private final String name;
     private final long dateComplete;
     private final int experience;
     private final String typeCase;
 
-    public Executed(long id, long caseId, String name, long dateComplete, int experience, String typeCase) {
-        this.id = id;
+    public Executed(long caseId, String name, long dateComplete, int experience, String typeCase) {
         this.caseId = caseId;
         this.name = name;
         this.dateComplete = dateComplete;
         this.experience = experience;
         this.typeCase = typeCase;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {

@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.strile.R;
-import com.example.strile.sevice.TimerView;
+import com.example.strile.sevice.timer.TimerView;
 import com.example.strile.sevice.presenter.PresenterManager;
 import com.example.strile.views.TimerCanvas;
 

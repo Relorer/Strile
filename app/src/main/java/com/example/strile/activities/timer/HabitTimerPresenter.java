@@ -3,8 +3,8 @@ package com.example.strile.activities.timer;
 import androidx.lifecycle.LiveData;
 
 import com.example.strile.App;
-import com.example.strile.sevice.TimerController;
-import com.example.strile.sevice.TimerState;
+import com.example.strile.sevice.timer.TimerController;
+import com.example.strile.sevice.timer.TimerState;
 import com.example.strile.activities.timer.states.HabitTimerNoActive;
 import com.example.strile.database.entities.Habit;
 import com.example.strile.database.repositories.HabitRepository;

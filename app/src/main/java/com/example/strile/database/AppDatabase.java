@@ -16,7 +16,7 @@ import com.example.strile.database.entities.Task;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Habit.class, Task.class, Executed.class}, version = 11)
+@Database(entities = {Habit.class, Task.class, Executed.class}, version = 19)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract HabitDao habitDao();
 

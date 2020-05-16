@@ -25,14 +25,17 @@ public abstract class BaseHolder<M extends BaseModel> extends RecyclerView.ViewH
 
     public void bind(M model) {
         this.model = model;
-        if (model.isTopMargin()) setTopMargin(view.getResources().getDimensionPixelSize(R.dimen.margin_between_blocks));
-        else setTopMargin(0);
+        int margin = view.getResources().getDimensionPixelSize(R.dimen.margin_between_blocks);
+        if (model.isTopMargin() && model.isBottomMargin()) setMargin(margin, margin);
+        else if (model.isTopMargin()) setMargin(margin, 0);
+        else if (model.isBottomMargin()) setMargin(0, margin);
+        else setMargin(0, 0);
     }
 
-    private void setTopMargin(int top) {
+    private void setMargin(int top, int bottom) {
         if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-            p.setMargins(0, top, 0, 0);
+            p.setMargins(0, top, 0, bottom);
             view.requestLayout();
         }
     }

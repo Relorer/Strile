@@ -1,7 +1,5 @@
 package com.example.strile.activities.case_activity.habit;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 
 import com.example.strile.App;
@@ -10,7 +8,7 @@ import com.example.strile.activities.case_activity.BaseCasePresenter;
 import com.example.strile.database.entities.Habit;
 import com.example.strile.database.repositories.HabitRepository;
 import com.example.strile.database.repositories.Repository;
-import com.example.strile.sevice.Day;
+import com.example.strile.sevice.date.Day;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonRepeatModel;
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonTimeGoalModel;

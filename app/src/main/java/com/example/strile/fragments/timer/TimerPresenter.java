@@ -1,8 +1,8 @@
 package com.example.strile.fragments.timer;
 
 import com.example.strile.fragments.timer.states.TimerPomodoroNoActive;
-import com.example.strile.sevice.TimerController;
-import com.example.strile.sevice.TimerState;
+import com.example.strile.sevice.timer.TimerController;
+import com.example.strile.sevice.timer.TimerState;
 import com.example.strile.sevice.presenter.BasePresenter;
 
 public class TimerPresenter extends BasePresenter<TimerFragment> implements TimerController {

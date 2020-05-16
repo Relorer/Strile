@@ -21,6 +21,14 @@ public class GraphProgressModel extends BaseModel {
         this.tasksByDays = tasksByDays;
     }
 
+    public GraphProgressModel(int id, boolean topMargin, int maxHabit, int maxTask, int[] habitsByDays, int[] tasksByDays) {
+        super(id, topMargin);
+        this.maxHabit = maxHabit;
+        this.maxTask = maxTask;
+        this.habitsByDays = habitsByDays;
+        this.tasksByDays = tasksByDays;
+    }
+
     @Override
     public int getType() {
         return GRAPH_PROGRESS_TYPE;

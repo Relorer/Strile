@@ -1,4 +1,4 @@
-package com.example.strile.sevice;
+package com.example.strile.sevice.timer;
 
 public interface TimerState {
     void primaryButtonClicked();

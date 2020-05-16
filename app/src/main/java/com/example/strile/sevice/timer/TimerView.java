@@ -1,4 +1,4 @@
-package com.example.strile.sevice;
+package com.example.strile.sevice.timer;
 
 public interface TimerView {
     void setTextInfo(String text);

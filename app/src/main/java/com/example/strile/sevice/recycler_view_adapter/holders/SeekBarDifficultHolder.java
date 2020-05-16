@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.strile.R;
-import com.example.strile.sevice.Difficulty;
+import com.example.strile.sevice.settings.Difficulty;
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
 import com.example.strile.sevice.recycler_view_adapter.models.SeekBarDifficultModel;
 

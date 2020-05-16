@@ -6,8 +6,6 @@ import com.example.strile.activities.case_activity.BaseCasePresenter;
 import com.example.strile.database.entities.Task;
 import com.example.strile.database.repositories.Repository;
 import com.example.strile.database.repositories.TaskRepository;
-import com.example.strile.sevice.Day;
-import com.example.strile.sevice.Difficulty;
 import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonAddSubtaskModel;
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonDateSelectionModel;
@@ -17,7 +15,6 @@ import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
 import com.example.strile.sevice.structures.Subtask;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 

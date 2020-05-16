@@ -17,6 +17,15 @@ public class InfoProgressModel extends BaseModel {
         this.days = days;
     }
 
+    public InfoProgressModel(int id, boolean topMargin, String name, long days, long level, long experience, long remained) {
+        super(id, topMargin);
+        this.name = name;
+        this.days = days;
+        this.level = level;
+        this.experience = experience;
+        this.remained = remained;
+    }
+
     @Override
     public int getType() {
         return INFO_PROGRESS_TYPE;

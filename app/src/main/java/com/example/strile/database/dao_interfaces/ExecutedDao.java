@@ -13,8 +13,8 @@ import java.util.List;
 
 @Dao
 public interface ExecutedDao {
-    @Query("SELECT * FROM executed ORDER BY name ASC")
-    LiveData<List<Executed>> getAlphabetizedAll();
+    @Query("SELECT * FROM executed ORDER BY dateComplete DESC")
+    LiveData<List<Executed>> getAll();
 
     @Query("SELECT * FROM Executed WHERE dateComplete >= :date")
     LiveData<List<Executed>> getLiveDataLaterDate(long date);

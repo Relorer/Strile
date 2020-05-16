@@ -1,6 +1,6 @@
 package com.example.strile.fragments.journal.cases;
 
-import com.example.strile.sevice.Day;
+import com.example.strile.sevice.date.Day;
 import com.example.strile.sevice.presenter.BasePresenter;
 import com.example.strile.sevice.recycler_view_adapter.models.ButtonHidingModel;
 import com.example.strile.sevice.recycler_view_adapter.models.CaseModel;
