@@ -16,8 +16,14 @@ public interface ExecutedDao {
     @Query("SELECT * FROM executed ORDER BY dateComplete DESC")
     LiveData<List<Executed>> getAll();
 
-    @Query("SELECT * FROM Executed WHERE dateComplete >= :date")
+    @Query("SELECT * FROM executed WHERE dateComplete >= :date")
     LiveData<List<Executed>> getLiveDataLaterDate(long date);
+
+    @Query("DELETE FROM executed WHERE dateComplete < :date")
+    void deleteBeforeDate(long date);
+
+    @Query("DELETE FROM executed WHERE caseId == :id AND typeCase == :type")
+    void deleteByCaseId(long id, String type);
 
     @Insert
     void insert(Executed executed);

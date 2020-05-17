@@ -11,9 +11,12 @@ import com.example.strile.database.entities.Executed;
 import com.example.strile.database.entities.Habit;
 import com.example.strile.database.entities.Task;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Nullable;
+import javax.security.auth.callback.Callback;
 
 public class ExecutedRepository implements Repository<Executed> {
     private final ExecutedDao executedDao;
@@ -23,6 +26,9 @@ public class ExecutedRepository implements Repository<Executed> {
         AppDatabase db = AppDatabase.getDatabase(application);
         executedDao = db.executedDao();
         allExecuted = executedDao.getAll();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -8);
+        deleteBeforeDate(calendar.getTime());
     }
 
     public LiveData<List<Executed>> getAll() {
@@ -53,6 +59,18 @@ public class ExecutedRepository implements Repository<Executed> {
     public void delete(Executed executed) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             executedDao.delete(executed);
+        });
+    }
+
+    public void deleteByCaseId(long id, String typeCase) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            executedDao.deleteByCaseId(id, typeCase);
+        });
+    }
+
+    private void deleteBeforeDate(Date date) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            executedDao.deleteBeforeDate(date.getTime());
         });
     }
 }

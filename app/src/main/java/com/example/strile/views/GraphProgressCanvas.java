@@ -1,5 +1,6 @@
 package com.example.strile.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -13,13 +14,13 @@ import com.example.strile.R;
 
 public class GraphProgressCanvas extends View {
 
-    private final int offsetDotted = 20;
-    private final int widthDotted = 23;
-    private final int baseMargin = getResources().getDimensionPixelOffset(R.dimen.margin_base);
+    private final int offsetDotted = getResources().getDimensionPixelOffset(R.dimen.offsetDottedGraph);
+    private final int widthDotted = getResources().getDimensionPixelOffset(R.dimen.widthDottedGraph);
+    private final int baseMargin = getResources().getDimensionPixelOffset(R.dimen.margin_horizontal_progress_bar);
     private final int textSize = getResources().getDimensionPixelSize(R.dimen.font_size_text_secondary);
-    private final int strokeWidthGrid = 2;
-    private final int strokeWidthGraph = 4;
-    private final int radiusCircle = 10;
+    private final int strokeWidthGrid = getResources().getDimensionPixelOffset(R.dimen.strokeWidthGridGraph);
+    private final int strokeWidthLineGraph = getResources().getDimensionPixelOffset(R.dimen.strokeWidthLineGraph);
+    private final int radiusCircle = getResources().getDimensionPixelOffset(R.dimen.radiusCircleGraph);
     private final int countDivisionsY = 3;
     private final Paint fontPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint gridPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -50,7 +51,7 @@ public class GraphProgressCanvas extends View {
         gridPaint.setColor(getContext().getColor(R.color.colorLightGray));
         gridPaint.setStrokeWidth(strokeWidthGrid);
         graphPaint.setColor(getContext().getColor(R.color.colorAccent));
-        graphPaint.setStrokeWidth(strokeWidthGraph);
+        graphPaint.setStrokeWidth(strokeWidthLineGraph);
     }
 
     public void setMax(int max) {
@@ -73,7 +74,7 @@ public class GraphProgressCanvas extends View {
         if (points.length == 0 || ptsGraph.length == 0) return;
 
         float heightText = Math.abs(fontPaint.getFontMetrics().top);
-        float leftMarginGrid = baseMargin + fontPaint.measureText(String.valueOf(max)) + baseMargin * 0.3f;
+        float leftMarginGrid = baseMargin + fontPaint.measureText(String.format("%d.0", max)) + baseMargin * 0.3f;
         float heightGrid = getHeight() - 2 * heightText;
         float widthGrid = getWidth() - leftMarginGrid - baseMargin - fontPaint.measureText(String.valueOf(points[points.length - 2])) / 2;
 
@@ -84,7 +85,11 @@ public class GraphProgressCanvas extends View {
             float topMargin = (heightText / 2) + i * heightGrid / countDivisionsY;
             float[] pts = generatePointsDottedLine(leftMarginGrid, topMargin, (int) widthGrid);
             canvas.drawLines(pts, gridPaint);
-            String num = i == 0 ? String.valueOf(max) : String.format("%d", max / countDivisionsY * (countDivisionsY - i));
+
+            double lineVisibleNum = i == 0 ? (double) max : (((double) max / countDivisionsY) * (countDivisionsY - i));
+
+            @SuppressLint("DefaultLocale")
+            String num = String.format("%.1f", lineVisibleNum);
             if (num.equals("0")) num = "";
             float xNum = leftMarginGrid - fontPaint.measureText(num) - baseMargin * 0.3f;
             float yNum = topMargin + heightText * 0.3f;

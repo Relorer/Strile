@@ -1,14 +1,10 @@
 package com.example.strile.activities.main;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 
 import com.example.strile.R;
 import com.example.strile.fragments.journal.JournalFragment;
@@ -16,9 +12,6 @@ import com.example.strile.fragments.progress.ProgressFragment;
 import com.example.strile.fragments.timer.TimerFragment;
 import com.example.strile.sevice.presenter.PresenterManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Calendar;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,37 +38,37 @@ public class MainActivity extends AppCompatActivity {
         toConfigureBottomNavigation();
     }
 
+    public void setVisibleFragment(int itemId) {
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().hide(journalFragment).hide(timerFragment).hide(progressFragment).commit();
+        switch (itemId) {
+            case R.id.item_journal:
+                fragmentManager.beginTransaction().show(journalFragment).commit();
+                break;
+            case R.id.item_timer:
+                fragmentManager.beginTransaction().show(timerFragment).commit();
+                break;
+            case R.id.item_progress:
+                fragmentManager.beginTransaction().show(progressFragment).commit();
+                break;
+        }
+    }
+
     private void toConfigureBottomNavigation() {
         fragmentManager = getSupportFragmentManager();
+        for (Fragment fragment : fragmentManager.getFragments()) {
+         fragmentManager.beginTransaction().remove(fragment).commit();
+        }
         fragmentManager.beginTransaction()
                 .add(R.id.frame_main, journalFragment, "journal")
-                .add(R.id.frame_main, timerFragment, "timer").hide(timerFragment)
-                .add(R.id.frame_main, progressFragment, "progress").hide(progressFragment)
+                .add(R.id.frame_main, timerFragment, "timer")
+                .add(R.id.frame_main, progressFragment, "progress")
                 .commit();
-
-
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            Fragment active = journalFragment;
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                presenter.bottomNavigationSelectedItemChanged(menuItem.getItemId());
-                switch (menuItem.getItemId()) {
-                    case R.id.item_journal:
-                        fragmentManager.beginTransaction().hide(active).show(journalFragment).commit();
-                        active = journalFragment;
-                        break;
-                    case R.id.item_timer:
-                        fragmentManager.beginTransaction().hide(active).show(timerFragment).commit();
-                        active = timerFragment;
-                        break;
-                    case R.id.item_progress:
-                        fragmentManager.beginTransaction().hide(active).show(progressFragment).commit();
-                        active = progressFragment;
-                        break;
-                }
-                return true;
-            }
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            presenter.bottomNavigationSelectedItemChanged(menuItem.getItemId());
+            setVisibleFragment(menuItem.getItemId());
+            return true;
         });
     }
 

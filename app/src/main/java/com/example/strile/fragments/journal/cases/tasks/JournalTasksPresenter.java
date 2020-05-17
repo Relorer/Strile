@@ -58,8 +58,14 @@ public class JournalTasksPresenter extends JournalCasesPresenter<JournalTasksFra
     }
 
     @Override
+    public void unbindView() {
+        super.unbindView();
+    }
+
+    @Override
     protected void updateView() {
-        tasks.observe(view(), this::buildDisplayedList);
+        if (!tasks.hasActiveObservers())
+            tasks.observe(view(), this::buildDisplayedList);
     }
 
     private void buildDisplayedList(List<TaskModel> tasks) {
@@ -70,8 +76,7 @@ public class JournalTasksPresenter extends JournalCasesPresenter<JournalTasksFra
             final int countCompleted = forDay.size() - unfulfilled.size();
             if (showCompleted) {
                 models.addAll(forDay);
-            }
-            else {
+            } else {
                 models.addAll(unfulfilled);
             }
             if (countCompleted > 0) {

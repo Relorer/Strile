@@ -34,6 +34,11 @@
     <dimen name="width_timer_button">125dp</dimen>
     <dimen name="width_timer_animation_short_line">80dp</dimen>
     <dimen name="width_timer_animation_long_line">120dp</dimen>
+    <dimen name="strokeWidthGridGraph">1dp</dimen>
+    <dimen name="strokeWidthLineGraph">1.8dp</dimen>
+    <dimen name="radiusCircleGraph">4dp</dimen>
+    <dimen name="widthDottedGraph">10dp</dimen>
+    <dimen name="offsetDottedGraph">8dp</dimen>
     <!--
     Because the window insets on round devices are larger than 15dp, this padding only applies
     to square screens.

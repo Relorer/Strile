@@ -48,10 +48,9 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
 
     @Override
     public void unbindView() {
-        this.habit.removeObservers(view());
         Habit habit = this.habit.getValue();
         if (habit.getName().equals("")) habit.setName(view().getString(R.string.t_no_name));
-        if (habit.getDaysRepeat() == 0) habit.setDaysRepeat(new boolean[] {
+        if (habit.getDaysRepeat() == 0) habit.setDaysRepeat(new boolean[]{
                 true, true, true, true, true, true, true //7 days
         });
         repository.update(habit);
@@ -75,32 +74,34 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
 
     @Override
     protected void updateView() {
-        habit.observe(view(), habit -> {
-            if (habit != null && view() != null) {
-                final List<BaseModel> models = new ArrayList<>();
+        if (!habit.hasActiveObservers()) {
+            habit.observe(view(), habit -> {
+                if (habit != null && view() != null) {
+                    final List<BaseModel> models = new ArrayList<>();
 
-                editTextName.setHint(view().getString(R.string.t_name));
-                editTextName.setText(habit.getName());
-                buttonRepeat.setDaysRepeat(habit.getDaysRepeatAsArray());
-                buttonTimeGoal.setGoalTime(habit.getGoalTime());
-                seekBarDifficult.setProgress(habit.getDifficulty());
-                final ProgressBarElapsedTimeModel progressBarElapsedTime =
-                        new ProgressBarElapsedTimeModel(progressBarElapsedTimeId, true);
-                progressBarElapsedTime.setMax((int) (habit.getGoalTime() / 60 / 1000)); //todo careless cast: long to int
-                progressBarElapsedTime.setProgress((int) (habit.getElapsedTime() / 60 / 1000));
-                currentStreak.setStreak(habit.getStreakByDay(new Day(new Date()).getDateOfDayWithoutTime()));
+                    editTextName.setHint(view().getString(R.string.t_name));
+                    editTextName.setText(habit.getName());
+                    buttonRepeat.setDaysRepeat(habit.getDaysRepeatAsArray());
+                    buttonTimeGoal.setGoalTime(habit.getGoalTime());
+                    seekBarDifficult.setProgress(habit.getDifficulty());
+                    final ProgressBarElapsedTimeModel progressBarElapsedTime =
+                            new ProgressBarElapsedTimeModel(progressBarElapsedTimeId, true);
+                    progressBarElapsedTime.setMax((int) (habit.getGoalTime() / 60 / 1000)); //todo careless cast: long to int
+                    progressBarElapsedTime.setProgress((int) (habit.getElapsedTime() / 60 / 1000));
+                    currentStreak.setStreak(habit.getStreakByDay(new Day(new Date()).getDateOfDayWithoutTime()));
 
-                models.add(editTextName);
-                if (habit.getGoalTime() > habit.getElapsedTime())
-                    models.add(progressBarElapsedTime);
-                models.add(currentStreak);
-                models.add(buttonRepeat);
-                models.add(buttonTimeGoal);
-                models.add(seekBarDifficult);
+                    models.add(editTextName);
+                    if (habit.getGoalTime() > habit.getElapsedTime())
+                        models.add(progressBarElapsedTime);
+                    models.add(currentStreak);
+                    models.add(buttonRepeat);
+                    models.add(buttonTimeGoal);
+                    models.add(seekBarDifficult);
 
-                view().setSortedList(models);
-            }
-        });
+                    view().setSortedList(models);
+                }
+            });
+        }
     }
 
     @Override

@@ -17,8 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.strile.sevice.timer.TimerView;
-import com.example.strile.views.TimerCanvas;
 import com.example.strile.sevice.presenter.PresenterManager;
+import com.example.strile.views.TimerCanvas;
 
 public class TimerFragment extends Fragment implements TimerView {
 

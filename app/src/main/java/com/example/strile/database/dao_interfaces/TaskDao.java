@@ -19,6 +19,9 @@ public interface TaskDao {
     @Query("SELECT * FROM task WHERE id = :id")
     LiveData<Task> getById(long id);
 
+    @Query("DELETE FROM executed WHERE dateComplete < :date")
+    void deleteBeforeDate(long date);
+
     @Insert
     void insert(Task task);
 

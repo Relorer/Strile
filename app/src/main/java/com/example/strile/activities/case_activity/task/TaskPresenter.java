@@ -49,7 +49,6 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
 
     @Override
     public void unbindView() {
-        this.task.removeObservers(view());
         Task task = this.task.getValue();
         if (task.getName().equals("")) task.setName(view().getString(R.string.t_no_name));
         task.getSubtasks().addAll(subtaskModels.stream()
@@ -76,33 +75,35 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
 
     @Override
     protected void updateView() {
-        task.observe(view(), task -> {
-            if (task != null && view() != null) {
-                if (task.getSubtasks().size() > 0) {
-                    subtaskModels.addAll(task.getSubtasks().stream()
-                            .map(m -> new SubtaskModel(false, m.getName(), m.isComplete()))
-                            .collect(Collectors.toList()));
-                    task.getSubtasks().clear();
+        if (!task.hasActiveObservers()) {
+            task.observe(view(), task -> {
+                if (task != null && view() != null) {
+                    if (task.getSubtasks().size() > 0) {
+                        subtaskModels.addAll(task.getSubtasks().stream()
+                                .map(m -> new SubtaskModel(false, m.getName(), m.isComplete()))
+                                .collect(Collectors.toList()));
+                        task.getSubtasks().clear();
+                    }
+
+                    final List<BaseModel> models = new ArrayList<>();
+
+                    editTextName.setHint(view().getString(R.string.t_name));
+                    editTextName.setText(task.getName());
+                    editTextDescription.setHint(view().getString(R.string.description));
+                    editTextDescription.setText(task.getDescription());
+                    buttonDateSelection.setDate(new Date(task.getDeadline()));
+                    seekBarDifficult.setProgress(task.getDifficulty());
+
+                    models.add(editTextName);
+                    models.add(editTextDescription);
+                    models.add(buttonDateSelection);
+                    models.addAll(subtaskModels);
+                    models.add(buttonAddSubtask);
+                    models.add(seekBarDifficult);
+                    view().setSortedList(models);
                 }
-
-                final List<BaseModel> models = new ArrayList<>();
-
-                editTextName.setHint(view().getString(R.string.t_name));
-                editTextName.setText(task.getName());
-                editTextDescription.setHint(view().getString(R.string.description));
-                editTextDescription.setText(task.getDescription());
-                buttonDateSelection.setDate(new Date(task.getDeadline()));
-                seekBarDifficult.setProgress(task.getDifficulty());
-
-                models.add(editTextName);
-                models.add(editTextDescription);
-                models.add(buttonDateSelection);
-                models.addAll(subtaskModels);
-                models.add(buttonAddSubtask);
-                models.add(seekBarDifficult);
-                view().setSortedList(models);
-            }
-        });
+            });
+        }
     }
 
     @Override

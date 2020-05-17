@@ -41,18 +41,22 @@ public class TimerPomodoroRunning implements TimerState {
     }
 
     private void bindView() {
-        final Activity context = ((Fragment)view).getActivity();
+        final Activity context = ((Fragment) view).getActivity();
         view.setTextButtonTimerControlPrimary(context.getString(R.string.pause));
         view.setTextButtonTimerControlSecondary(context.getString(R.string.stop));
     }
 
     private void startTimer() {
         countDownTimer = new CountDownTimer(remaining, 1) {
+            private int time = 0;
+
             @Override
             public void onTick(long millisUntilFinished) {
                 remaining = millisUntilFinished;
                 view.setCurrentTimeOnCanvas(millisUntilFinished);
-                view.setTextTime(millisUntilFinished);
+                if (time != (int) (remaining / 1000))
+                    view.setTextTime(millisUntilFinished);
+                time = (int) (remaining / 1000);
             }
 
             @Override

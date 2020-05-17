@@ -58,8 +58,14 @@ public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsF
     }
 
     @Override
+    public void unbindView() {
+        super.unbindView();
+    }
+
+    @Override
     protected void updateView() {
-        habits.observe(view(), this::buildDisplayedList);
+        if (!habits.hasActiveObservers())
+            habits.observe(view(), this::buildDisplayedList);
     }
 
     private void buildDisplayedList(List<HabitModel> habits) {
@@ -70,8 +76,7 @@ public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsF
             final int countCompleted = forDay.size() - unfulfilled.size();
             if (showCompleted) {
                 models.addAll(forDay);
-            }
-            else {
+            } else {
                 models.addAll(unfulfilled);
             }
             if (countCompleted > 0) {

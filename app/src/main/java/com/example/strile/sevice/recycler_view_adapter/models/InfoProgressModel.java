@@ -2,25 +2,19 @@ package com.example.strile.sevice.recycler_view_adapter.models;
 
 public class InfoProgressModel extends BaseModel {
 
-    private final String name;
-    private final long days;
     private long level;
     private long experience;
     private long remained;
 
-    public InfoProgressModel(boolean topMargin, String name, long level, long experience, long remained, long days) {
+    public InfoProgressModel(boolean topMargin, long level, long experience, long remained) {
         super(topMargin);
-        this.name = name;
         this.level = level;
         this.experience = experience;
         this.remained = remained;
-        this.days = days;
     }
 
-    public InfoProgressModel(int id, boolean topMargin, String name, long days, long level, long experience, long remained) {
+    public InfoProgressModel(int id, boolean topMargin, long level, long experience, long remained) {
         super(id, topMargin);
-        this.name = name;
-        this.days = days;
         this.level = level;
         this.experience = experience;
         this.remained = remained;
@@ -29,10 +23,6 @@ public class InfoProgressModel extends BaseModel {
     @Override
     public int getType() {
         return INFO_PROGRESS_TYPE;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public long getExperience() {
@@ -45,10 +35,6 @@ public class InfoProgressModel extends BaseModel {
 
     public long getLevel() {
         return level;
-    }
-
-    public long getDays() {
-        return days;
     }
 
     public InfoProgressModel setLevel(long level) {

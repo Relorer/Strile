@@ -11,7 +11,8 @@ public class TimerPresenter extends BasePresenter<TimerFragment> implements Time
 
     @Override
     protected void updateView() {
-        state = new TimerPomodoroNoActive(view(), this, 1);
+        if (state == null)
+            state = new TimerPomodoroNoActive(view(), this, 1);
     }
 
     public void buttonTimerControlSecondaryClicked() {

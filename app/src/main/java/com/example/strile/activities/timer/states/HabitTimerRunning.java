@@ -45,16 +45,20 @@ public class HabitTimerRunning implements TimerState {
     }
 
     private void startTimer() {
+        final long goal = habit.getGoalTime();
         countDownTimer = new CountDownTimer(habit.getGoalTime() - habit.getElapsedTime(), 1) {
+            private int time = 0;
+
             @Override
             public void onTick(long millisUntilFinished) {
-                habit.setElapsedTime(habit.getGoalTime() - millisUntilFinished);
-
-                final long goal = habit.getGoalTime();
-                final long elapsed = habit.getElapsedTime();
-                view.setTextInfo(elapsed / 60000 + " / " + goal / 60000);
-                view.setCurrentTimeOnCanvas(goal - elapsed);
-                view.setTextTime(goal - elapsed);
+                view.setCurrentTimeOnCanvas(millisUntilFinished);
+                final long elapsed = goal - millisUntilFinished;
+                habit.setElapsedTime(elapsed);
+                if (time != (int) (millisUntilFinished / 1000)){
+                    view.setTextInfo(elapsed / 60000 + " / " + goal / 60000);
+                    view.setTextTime(millisUntilFinished);
+                }
+                time = (int) (millisUntilFinished / 1000);
             }
 
             @Override
