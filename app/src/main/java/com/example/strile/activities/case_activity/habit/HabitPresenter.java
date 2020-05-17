@@ -88,7 +88,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
                             new ProgressBarElapsedTimeModel(progressBarElapsedTimeId, true);
                     progressBarElapsedTime.setMax((int) (habit.getGoalTime() / 60 / 1000)); //todo careless cast: long to int
                     progressBarElapsedTime.setProgress((int) (habit.getElapsedTime() / 60 / 1000));
-                    currentStreak.setStreak(habit.getStreakByDay(new Day(new Date()).getDateOfDayWithoutTime()));
+                    currentStreak.setStreak(habit.getStreakByDay(Day.getDateOfDayWithoutTime(new Date())));
 
                     models.add(editTextName);
                     if (habit.getGoalTime() > habit.getElapsedTime())

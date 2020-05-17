@@ -26,9 +26,6 @@ public class ExecutedRepository implements Repository<Executed> {
         AppDatabase db = AppDatabase.getDatabase(application);
         executedDao = db.executedDao();
         allExecuted = executedDao.getAll();
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -8);
-        deleteBeforeDate(calendar.getTime());
     }
 
     public LiveData<List<Executed>> getAll() {
@@ -68,7 +65,7 @@ public class ExecutedRepository implements Repository<Executed> {
         });
     }
 
-    private void deleteBeforeDate(Date date) {
+    public void deleteBeforeDate(Date date) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             executedDao.deleteBeforeDate(date.getTime());
         });

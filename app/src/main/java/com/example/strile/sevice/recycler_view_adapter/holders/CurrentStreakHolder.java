@@ -25,7 +25,7 @@ public class CurrentStreakHolder extends BaseHolder<CurrentStreakModel> {
     @Override
     public void bind(CurrentStreakModel model) {
         super.bind(model);
-        streak.setText(String.format("%d %s", model.getStreak(),
-                view.getContext().getString(R.string.days)));
+        int countDays = model.getStreak();
+        streak.setText(view.getContext().getResources().getQuantityString(R.plurals.days, countDays, countDays));
     }
 }

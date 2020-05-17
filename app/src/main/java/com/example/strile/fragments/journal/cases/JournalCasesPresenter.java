@@ -13,7 +13,7 @@ public abstract class JournalCasesPresenter<T extends JournalCasesFragment> exte
 
     protected final int idButton;
 
-    protected Date visibleDay = new Day(new Date()).getDateOfDayWithoutTime();
+    protected Date visibleDay = Day.getDateOfDayWithoutTime(new Date());
 
     protected JournalCasesPresenter() {
         idButton = new ButtonHidingModel(false, false, 0).getId();

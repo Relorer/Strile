@@ -108,7 +108,7 @@ public class Habit implements Parcelable {
     }
 
     public int getStreakByDay(Date date) {
-        date = new Day(date).getDateOfDayWithoutTime();
+        date = Day.getDateOfDayWithoutTime(date);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         datesCompleted.sort((o1, o2) -> (int) (o2.getDate() - o1.getDate()));
@@ -153,7 +153,7 @@ public class Habit implements Parcelable {
     }
 
     public void setGoalTime(long goalTime) {
-        Date day = new Day(new Date()).getDateOfDayWithoutTime();
+        Date day = Day.getDateOfDayWithoutTime(new Date());
         if (elapsedTime < goalTime && isCompleteOnDay(day)) {
             setStateForDay(false, day);
         } else if (elapsedTime >= goalTime && !isCompleteOnDay(day) && goalTime > 0) {
@@ -163,7 +163,7 @@ public class Habit implements Parcelable {
     }
 
     public void setElapsedTime(long elapsedTime) {
-        Date day = new Day(new Date()).getDateOfDayWithoutTime();
+        Date day = Day.getDateOfDayWithoutTime(new Date());
         if (elapsedTime >= goalTime && !isCompleteOnDay(day) && goalTime > 0) {
             setStateForDay(true, day);
         }
@@ -183,7 +183,7 @@ public class Habit implements Parcelable {
     }
 
     private DateCompleted getDateCompleted(Date date) {
-        final Date dateOfDayWithoutTime = new Day(date).getDateOfDayWithoutTime();
+        final Date dateOfDayWithoutTime = Day.getDateOfDayWithoutTime(date);
         DateCompleted found = datesCompleted.stream()
                 .filter(item -> dateOfDayWithoutTime.getTime() == item.getDate())
                 .findAny()
@@ -191,7 +191,7 @@ public class Habit implements Parcelable {
         if (found == null) {
             DateCompleted newDateCompleted = new DateCompleted(dateOfDayWithoutTime.getTime(), false);
             datesCompleted.add(newDateCompleted);
-            if (dateOfDayWithoutTime.getTime() == new Day(new Date()).getDateOfDayWithoutTime().getTime())
+            if (dateOfDayWithoutTime.getTime() ==Day.getDateOfDayWithoutTime(new Date()).getTime())
                 elapsedTime = 0;
             return newDateCompleted;
         }

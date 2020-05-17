@@ -30,8 +30,8 @@ public class InfoProgressHolder extends BaseHolder<InfoProgressModel> {
     public void bind(InfoProgressModel model) {
         super.bind(model);
         level.setText(String.valueOf(model.getLevel()));
-        remained.setText(String.format("%d %s", model.getRemained(),
-                view.getContext().getString(R.string.points_more)));
+        int remainedCount = (int) model.getRemained();
+        remained.setText(view.getContext().getResources().getQuantityString(R.plurals.points_more, remainedCount, remainedCount));
         levelProgress.setMax((int) (model.getRemained() + model.getExperience()));
         levelProgress.setProgress((int) model.getExperience());
     }

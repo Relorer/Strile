@@ -29,8 +29,6 @@ public class ProgressPresenter extends BasePresenter<ProgressFragment> {
     private final int infoId;
     private final int graphId;
 
-    private Progress progress;
-
     public ProgressPresenter() {
         App app = App.getInstance();
         Repository<Executed> repository = new ExecutedRepository(app);
@@ -42,15 +40,14 @@ public class ProgressPresenter extends BasePresenter<ProgressFragment> {
 
     @Override
     protected void updateView() {
-        progress = Progress.getInstance(view().getContext());
         if (!executed.hasActiveObservers()) {
             executed.observe(view(), executed -> {
                 if (view() != null) {
                     final List<BaseModel> models = new ArrayList<>();
                     models.add(new InfoProgressModel(infoId, false,
-                            progress.getLevel(),
-                            progress.getExperience(),
-                            progress.getGoalExp() - progress.getExperience()));
+                            Progress.getLevel(),
+                            Progress.getExperience(),
+                            Progress.getGoalExp() - Progress.getExperience()));
                     models.add(createGraph(executed));
                     models.addAll(executed.stream()
                             .limit(7)
@@ -74,13 +71,13 @@ public class ProgressPresenter extends BasePresenter<ProgressFragment> {
         int maxTasks = 3;
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Day(new Date()).getDateOfDayWithoutTime());
+        calendar.setTime(Day.getDateOfDayWithoutTime(new Date()));
 
         for (int i = 6; i >= 0; i--) {
             habitsByDay[2 * i] = calendar.get(Calendar.DATE);
             tasksByDay[2 * i] = calendar.get(Calendar.DATE);
             final long day = calendar.getTimeInMillis();
-            List<Executed> daily = executed.stream().filter(e -> new Day(new Date(e.getDateComplete())).getDateOfDayWithoutTime().getTime() == day).collect(Collectors.toList());
+            List<Executed> daily = executed.stream().filter(e -> Day.getDateOfDayWithoutTime(new Date(e.getDateComplete())).getTime() == day).collect(Collectors.toList());
             for (Executed ex : daily) {
                 boolean complete = ex.getExperience() > 0;
                 if (ex.getTypeCase().equals(Habit.class.getCanonicalName())) {

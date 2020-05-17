@@ -48,7 +48,8 @@ public class HabitHolder extends BaseHolder<HabitModel> {
         super.bind(model);
         name.setText(model.getName());
         done.setChecked(model.isComplete());
-        info.setText(String.format("%d %s", model.getStreak(), view.getContext().getString(R.string.day_streak)));
+        int streak = model.getStreak();
+        info.setText(view.getContext().getResources().getQuantityString(R.plurals.day_streak, streak, streak));
         if (model.isGoalTime()) {
             special.setImageDrawable(ResourcesCompat.getDrawable(view.getResources(), R.drawable.time_goal, null));
         } else {

@@ -11,6 +11,7 @@ import com.example.strile.sevice.event_handler_interfaces.OnClickListener;
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
 import com.example.strile.sevice.recycler_view_adapter.models.TaskModel;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -53,10 +54,9 @@ public class TaskHolder extends BaseHolder<TaskModel> {
             info.setTextColor(view.getContext().getColor(R.color.colorLightGray));
         if (deadline == 0) info.setText(R.string.no_deadline);
         else {
-            Calendar c = Calendar.getInstance();
-            c.setTimeInMillis(deadline);
-            info.setText(c.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
-                    + " " + c.get(Calendar.DAY_OF_MONTH) + ", " + c.get(Calendar.YEAR));
+            final String format = view.getContext().getString(R.string.dateFormatForDeadlineSelection);
+            final SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.getDefault());
+            info.setText(dateFormat.format(deadline).toLowerCase());
         }
         binding = false;
     }

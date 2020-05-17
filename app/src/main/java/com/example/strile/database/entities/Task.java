@@ -40,7 +40,7 @@ public class Task implements Parcelable {
         name = "";
         difficulty = Difficulty.maxDifficulty / 3;
         description = "";
-        dateCreate = new Day(new Date()).getDateOfDayWithoutTime().getTime();
+        dateCreate = Day.getDateOfDayWithoutTime(new Date()).getTime();
         deadline = 0;
         dateComplete = 0;
         subtasks = new ArrayList<>();

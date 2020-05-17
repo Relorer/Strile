@@ -48,9 +48,7 @@ public class ButtonDateSelectionHolder extends BaseHolder<ButtonDateSelectionMod
         if (model.getDate().getTime() != 0) {
             final String format = view.getContext().getString(R.string.dateFormatForDeadlineSelection);
             final SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.getDefault());
-            text.setText(String.format("%s %s",
-                    view.getContext().getString(R.string.deadline_by),
-                    dateFormat.format(model.getDate())));
+            text.setText(dateFormat.format(model.getDate()));
 
         } else {
             text.setText(R.string.add_deadline);

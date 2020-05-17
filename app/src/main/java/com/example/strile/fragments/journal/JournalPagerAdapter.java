@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.strile.App;
 import com.example.strile.fragments.journal.cases.JournalCasesPage;
 
 import java.util.List;
@@ -30,8 +31,10 @@ public class JournalPagerAdapter extends FragmentPagerAdapter {
 
     public CharSequence getPageTitle(int position) {
         Fragment fragment = fragments.get(position);
-        if (fragment instanceof JournalCasesPage)
-            return ((JournalCasesPage) fragment).getTitle();
+        if (fragment instanceof JournalCasesPage) {
+            String title = App.getInstance().getString(((JournalCasesPage) fragment).getTitleStringId());
+            return String.format("   %s   ", title);
+        }
         return "";
     }
 }

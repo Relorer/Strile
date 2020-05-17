@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Strile</string>
+
     <string name="add_subtasks">Добавить подзадачу</string>
     <string name="current_streak">Текущее комбо</string>
     <string name="completion_rate">Темп выполнения</string>
@@ -17,7 +19,7 @@
     <string name="t_habit">Привычка</string>
     <string name="t_no_name">Безымянный</string>
     <string name="w_habit_deleted">Привычка удалена</string>
-    <string name="undo">Отмена</string>
+    <string name="undo">Востановить</string>
     <string name="task">Задача</string>
     <string name="w_task_deleted">Задача удалена</string>
     <string name="habits">Привычки</string>
@@ -31,32 +33,45 @@
     <string name="hard">Сложно</string>
     <string name="normal">Нормально</string>
     <string name="simple">Просто</string>
-    <string name="cancel">Cancel</string>
-    <string name="ok">OK</string>
-    <string name="hour">hour</string>
-    <string name="minutes">minutes</string>
-    <string name="no_time">no time</string>
-    <string name="add_deadline">Add deadline</string>
-    <string name="deadline_by">До</string>
-    <string name="show_completed">Show Сompleted</string>
-    <string name="hide_completed">Hide Сompleted</string>
-    <string name="everyday">everyday</string>
-    <string name="no_repeat">No repeat</string>
-    <string name="no_time_goal">No time goal</string>
-    <string name="for_time">For</string>
-    <string name="day_streak">day streak</string>
-    <string name="no_deadline">No deadline</string>
-    <string name="days">days</string>
-    <string name="days_of_active">days of active</string>
-    <string name="points_more">points more</string>
-    <string name="dateFormatForDeadlineSelection">dd MMM, yyyy</string>
-    <string name="start">Start</string>
-    <string name="lets_go">Let\'s go!</string>
-    <string name="pause">Pause</string>
-    <string name="stop">Stop</string>
-    <string name="resume">Resume</string>
-    <string name="done">Done</string>
-    <string name="repeat">Repeat</string>
-    <string name="skip">skip</string>
-    <string name="settings">Settings</string>
+    <string name="cancel">Отмена</string>
+    <string name="ok">ОК</string>
+    <string name="hour">час</string>
+    <string name="minutes">минут</string>
+    <string name="no_time">без времени</string>
+    <string name="add_deadline">Добавить дедлайн</string>
+    <string name="show_completed">Показать выполненные</string>
+    <string name="hide_completed">Скрыть выполненные</string>
+    <string name="everyday">каждый день</string>
+    <string name="no_repeat">Не повторять</string>
+    <string name="no_time_goal">Без цели по времени</string>
+    <string name="for_time">На</string>
+    <string name="no_deadline">Без дедлайна</string>
+    <string name="dateFormatForDeadlineSelection">До dd MMM, yyyy</string>
+    <string name="start">Старт</string>
+    <string name="lets_go">Поехали!</string>
+    <string name="pause">Пауза</string>
+    <string name="stop">Стоп</string>
+    <string name="resume">Продолжить</string>
+    <string name="done">Завершить</string>
+    <string name="repeat">Повторять</string>
+    <string name="skip">пропустить</string>
+    <string name="settings">Настройки</string>
+
+    <plurals name="day_streak">
+        <item quantity="one">%d день подряд</item>
+        <item quantity="few">%d дня подряд</item>
+        <item quantity="many">%d дней подряд</item>
+    </plurals>
+
+    <plurals name="days">
+        <item quantity="one">%d день</item>
+        <item quantity="few">%d дня</item>
+        <item quantity="many">%d дней</item>
+    </plurals>
+
+    <plurals name="points_more">
+        <item quantity="one">%d очко осталось</item>
+        <item quantity="few">%d очка осталось</item>
+        <item quantity="many">%d очков осталось</item>
+    </plurals>
 </resources>
