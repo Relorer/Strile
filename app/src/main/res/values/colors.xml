@@ -11,4 +11,6 @@
 
     <color name="colorMediumCase">#6761C1</color>
     <color name="colorHardCase">#B54472</color>
+
+    <color name="colorTextActiveDay">#fff</color>
 </resources>

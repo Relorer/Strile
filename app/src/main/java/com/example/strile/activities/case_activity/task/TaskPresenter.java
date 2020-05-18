@@ -79,6 +79,7 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
             task.observe(view(), task -> {
                 if (task != null && view() != null) {
                     if (task.getSubtasks().size() > 0) {
+                        subtaskModels.clear();
                         subtaskModels.addAll(task.getSubtasks().stream()
                                 .map(m -> new SubtaskModel(false, m.getName(), m.isComplete()))
                                 .collect(Collectors.toList()));

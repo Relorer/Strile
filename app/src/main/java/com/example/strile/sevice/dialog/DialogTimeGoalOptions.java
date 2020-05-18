@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public class DialogTimeGoalOptions extends DialogFragment {
 
-    private final CompleteCallback<Long> callback;
+    private CompleteCallback<Long> callback;
     private int selected = 0;
 
     public DialogTimeGoalOptions(long time, @NonNull CompleteCallback<Long> callback) {
@@ -26,6 +26,17 @@ public class DialogTimeGoalOptions extends DialogFragment {
         else if (numMinutes == 30) selected = 3;
         else if (numMinutes == 45) selected = 4;
         else if (numMinutes == 60) selected = 5;
+    }
+
+    public DialogTimeGoalOptions() {
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (callback == null)
+            getDialog().cancel();
     }
 
     @NonNull
@@ -42,7 +53,7 @@ public class DialogTimeGoalOptions extends DialogFragment {
         };
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity(),
-                "When creating the dialog box getActivity returned null"));
+                "When creating the dialog box getActivity returned null"), R.style.StandardDialog);
         builder.setSingleChoiceItems(timeOptions, selected,
                 (dialog, item) -> selected = item)
                 .setPositiveButton(R.string.ok, (dialog, id) -> {

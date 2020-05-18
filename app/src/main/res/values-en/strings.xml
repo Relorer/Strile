@@ -46,8 +46,8 @@
     <string name="no_time_goal">No time goal</string>
     <string name="for_time">For</string>
     <string name="no_deadline">No deadline</string>
-    <string name="points_more">points more</string>
-    <string name="dateFormatForDeadlineSelection">By MMM dd, yyyy</string>
+    <string name="by">By</string>
+    <string name="dateFormatForDeadlineSelection">MMM dd, yyyy</string>
     <string name="start">Start</string>
     <string name="lets_go">Let\'s go!</string>
     <string name="pause">Pause</string>

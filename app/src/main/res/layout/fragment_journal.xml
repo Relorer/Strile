@@ -62,6 +62,7 @@
                 app:tabIndicatorGravity="bottom"
                 app:tabIndicatorHeight="@dimen/height_underline"
                 app:tabSelectedTextColor="@color/colorBlack"
+                app:tabRippleColor="@android:color/transparent"
                 app:tabTextColor="@color/colorGray"
                 app:tabTextAppearance="@style/TextTitle"/>
 

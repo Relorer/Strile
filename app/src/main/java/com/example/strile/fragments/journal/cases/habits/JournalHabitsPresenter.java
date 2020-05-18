@@ -58,11 +58,6 @@ public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsF
     }
 
     @Override
-    public void unbindView() {
-        super.unbindView();
-    }
-
-    @Override
     protected void updateView() {
         if (!habits.hasActiveObservers())
             habits.observe(view(), this::buildDisplayedList);

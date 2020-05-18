@@ -8,10 +8,6 @@
 
     <include layout="@layout/app_bar_layout" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_between_blocks" />
+    <include layout="@layout/fragment_recycler_view"/>
 
 </LinearLayout>

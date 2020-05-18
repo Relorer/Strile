@@ -46,7 +46,8 @@
     <string name="no_time_goal">Без цели по времени</string>
     <string name="for_time">На</string>
     <string name="no_deadline">Без дедлайна</string>
-    <string name="dateFormatForDeadlineSelection">До dd MMM, yyyy</string>
+    <string name="by">До</string>
+    <string name="dateFormatForDeadlineSelection">dd MMM, yyyy</string>
     <string name="start">Старт</string>
     <string name="lets_go">Поехали!</string>
     <string name="pause">Пауза</string>

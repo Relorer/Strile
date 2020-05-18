@@ -28,6 +28,7 @@
         android:paddingBottom="@dimen/padding_vertical_edit_text"
         android:textAppearance="@style/TextPrimary"
         android:textColor="@color/colorBlack"
+        android:textColorHint="@color/colorGray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/image_cross"
         app:layout_constraintStart_toEndOf="@+id/checkbox_done"

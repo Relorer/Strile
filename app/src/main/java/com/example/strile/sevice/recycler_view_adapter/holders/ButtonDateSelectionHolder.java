@@ -48,7 +48,7 @@ public class ButtonDateSelectionHolder extends BaseHolder<ButtonDateSelectionMod
         if (model.getDate().getTime() != 0) {
             final String format = view.getContext().getString(R.string.dateFormatForDeadlineSelection);
             final SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.getDefault());
-            text.setText(dateFormat.format(model.getDate()));
+            text.setText(String.format("%s %s", view.getContext().getString(R.string.by), dateFormat.format(model.getDate())));
 
         } else {
             text.setText(R.string.add_deadline);
@@ -59,7 +59,7 @@ public class ButtonDateSelectionHolder extends BaseHolder<ButtonDateSelectionMod
         final Calendar dateAndTime = Calendar.getInstance();
         dateAndTime.setTime(date);
 
-        final DatePickerDialog dialog = new DatePickerDialog(view.getContext(), (view, year, month, dayOfMonth) -> {
+        final DatePickerDialog dialog = new DatePickerDialog(view.getContext(), R.style.StandardDatePickerDialog, (view, year, month, dayOfMonth) -> {
             dateAndTime.set(year, month, dayOfMonth, 0, 0, 0);
             onModelChangedListener.onChanged(model.setDate(dateAndTime.getTime()));
             changeTextDeadline();

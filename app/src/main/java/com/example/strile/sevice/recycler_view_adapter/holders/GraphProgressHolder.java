@@ -1,8 +1,11 @@
 package com.example.strile.sevice.recycler_view_adapter.holders;
 
+import android.graphics.Color;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -10,6 +13,9 @@ import com.example.strile.R;
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
 import com.example.strile.sevice.recycler_view_adapter.models.GraphProgressModel;
 import com.example.strile.views.GraphProgressCanvas;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GraphProgressHolder extends BaseHolder<GraphProgressModel> {
 
@@ -33,6 +39,13 @@ public class GraphProgressHolder extends BaseHolder<GraphProgressModel> {
                 setGraphParams(0);
             }
         });
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(
+                itemView.getContext(),
+                R.array.case_type,
+                R.layout.spinner_layout
+        );
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+        spinnerCaseType.setAdapter(adapter);
     }
 
     @Override

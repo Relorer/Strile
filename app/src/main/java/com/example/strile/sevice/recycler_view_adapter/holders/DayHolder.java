@@ -41,7 +41,7 @@ public class DayHolder extends BaseHolder<DayModel> {
         textNumber.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         if (model.isSelected()) {
             imageCircle.setVisibility(View.VISIBLE);
-            textNumber.setTextColor(view.getContext().getColor(R.color.colorPrimary));
+            textNumber.setTextColor(view.getContext().getColor(R.color.colorTextActiveDay));
         } else {
             imageCircle.setVisibility(View.INVISIBLE);
             textNumber.setTextColor(view.getContext().getColor(R.color.colorBlack));

@@ -8,4 +8,6 @@
     android:paddingTop="@dimen/padding_vertical_edit_text"
     android:paddingRight="@dimen/margin_base"
     android:paddingBottom="@dimen/padding_vertical_edit_text"
+    android:textColor="@color/colorBlack"
+    android:textColorHint="@color/colorGray"
     android:textAppearance="@style/TextPrimary" />

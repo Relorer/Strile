@@ -18,21 +18,6 @@
                     android:pivotY="50%"
                     android:toDegrees="180"/>
             </item>
-            <item>
-                <ripple
-                    android:color="@color/colorLightGray"
-                    tools:targetApi="lollipop">
-                    <item android:id="@android:id/mask"
-                        android:gravity="center">
-                        <shape android:shape="oval">
-                            <size
-                                android:height="@dimen/size_check_box"
-                                android:width="@dimen/size_check_box"/>
-                            <solid android:color="#f816a463" />
-                        </shape>
-                    </item>
-                </ripple>
-            </item>
         </layer-list>
     </item>
 </layer-list>

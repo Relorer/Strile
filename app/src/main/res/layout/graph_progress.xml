@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_base"
-        android:layout_marginBottom="@dimen/margin_base"
-        android:background="#FFFFFF">
+        android:layout_marginBottom="@dimen/margin_base">
 
         <TextView
             android:id="@+id/text_completion_rate"
@@ -34,11 +33,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_base"
             android:background="@drawable/spinner_arrow"
-            android:dropDownWidth="150dp"
             android:entries="@array/case_type"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
