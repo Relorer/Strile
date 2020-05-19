@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,6 +38,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class JournalFragment extends Fragment {
 
@@ -159,6 +161,10 @@ public class JournalFragment extends Fragment {
         if (getView() != null) {
             snackbar = Snackbar.make(getView().findViewById(R.id.coordinator_journal), text, 5000)
                     .setAction(actionName, onClickListener);
+
+            snackbar.setBackgroundTint(ContextCompat.getColor(Objects.requireNonNull(this.getContext()), R.color.colorPrimary));
+            snackbar.setTextColor(ContextCompat.getColor(Objects.requireNonNull(this.getContext()), R.color.colorBlack));
+
             snackbar.show();
         }
     }
