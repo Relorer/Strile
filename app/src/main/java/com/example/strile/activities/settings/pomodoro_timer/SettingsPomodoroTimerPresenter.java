@@ -29,19 +29,23 @@ public class SettingsPomodoroTimerPresenter extends BasePresenter<SettingsPomodo
 
         int count = (int) (UsersSettings.getTimerPomodoroTimeGoal() / 60_000);
         String minutes = view().getResources().getQuantityString(R.plurals.minutes_without_number, count);
-        models.add(new NumberEditWIthTitleModel(pomodoroId, false, "Pomodoro duration", minutes, 60, 1, count));
+        models.add(new NumberEditWIthTitleModel(pomodoroId, false,
+                view().getString(R.string.pomodoro_duration), minutes, 60, 1, count));
 
         count = (int) (UsersSettings.getTimerShortBreakTimeGoal() / 60_000);
         minutes = view().getResources().getQuantityString(R.plurals.minutes_without_number, count);
-        models.add(new NumberEditWIthTitleModel(shortBreakId, true, "Short break duration", minutes, 60, 1, count));
+        models.add(new NumberEditWIthTitleModel(shortBreakId, true,
+                view().getString(R.string.short_break_duration), minutes, 60, 1, count));
 
         count = (int) (UsersSettings.getTimerLongBreakTimeGoal() / 60_000);
         minutes = view().getResources().getQuantityString(R.plurals.minutes_without_number, count);
-        models.add(new NumberEditWIthTitleModel(longBreakId, true, "Long break duration", minutes, 60, 1, count));
+        models.add(new NumberEditWIthTitleModel(longBreakId, true,
+                view().getString(R.string.long_break_duration), minutes, 60, 1, count));
 
         count = UsersSettings.getTimerFrequencyLongBreak();
         String pomodoro = view().getResources().getQuantityString(R.plurals.pomodoros_without_number, count);
-        models.add(new NumberEditWIthTitleModel(delyId, true, "Long break delay", pomodoro, 20, 1, count));
+        models.add(new NumberEditWIthTitleModel(delyId, true,
+                view().getString(R.string.long_break_delay), pomodoro, 20, 1, count));
 
         view().setSortedList(models);
     }

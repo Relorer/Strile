@@ -56,13 +56,17 @@
     <string name="repeat">Повторять</string>
     <string name="skip">пропустить</string>
     <string name="settings">Настройки</string>
-    <string name="night_mode">Night mode</string>
-    <string name="enabled">enabled</string>
-    <string name="disabled">disabled</string>
-    <string name="follow_system">follow system</string>
-    <string name="scheme">scheme</string>
-    <string name="jurnal">jurnal</string>
-    <string name="timer">timer</string>
+    <string name="night_mode">Ночной режим</string>
+    <string name="enabled">включен</string>
+    <string name="disabled">выключен</string>
+    <string name="follow_system">по умолчанию</string>
+    <string name="scheme">схема</string>
+    <string name="jurnal">журнал</string>
+    <string name="timer">таймер</string>
+    <string name="pomodoro_duration">Продолжительность помодора</string>
+    <string name="short_break_duration">Продолжительность короткого перерыва</string>
+    <string name="long_break_duration">Продолжительность длинного перерыва</string>
+    <string name="long_break_delay">Длинный перерыв каждые</string>
 
     <plurals name="day_streak">
         <item quantity="one">%d день подряд</item>

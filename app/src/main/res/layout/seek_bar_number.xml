@@ -9,10 +9,14 @@
 
     <TextView
         android:id="@+id/text_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textAppearance="@style/TextPrimary"
+        app:layout_constraintEnd_toStartOf="@+id/text_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,8 +28,6 @@
         android:textAppearance="@style/TextPrimary"
         android:textColor="@color/colorGray"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/text_title"
         app:layout_constraintTop_toTopOf="parent" />
 
     <SeekBar
