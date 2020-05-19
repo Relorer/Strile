@@ -6,7 +6,6 @@
     <dimen name="margin_horizontal_progress_bar">14dp</dimen>
     <dimen name="margin_between_blocks">2dp</dimen>
     <dimen name="margin_between_timer_animation_line">44dp</dimen>
-    <dimen name="margin_top_account_name">8dp</dimen>
     <dimen name="height_timer_animation_short_line">2dp</dimen>
     <dimen name="height_timer_animation_long_line">4dp</dimen>
     <dimen name="height_underline">3dp</dimen>
@@ -18,20 +17,14 @@
     <dimen name="font_size_text_timer">70sp</dimen>
     <dimen name="size_fab_custom">52dp</dimen>
     <dimen name="size_image_special">18dp</dimen>
-    <dimen name="size_image_timer_button">25dp</dimen>
     <dimen name="size_check_box">25dp</dimen>
     <dimen name="size_check_box_icon">14dp</dimen>
-    <dimen name="size_circle_productivity">220dp</dimen>
-    <dimen name="size_account_photo">200dp</dimen>
     <dimen name="padding_vertical_item">16dp</dimen>
     <dimen name="padding_horizontal_button_timer_control">50dp</dimen>
-    <dimen name="corners_radius_account_photo">100dp</dimen>
     <dimen name="corners_radius_button">5dp</dimen>
     <dimen name="padding_vertical_edit_text">12dp</dimen>
     <dimen name="corners_radius_rectangle_rounded">20dp</dimen>
-    <dimen name="height_error_line">2dp</dimen>
     <dimen name="font_size_text_short_day">11sp</dimen>
-    <dimen name="width_timer_button">125dp</dimen>
     <dimen name="width_timer_animation_short_line">80dp</dimen>
     <dimen name="width_timer_animation_long_line">120dp</dimen>
     <dimen name="strokeWidthGridGraph">1dp</dimen>
@@ -43,13 +36,12 @@
     Because the window insets on round devices are larger than 15dp, this padding only applies
     to square screens.
     -->
-    <dimen name="box_inset_layout_padding">0dp</dimen>
 
     <!--
     This padding applies to both square and round screens. The total padding between the buttons
     and the window insets is box_inset_layout_padding (above variable) on square screens and
     inner_frame_layout_padding (below variable) on round screens.
     -->
-    <dimen name="inner_frame_layout_padding">5dp</dimen>
     <dimen name="font_size_level">110sp</dimen>
+    <dimen name="padding_vertical_spinner_item">50dp</dimen>
 </resources>

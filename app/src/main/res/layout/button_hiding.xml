@@ -8,7 +8,6 @@
         android:paddingTop="@dimen/padding_vertical_item"
         android:paddingBottom="@dimen/padding_vertical_item"
         android:layout_marginTop="@dimen/margin_between_blocks"
-        android:id="@+id/constrain_button_hiding"
         android:clickable="true"
         android:focusable="true">
         <CheckBox

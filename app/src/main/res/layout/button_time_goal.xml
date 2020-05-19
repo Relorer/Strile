@@ -8,8 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     android:paddingTop="@dimen/padding_vertical_item"
-    android:paddingBottom="@dimen/padding_vertical_item"
-    android:id="@+id/button_timeGoal">
+    android:paddingBottom="@dimen/padding_vertical_item">
 
     <ImageView
         android:id="@+id/image_goal"

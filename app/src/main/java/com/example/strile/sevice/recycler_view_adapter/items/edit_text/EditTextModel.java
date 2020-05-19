@@ -24,8 +24,17 @@ public class EditTextModel extends BaseModel {
         return text;
     }
 
+    public EditTextModel setText(String text) {
+        this.text = text;
+        return this;
+    }
+
     public String getHint() {
         return hint;
+    }
+
+    public void setHint(String hint) {
+        this.hint = hint;
     }
 
     public int getLineCount() {
@@ -34,15 +43,5 @@ public class EditTextModel extends BaseModel {
 
     public int getMaxLength() {
         return maxLength;
-    }
-
-    public EditTextModel setText(String text) {
-        this.text = text;
-        return this;
-    }
-
-    public EditTextModel setHint(String hint) {
-        this.hint = hint;
-        return this;
     }
 }

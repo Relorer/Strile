@@ -8,15 +8,11 @@ import androidx.lifecycle.Transformations;
 import com.example.strile.database.AppDatabase;
 import com.example.strile.database.dao_interfaces.ExecutedDao;
 import com.example.strile.database.entities.Executed;
-import com.example.strile.database.entities.Habit;
-import com.example.strile.database.entities.Task;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Nullable;
-import javax.security.auth.callback.Callback;
 
 public class ExecutedRepository implements Repository<Executed> {
     private final ExecutedDao executedDao;
@@ -42,32 +38,22 @@ public class ExecutedRepository implements Repository<Executed> {
     }
 
     public void insert(Executed executed) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            executedDao.insert(executed);
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> executedDao.insert(executed));
     }
 
     public void update(Executed executed) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            executedDao.update(executed);
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> executedDao.update(executed));
     }
 
     public void delete(Executed executed) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            executedDao.delete(executed);
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> executedDao.delete(executed));
     }
 
     public void deleteByCaseId(long id, String typeCase) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            executedDao.deleteByCaseId(id, typeCase);
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> executedDao.deleteByCaseId(id, typeCase));
     }
 
     public void deleteBeforeDate(Date date) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            executedDao.deleteBeforeDate(date.getTime());
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> executedDao.deleteBeforeDate(date.getTime()));
     }
 }

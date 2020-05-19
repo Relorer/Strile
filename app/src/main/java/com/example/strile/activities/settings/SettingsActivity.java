@@ -28,6 +28,10 @@ public class SettingsActivity extends AppCompatActivity {
     private SettingsPresenter presenter;
     private SettingsListAdapter adapter;
 
+    public static void start(Activity caller) {
+        Intent intent = new Intent(caller, SettingsActivity.class);
+        caller.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +66,6 @@ public class SettingsActivity extends AppCompatActivity {
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(adapter);
-    }
-
-    public static void start(Activity caller) {
-        Intent intent = new Intent(caller, SettingsActivity.class);
-        caller.startActivity(intent);
     }
 
     public void setSortedList(@NonNull List<BaseModel> items) {

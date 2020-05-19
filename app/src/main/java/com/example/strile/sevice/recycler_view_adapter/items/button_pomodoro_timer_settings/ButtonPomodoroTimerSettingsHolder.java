@@ -17,16 +17,14 @@ import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
 
 public class ButtonPomodoroTimerSettingsHolder extends BaseHolder<ButtonPomodoroTimerSettingsModel> {
 
-    private final ImageView icon;
-    private final TextView name;
     private final TextView info;
 
     public ButtonPomodoroTimerSettingsHolder(@NonNull View itemView,
                                              @NonNull OnModelChangedListener<ButtonPomodoroTimerSettingsModel> onModelChangedListener,
                                              @NonNull final OnClickListener<BaseModel> onClickListener) {
         super(itemView, onModelChangedListener);
-        icon = itemView.findViewById(R.id.image_icon_settings);
-        name = itemView.findViewById(R.id.text_name);
+        ImageView icon = itemView.findViewById(R.id.image_icon_settings);
+        TextView name = itemView.findViewById(R.id.text_name);
         info = itemView.findViewById(R.id.text_info);
 
         icon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.timer, null));

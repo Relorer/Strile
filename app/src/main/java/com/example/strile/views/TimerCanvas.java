@@ -18,17 +18,14 @@ public class TimerCanvas extends View {
 
     public TimerCanvas(Context context) {
         super(context);
-        setBaseParams();
     }
 
     public TimerCanvas(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        setBaseParams();
     }
 
     public TimerCanvas(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setBaseParams();
     }
 
     public void setTotalTime(long totalTime) {
@@ -39,10 +36,6 @@ public class TimerCanvas extends View {
     public void setCurrentTime(long currentTime) {
         this.currentTime = currentTime;
         invalidate();
-    }
-
-    private void setBaseParams() {
-
     }
 
     @Override
@@ -85,14 +78,14 @@ public class TimerCanvas extends View {
                 int alpha = (int) (255 * (1 - parabolaY(x, heightVisibleZone) / parabolaY(0, heightVisibleZone)));
                 paint.setAlpha(alpha);
 
-                int top =  (totalTop - positionVisibleZone);
+                int top = (totalTop - positionVisibleZone);
                 if (time % longInterval == 0) {
                     int right = leftLong + longWidth;
-                    int buttom =  (totalTop - positionVisibleZone + longHeight);
+                    int buttom = (totalTop - positionVisibleZone + longHeight);
                     canvas.drawRoundRect(leftLong, top, right, buttom, 100, 100, paint);
                 } else {
                     int right = leftShort + shortWidth;
-                    int buttom =  (totalTop - positionVisibleZone + shortHeight);
+                    int buttom = (totalTop - positionVisibleZone + shortHeight);
                     canvas.drawRoundRect(leftShort, top, right, buttom, 100, 100, paint);
                 }
             }

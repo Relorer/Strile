@@ -3,13 +3,13 @@
     <item
         android:id="@+id/item_journal"
         android:icon="@drawable/journal"
-        android:title="jurnal"/>
+        android:title="@string/jurnal"/>
     <item
         android:id="@+id/item_timer"
         android:icon="@drawable/timer"
-        android:title="timer"/>
+        android:title="@string/timer"/>
     <item
         android:id="@+id/item_progress"
         android:icon="@drawable/progress"
-        android:title="progress"/>
+        android:title="@string/progress"/>
 </menu>

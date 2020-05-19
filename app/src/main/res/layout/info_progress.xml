@@ -27,7 +27,6 @@
         android:layout_marginTop="@dimen/margin_base">
 
         <TextView
-            android:id="@+id/text_text_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_base"

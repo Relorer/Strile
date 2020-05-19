@@ -15,7 +15,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class TaskRepository implements Repository<Task>{
+public class TaskRepository implements Repository<Task> {
     private final TaskDao taskDao;
     private final LiveData<List<Task>> allTask;
 
@@ -42,26 +42,18 @@ public class TaskRepository implements Repository<Task>{
     }
 
     public void insert(Task task) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            taskDao.insert(task);
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> taskDao.insert(task));
     }
 
     public void update(Task task) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            taskDao.update(task);
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> taskDao.update(task));
     }
 
     public void delete(Task task) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            taskDao.delete(task);
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> taskDao.delete(task));
     }
 
     private void deleteBeforeDate(Date date) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            taskDao.deleteBeforeDate(date.getTime());
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> taskDao.deleteBeforeDate(date.getTime()));
     }
 }

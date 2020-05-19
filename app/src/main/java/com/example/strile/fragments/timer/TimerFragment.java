@@ -2,22 +2,19 @@ package com.example.strile.fragments.timer;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.strile.R;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-import com.example.strile.sevice.timer.TimerView;
+import com.example.strile.R;
 import com.example.strile.sevice.presenter.PresenterManager;
+import com.example.strile.sevice.timer.TimerView;
 import com.example.strile.views.TimerCanvas;
 
 public class TimerFragment extends Fragment implements TimerView {
@@ -46,12 +43,8 @@ public class TimerFragment extends Fragment implements TimerView {
 
         textTitle.setText(R.string.focus_timer);
 
-        buttonTimerControlPrimary.setOnClickListener(v -> {
-            presenter.buttonTimerControlPrimaryClicked();
-        });
-        textButtonTimerControlSecondary.setOnClickListener(v -> {
-            presenter.buttonTimerControlSecondaryClicked();
-        });
+        buttonTimerControlPrimary.setOnClickListener(v -> presenter.buttonTimerControlPrimaryClicked());
+        textButtonTimerControlSecondary.setOnClickListener(v -> presenter.buttonTimerControlSecondaryClicked());
 
         return view;
     }

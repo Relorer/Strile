@@ -10,9 +10,9 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import com.example.strile.sevice.converters.SubtasksConverter;
 import com.example.strile.sevice.date.Day;
 import com.example.strile.sevice.settings.Difficulty;
-import com.example.strile.sevice.converters.SubtasksConverter;
 import com.example.strile.sevice.structures.Subtask;
 
 import java.util.ArrayList;
@@ -23,17 +23,36 @@ import java.util.List;
 @Entity(tableName = "task")
 public class Task implements Parcelable {
 
+    public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>() {
+
+        @Override
+        public Task createFromParcel(Parcel source) {
+            long id = source.readLong();
+            String name = source.readString();
+            int difficulty = source.readInt();
+            String description = source.readString();
+            long dateCreate = source.readLong();
+            long deadline = source.readLong();
+            long dateComplete = source.readLong();
+            List<Subtask> subtasks = new SubtasksConverter().toList(source.readString());
+            return new Task(id, name, difficulty, description, dateCreate, deadline, dateComplete, subtasks);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
+    private final long dateCreate;
+    @TypeConverters({SubtasksConverter.class})
+    private final List<Subtask> subtasks;
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String name;
     private int difficulty;
     private String description;
-    private long dateCreate;
     private long deadline;
     private long dateComplete;
-
-    @TypeConverters({SubtasksConverter.class})
-    private final List<Subtask> subtasks;
 
     @Ignore
     public Task() {
@@ -74,6 +93,10 @@ public class Task implements Parcelable {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public long getId() {
         return id;
     }
@@ -82,12 +105,24 @@ public class Task implements Parcelable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getDifficulty() {
         return difficulty;
     }
 
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
     public long getDeadline() {
         return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline.getTime();
     }
 
     public long getDateComplete() {
@@ -102,26 +137,9 @@ public class Task implements Parcelable {
         return dateCreate;
     }
 
-    public Task setStateForDay(boolean state, Date date) {
+    public void setStateForDay(boolean state, Date date) {
         dateComplete = 0;
         if (state) dateComplete = date.getTime();
-        return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDifficulty(int difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline.getTime();
     }
 
     @Override
@@ -140,25 +158,4 @@ public class Task implements Parcelable {
         dest.writeLong(dateComplete);
         dest.writeString(new SubtasksConverter().fromList(subtasks));
     }
-
-    public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>() {
-
-        @Override
-        public Task createFromParcel(Parcel source) {
-            long id = source.readLong();
-            String name = source.readString();
-            int difficulty = source.readInt();
-            String description = source.readString();
-            long dateCreate = source.readLong();
-            long deadline = source.readLong();
-            long dateComplete = source.readLong();
-            List<Subtask> subtasks = new SubtasksConverter().toList(source.readString());
-            return new Task(id, name, difficulty, description, dateCreate, deadline, dateComplete, subtasks);
-        }
-
-        @Override
-        public Task[] newArray(int size) {
-            return new Task[size];
-        }
-    };
 }

@@ -16,12 +16,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MainPresenter presenter;
-
     private final JournalFragment journalFragment = new JournalFragment();
     private final TimerFragment timerFragment = new TimerFragment();
     private final ProgressFragment progressFragment = new ProgressFragment();
-
+    private MainPresenter presenter;
     private FragmentManager fragmentManager;
 
     @Override
@@ -58,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private void toConfigureBottomNavigation() {
         fragmentManager = getSupportFragmentManager();
         for (Fragment fragment : fragmentManager.getFragments()) {
-         fragmentManager.beginTransaction().remove(fragment).commit();
+            fragmentManager.beginTransaction().remove(fragment).commit();
         }
         fragmentManager.beginTransaction()
                 .add(R.id.frame_main, journalFragment, "journal")

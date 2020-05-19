@@ -12,7 +12,8 @@ import java.util.List;
 
 public class DatesConverter {
 
-    private final Type type = new TypeToken<ArrayList<DateCompleted>>() {}.getType();
+    private final Type type = new TypeToken<ArrayList<DateCompleted>>() {
+    }.getType();
 
     @TypeConverter
     public String fromDatesList(List<DateCompleted> items) {

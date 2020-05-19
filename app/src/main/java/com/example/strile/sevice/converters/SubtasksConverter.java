@@ -12,7 +12,8 @@ import java.util.List;
 
 public class SubtasksConverter {
 
-    private final Type type = new TypeToken<ArrayList<Subtask>>() {}.getType();
+    private final Type type = new TypeToken<ArrayList<Subtask>>() {
+    }.getType();
 
     @TypeConverter
     public String fromList(List<Subtask> items) {

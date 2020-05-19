@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class TaskModelList {
+class TaskModelList {
 
     private final List<TaskModel> models = new ArrayList<>();
 
@@ -20,8 +20,7 @@ public class TaskModelList {
                 .orElse(null);
         if (model == null) {
             model = new TaskModel(topMargin, task, date);
-        }
-        else {
+        } else {
             models.remove(model);
             model = new TaskModel(model.getId(), topMargin, task, date);
         }

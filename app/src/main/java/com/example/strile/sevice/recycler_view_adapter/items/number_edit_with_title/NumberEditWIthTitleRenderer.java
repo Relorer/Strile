@@ -20,7 +20,7 @@ public class NumberEditWIthTitleRenderer extends BaseRenderer<NumberEditWIthTitl
     @NonNull
     @Override
     public NumberEditWIthTitleHolder createViewHolder(@NonNull ViewGroup parent) {
-        return new NumberEditWIthTitleHolder( LayoutInflater.from(parent.getContext())
+        return new NumberEditWIthTitleHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.seek_bar_number, parent, false),
                 onModelChangedListener);
     }

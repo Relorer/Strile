@@ -40,11 +40,9 @@ import java.util.List;
 
 public class JournalFragment extends Fragment {
 
-    private JournalPresenter presenter;
-
-    private DaysListAdapter daysListAdapter;
     private final List<Fragment> pages = new ArrayList<>();
-
+    private JournalPresenter presenter;
+    private DaysListAdapter daysListAdapter;
     private boolean topBlockVisible = false;
     private int countMove;
     private float startY = 0;
@@ -149,7 +147,7 @@ public class JournalFragment extends Fragment {
 
     public void setVisibleDayOnPages(Date day) {
         for (int i = 0; i < pages.size(); i++) {
-            ((JournalCasesFragment)pages.get(i)).setVisibleDay(day);
+            ((JournalCasesFragment) pages.get(i)).setVisibleDay(day);
         }
     }
 

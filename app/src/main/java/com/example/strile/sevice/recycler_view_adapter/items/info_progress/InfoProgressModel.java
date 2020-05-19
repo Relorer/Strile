@@ -31,8 +31,18 @@ public class InfoProgressModel extends BaseModel {
         return experience;
     }
 
+    public InfoProgressModel setExperience(long experience) {
+        this.experience = experience;
+        return this;
+    }
+
     public long getRemained() {
         return remained;
+    }
+
+    public InfoProgressModel setRemained(long remained) {
+        this.remained = remained;
+        return this;
     }
 
     public long getLevel() {
@@ -41,16 +51,6 @@ public class InfoProgressModel extends BaseModel {
 
     public InfoProgressModel setLevel(long level) {
         this.level = level;
-        return this;
-    }
-
-    public InfoProgressModel setExperience(long experience) {
-        this.experience = experience;
-        return this;
-    }
-
-    public InfoProgressModel setRemained(long remained) {
-        this.remained = remained;
         return this;
     }
 }

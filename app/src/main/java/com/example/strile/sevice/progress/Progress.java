@@ -19,7 +19,7 @@ public class Progress {
     private static final String ACTIVE_DAYS = "active_days";
     private static final String DATE_LAST_ACTIVE_DAY = "date_last_active_day";
 
-    static  {
+    static {
         preferences = App.getInstance().getSharedPreferences(PROGRESS_PREFERENCES, Context.MODE_PRIVATE);
         long date = preferences.getLong(DATE_LAST_ACTIVE_DAY, 0);
         long currentDate = Day.getDateOfDayWithoutTime(new Date()).getTime();
@@ -33,12 +33,24 @@ public class Progress {
         return preferences.getInt(LEVEL, 1);
     }
 
+    private static void setLevel(int level) {
+        preferences.edit().putInt(LEVEL, level).apply();
+    }
+
     public static int getExperience() {
         return preferences.getInt(EXPERIENCE, 0);
     }
 
+    private static void setExperience(int experience) {
+        preferences.edit().putInt(EXPERIENCE, experience).apply();
+    }
+
     public static int getGoalExp() {
         return preferences.getInt(GOAL_EXPERIENCE, 100);
+    }
+
+    private static void setGoalExp(int goalExp) {
+        preferences.edit().putInt(GOAL_EXPERIENCE, goalExp).apply();
     }
 
     public static int getActiveDays() {
@@ -72,17 +84,5 @@ public class Progress {
     private static void addActiveDay() {
         int count = 1 + preferences.getInt(ACTIVE_DAYS, 0);
         preferences.edit().putInt(ACTIVE_DAYS, count).apply();
-    }
-
-    private static void setExperience(int experience) {
-        preferences.edit().putInt(EXPERIENCE, experience).apply();
-    }
-
-    private static void setGoalExp(int goalExp) {
-        preferences.edit().putInt(GOAL_EXPERIENCE, goalExp).apply();
-    }
-
-    private static void setLevel(int level) {
-        preferences.edit().putInt(LEVEL, level).apply();
     }
 }

@@ -65,5 +65,7 @@ public class UsersSettings {
     public static void setTimerFrequencyLongBreak(int time) {
         preferences.edit().putInt(TIMER_FREQUENCY_LONG_BREAK, time).apply();
     }
-    public static void start() {}
+
+    public static void start() {
+    }
 }

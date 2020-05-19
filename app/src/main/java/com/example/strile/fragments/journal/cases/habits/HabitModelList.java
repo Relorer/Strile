@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class HabitModelList {
+class HabitModelList {
 
     private final List<HabitModel> models = new ArrayList<>();
 
@@ -20,8 +20,7 @@ public class HabitModelList {
                 .orElse(null);
         if (model == null) {
             model = new HabitModel(topMargin, habit, date);
-        }
-        else {
+        } else {
             models.remove(model);
             model = new HabitModel(model.getId(), topMargin, habit, date);
         }

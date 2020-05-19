@@ -65,7 +65,7 @@ public class DialogNightModeOptions extends DialogFragment {
                     int nightMode;
                     if (selected == 0) nightMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
                     else if (selected == 1) nightMode = AppCompatDelegate.MODE_NIGHT_NO;
-                    else nightMode = AppCompatDelegate.MODE_NIGHT_YES ;
+                    else nightMode = AppCompatDelegate.MODE_NIGHT_YES;
                     callback.onComplete(nightMode);
                 })
                 .setNegativeButton(R.string.cancel, (dialog, id) -> {

@@ -54,8 +54,7 @@ public class GraphProgressHolder extends BaseHolder<GraphProgressModel> {
         if (position % 2 == 0) {
             graphProgressCanvas.setMax(model.getMaxHabit());
             graphProgressCanvas.setPoints(model.getHabitsByDays());
-        }
-        else {
+        } else {
             graphProgressCanvas.setMax(model.getMaxTask());
             graphProgressCanvas.setPoints(model.getTasksByDays());
         }

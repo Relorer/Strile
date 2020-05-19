@@ -19,8 +19,7 @@ public class CurrentStreakModel extends BaseModel {
         return streak;
     }
 
-    public CurrentStreakModel setStreak(int streak) {
+    public void setStreak(int streak) {
         this.streak = streak;
-        return this;
     }
 }

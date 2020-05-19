@@ -61,7 +61,10 @@
     <string name="follow_system">follow system</string>
     <string name="scheme">scheme</string>
     <string name="icon" translatable="false">icon</string>
-    <string name="icon_cross">icon_cross</string>
+    <string name="icon_cross" translatable="false">icon_cross</string>
+    <string name="jurnal">jurnal</string>
+    <string name="timer">timer</string>
+    <string name="pluss">pluss</string>
 
     <plurals name="day_streak">
         <item quantity="one">%d day streak</item>

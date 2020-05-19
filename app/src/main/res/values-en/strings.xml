@@ -61,6 +61,8 @@
     <string name="disabled">disabled</string>
     <string name="follow_system">follow system</string>
     <string name="scheme">scheme</string>
+    <string name="jurnal">jurnal</string>
+    <string name="timer">timer</string>
 
     <plurals name="day_streak">
         <item quantity="one">%d day streak</item>

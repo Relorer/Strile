@@ -15,8 +15,8 @@ public abstract class BaseHolder<M extends BaseModel> extends RecyclerView.ViewH
     protected final View view;
     protected M model;
 
-    public BaseHolder(@NonNull View itemView,
-                      @NonNull OnModelChangedListener<M> onModelChangedListener) {
+    protected BaseHolder(@NonNull View itemView,
+                         @NonNull OnModelChangedListener<M> onModelChangedListener) {
         super(itemView);
         this.onModelChangedListener = onModelChangedListener;
         this.view = itemView;

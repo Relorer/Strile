@@ -30,8 +30,7 @@ public class TimerBreakNoActive implements TimerState {
     public void primaryButtonClicked() {
         if ((numPom - 1) % frequencyLongBreak == 0) {
             timer.setState(new TimerBreakRunning(view, timer, numPom, goalTimeLong));
-        }
-        else {
+        } else {
             timer.setState(new TimerBreakRunning(view, timer, numPom, goalTimeShort));
         }
     }
@@ -49,8 +48,7 @@ public class TimerBreakNoActive implements TimerState {
             view.setTotalTimeOnCanvas(goalTimeLong);
             view.setCurrentTimeOnCanvas(goalTimeLong);
             view.setTextTime(goalTimeLong);
-        }
-        else {
+        } else {
             view.setTextItemTitle(context.getString(R.string.take_a_short_break));
             view.setTotalTimeOnCanvas(goalTimeShort);
             view.setCurrentTimeOnCanvas(goalTimeShort);

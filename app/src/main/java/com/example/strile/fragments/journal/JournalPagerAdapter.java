@@ -10,7 +10,7 @@ import com.example.strile.fragments.journal.cases.JournalCasesPage;
 
 import java.util.List;
 
-public class JournalPagerAdapter extends FragmentPagerAdapter {
+class JournalPagerAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> fragments;
 
@@ -19,6 +19,7 @@ public class JournalPagerAdapter extends FragmentPagerAdapter {
         this.fragments = fragments;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         return fragments.get(position);

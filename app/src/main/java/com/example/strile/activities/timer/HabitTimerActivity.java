@@ -1,8 +1,5 @@
 package com.example.strile.activities.timer;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -12,9 +9,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+
 import com.example.strile.R;
-import com.example.strile.sevice.timer.TimerView;
 import com.example.strile.sevice.presenter.PresenterManager;
+import com.example.strile.sevice.timer.TimerView;
 import com.example.strile.views.TimerCanvas;
 
 public class HabitTimerActivity extends AppCompatActivity implements TimerView {
@@ -29,6 +30,12 @@ public class HabitTimerActivity extends AppCompatActivity implements TimerView {
     private TimerCanvas timerCanvas;
     private Button buttonTimerControlPrimary;
     private TextView buttonTimerControlSecondary;
+
+    public static void start(Activity caller, long habitId) {
+        Intent intent = new Intent(caller, HabitTimerActivity.class);
+        intent.putExtra(HABIT_ID, habitId);
+        caller.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,23 +64,11 @@ public class HabitTimerActivity extends AppCompatActivity implements TimerView {
 
         textTitle.setText(R.string.focus_timer);
 
-        buttonTimerControlPrimary.setOnClickListener(v -> {
-            presenter.buttonTimerControlPrimaryClicked();
-        });
-        buttonTimerControlSecondary.setOnClickListener(v -> {
-            presenter.buttonTimerControlSecondaryClicked();
-        });
+        buttonTimerControlPrimary.setOnClickListener(v -> presenter.buttonTimerControlPrimaryClicked());
+        buttonTimerControlSecondary.setOnClickListener(v -> presenter.buttonTimerControlSecondaryClicked());
 
         imageSpecialPurposeLeft.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.back_arrow, null));
-        buttonSpecialPurposeLeft.setOnClickListener(v -> {
-            presenter.backButtonClicked();
-        });
-    }
-
-    public static void start(Activity caller, long habitId) {
-        Intent intent = new Intent(caller, HabitTimerActivity.class);
-        intent.putExtra(HABIT_ID, habitId);
-        caller.startActivity(intent);
+        buttonSpecialPurposeLeft.setOnClickListener(v -> presenter.backButtonClicked());
     }
 
     @Override
@@ -127,7 +122,7 @@ public class HabitTimerActivity extends AppCompatActivity implements TimerView {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         PresenterManager.getInstance().savePresenter(presenter, outState);
     }

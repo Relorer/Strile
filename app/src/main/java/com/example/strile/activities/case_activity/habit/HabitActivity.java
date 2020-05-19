@@ -22,10 +22,18 @@ public class HabitActivity extends BaseCaseActivity {
 
     private long habitId;
 
+    public static void start(Activity caller, long habitId, ShowSnackbarCallback callback) {
+        lastCallback = callback;
+        Intent intent = new Intent(caller, HabitActivity.class);
+        intent.putExtra(HABIT_ID, habitId);
+        caller.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         habitId = getIntent().getLongExtra(HABIT_ID, -1);
-        if (habitId == -1) throw new IllegalArgumentException("Habit activity received an incorrect id");
+        if (habitId == -1)
+            throw new IllegalArgumentException("Habit activity received an incorrect id");
         super.onCreate(savedInstanceState);
         textTitle.setText(R.string.t_habit);
         imageSpecialPurposeRight.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.basket, null));
@@ -40,13 +48,6 @@ public class HabitActivity extends BaseCaseActivity {
     public void showSnackbar(String text, String actionName, View.OnClickListener onClickListener) {
         if (lastCallback != null)
             lastCallback.show(text, actionName, onClickListener);
-    }
-
-    public static void start(Activity caller, long habitId, ShowSnackbarCallback callback) {
-        lastCallback = callback;
-        Intent intent = new Intent(caller, HabitActivity.class);
-        intent.putExtra(HABIT_ID, habitId);
-        caller.startActivity(intent);
     }
 
     public void openTimer(long habitId) {

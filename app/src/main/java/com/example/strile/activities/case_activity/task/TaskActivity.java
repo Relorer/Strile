@@ -21,10 +21,18 @@ public class TaskActivity extends BaseCaseActivity {
 
     private long taskId;
 
+    public static void start(Activity caller, long taskId, ShowSnackbarCallback callback) {
+        lastCallback = callback;
+        Intent intent = new Intent(caller, TaskActivity.class);
+        intent.putExtra(TASK_ID, taskId);
+        caller.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         taskId = getIntent().getLongExtra(TASK_ID, -1);
-        if (taskId == -1) throw new IllegalArgumentException("Task activity received an incorrect id");
+        if (taskId == -1)
+            throw new IllegalArgumentException("Task activity received an incorrect id");
         super.onCreate(savedInstanceState);
         textTitle.setText(R.string.task);
         imageSpecialPurposeRight.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.basket, null));
@@ -39,13 +47,6 @@ public class TaskActivity extends BaseCaseActivity {
     public void showSnackbar(String text, String actionName, View.OnClickListener onClickListener) {
         if (lastCallback != null)
             lastCallback.show(text, actionName, onClickListener);
-    }
-
-    public static void start(Activity caller, long taskId, ShowSnackbarCallback callback) {
-        lastCallback = callback;
-        Intent intent = new Intent(caller, TaskActivity.class);
-        intent.putExtra(TASK_ID, taskId);
-        caller.startActivity(intent);
     }
 
 }

@@ -10,7 +10,7 @@ public abstract class BaseRenderer<M extends BaseModel, VH extends BaseHolder<M>
 
     protected final OnModelChangedListener onModelChangedListener;
 
-    public BaseRenderer(@NonNull OnModelChangedListener onModelChangedListener) {
+    protected BaseRenderer(@NonNull OnModelChangedListener onModelChangedListener) {
         this.onModelChangedListener = onModelChangedListener;
     }
 

@@ -41,7 +41,8 @@ public class TimerBreakRunning implements TimerState {
     }
 
     private void bindView() {
-        final Activity context = ((Fragment)view).getActivity();
+        final Activity context = ((Fragment) view).getActivity();
+        assert context != null;
         view.setTextButtonTimerControlPrimary(context.getString(R.string.pause));
         view.setTextButtonTimerControlSecondary(context.getString(R.string.skip));
     }

@@ -24,17 +24,17 @@ public class SubtaskModel extends BaseModel {
         return text;
     }
 
+    public SubtaskModel setText(String text) {
+        this.text = text;
+        return this;
+    }
+
     public boolean isComplete() {
         return complete;
     }
 
     public SubtaskModel setState(boolean state) {
         complete = state;
-        return this;
-    }
-
-    public SubtaskModel setText(String text) {
-        this.text = text;
         return this;
     }
 

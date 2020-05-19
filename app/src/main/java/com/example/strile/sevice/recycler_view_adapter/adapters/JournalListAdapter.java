@@ -34,8 +34,7 @@ public class JournalListAdapter extends BaseRecyclerViewAdapter {
                     final HabitModel hm2 = (HabitModel) o2;
                     if (!hm2.isComplete() && hm1.isComplete()) return 1;
                     if (hm2.isComplete() && !hm1.isComplete()) return -1;
-                }
-                else if (o1 instanceof TaskModel && o2 instanceof TaskModel) {
+                } else if (o1 instanceof TaskModel && o2 instanceof TaskModel) {
                     final TaskModel tm1 = (TaskModel) o1;
                     final TaskModel tm2 = (TaskModel) o2;
                     if (!tm2.isComplete() && tm1.isComplete()) return 1;

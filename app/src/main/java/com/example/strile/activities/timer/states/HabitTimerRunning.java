@@ -54,7 +54,7 @@ public class HabitTimerRunning implements TimerState {
                 view.setCurrentTimeOnCanvas(millisUntilFinished);
                 final long elapsed = goal - millisUntilFinished;
                 habit.setElapsedTime(elapsed);
-                if (time != (int) (millisUntilFinished / 1000)){
+                if (time != (int) (millisUntilFinished / 1000)) {
                     view.setTextInfo(elapsed / 60000 + " / " + goal / 60000);
                     view.setTextTime(millisUntilFinished);
                 }
@@ -64,7 +64,7 @@ public class HabitTimerRunning implements TimerState {
             @Override
             public void onFinish() {
                 habit.setElapsedTime(habit.getGoalTime());
-                ((Activity)view).finish();
+                ((Activity) view).finish();
             }
         }.start();
     }

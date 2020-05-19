@@ -37,7 +37,8 @@ public class CaseActivityListAdapter extends BaseRecyclerViewAdapter {
         return new SortedList<>(BaseModel.class, new SortedList.Callback<BaseModel>() {
             @Override
             public int compare(BaseModel o1, BaseModel o2) {
-                if (o1 instanceof SubtaskModel && o2 instanceof SubtaskModel) return o1.getId() - o2.getId();
+                if (o1 instanceof SubtaskModel && o2 instanceof SubtaskModel)
+                    return o1.getId() - o2.getId();
                 return 0;
             }
 

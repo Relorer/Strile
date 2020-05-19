@@ -5,9 +5,9 @@ import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
 public class NumberEditWIthTitleModel extends BaseModel {
 
     private final String title;
-    private String postfix;
     private final int max;
     private final int min;
+    private String postfix;
     private int number;
 
     public NumberEditWIthTitleModel(boolean topMargin, String title, String postfix, int max, int min, int number) {
@@ -32,6 +32,10 @@ public class NumberEditWIthTitleModel extends BaseModel {
         return postfix;
     }
 
+    public void setPostfix(String postfix) {
+        this.postfix = postfix;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -40,22 +44,17 @@ public class NumberEditWIthTitleModel extends BaseModel {
         return number;
     }
 
+    public NumberEditWIthTitleModel setNumber(int number) {
+        this.number = number;
+        return this;
+    }
+
     public int getMax() {
         return max;
     }
 
     public int getMin() {
         return min;
-    }
-
-    public NumberEditWIthTitleModel setNumber(int number) {
-        this.number = number;
-        return this;
-    }
-
-    public NumberEditWIthTitleModel setPostfix(String postfix) {
-        this.postfix = postfix;
-        return this;
     }
 
     @Override

@@ -18,18 +18,10 @@ import java.util.concurrent.Executors;
 
 @Database(entities = {Habit.class, Task.class, Executed.class}, version = 21)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract HabitDao habitDao();
-
-    public abstract TaskDao taskDao();
-
-    public abstract ExecutedDao executedDao();
-
-    private static volatile AppDatabase INSTANCE;
-
     private static final int NUMBER_OF_THREADS = 8;
-
     public static final ExecutorService databaseWriteExecutor =
             Executors.newScheduledThreadPool(NUMBER_OF_THREADS);
+    private static volatile AppDatabase INSTANCE;
 
     public static AppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
@@ -44,4 +36,10 @@ public abstract class AppDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
+
+    public abstract HabitDao habitDao();
+
+    public abstract TaskDao taskDao();
+
+    public abstract ExecutedDao executedDao();
 }

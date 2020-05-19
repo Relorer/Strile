@@ -28,7 +28,7 @@ public abstract class BasePresenter<V> {
 
     protected abstract void updateView();
 
-    protected boolean setupDone() {
+    private boolean setupDone() {
         return view() != null;
     }
 }

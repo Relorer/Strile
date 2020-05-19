@@ -42,7 +42,8 @@ public class ProgressFragment extends Fragment {
         imageSettings.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.settings, null));
         settingsButton.setOnClickListener(v -> presenter.buttonSettingsClicked());
 
-        adapter = new ProgressListAdapter(model -> {});
+        adapter = new ProgressListAdapter(model -> {
+        });
         recycler.setLayoutManager(new LinearLayoutManager(this.getContext(), RecyclerView.VERTICAL, false));
         adapter.setHasStableIds(true);
         recycler.setAdapter(adapter);

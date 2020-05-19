@@ -22,6 +22,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_base"
+            android:layout_marginEnd="@dimen/margin_base"
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="@style/TextPrimary"
@@ -32,7 +33,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:paddingStart="@dimen/margin_base"
             android:id="@+id/text_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

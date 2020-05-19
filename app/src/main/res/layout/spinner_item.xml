@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/padding_vertical_edit_text"
-    android:text="item"
-    android:paddingEnd="50dp"
+    android:paddingEnd="@dimen/padding_vertical_spinner_item"
     android:textAppearance="@style/TextPrimary"
     android:background="@color/colorPrimary"
-    android:foreground="?attr/selectableItemBackground">
+    android:foreground="?attr/selectableItemBackground"
+    tools:ignore="RtlSymmetry">
 
 </TextView>

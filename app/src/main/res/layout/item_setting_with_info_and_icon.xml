@@ -23,7 +23,6 @@
             android:contentDescription="@string/icon"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/liner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_vertical_item"

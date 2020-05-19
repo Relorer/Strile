@@ -19,7 +19,7 @@ public class CurrentStreakRenderer extends BaseRenderer<CurrentStreakModel, Curr
     @NonNull
     @Override
     public CurrentStreakHolder createViewHolder(@NonNull ViewGroup parent) {
-        return new CurrentStreakHolder( LayoutInflater.from(parent.getContext())
+        return new CurrentStreakHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.current_streak, parent, false),
                 onModelChangedListener);
     }

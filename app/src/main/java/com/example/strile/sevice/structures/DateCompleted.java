@@ -1,6 +1,6 @@
 package com.example.strile.sevice.structures;
 
-public class DateCompleted{
+public class DateCompleted {
     private final long date;
     private boolean complete;
 
@@ -17,8 +17,7 @@ public class DateCompleted{
         return complete;
     }
 
-    public DateCompleted setState(boolean state) {
+    public void setState(boolean state) {
         complete = state;
-        return this;
     }
 }

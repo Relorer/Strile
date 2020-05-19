@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -21,7 +20,6 @@ public class GraphProgressCanvas extends View {
     private final int strokeWidthGrid = getResources().getDimensionPixelOffset(R.dimen.strokeWidthGridGraph);
     private final int strokeWidthLineGraph = getResources().getDimensionPixelOffset(R.dimen.strokeWidthLineGraph);
     private final int radiusCircle = getResources().getDimensionPixelOffset(R.dimen.radiusCircleGraph);
-    private final int countDivisionsY = 3;
     private final Paint fontPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint gridPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint graphPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -74,6 +72,7 @@ public class GraphProgressCanvas extends View {
         if (points.length == 0 || ptsGraph.length == 0) return;
 
         float heightText = Math.abs(fontPaint.getFontMetrics().top);
+        @SuppressLint("DefaultLocale")
         float leftMarginGrid = baseMargin + fontPaint.measureText(String.format("%d.0", max)) + baseMargin * 0.3f;
         float heightGrid = getHeight() - 2 * heightText;
         float widthGrid = getWidth() - leftMarginGrid - baseMargin - fontPaint.measureText(String.valueOf(points[points.length - 2])) / 2;
@@ -81,6 +80,7 @@ public class GraphProgressCanvas extends View {
         canvas.drawLine(leftMarginGrid, heightText / 2, leftMarginGrid, (heightText / 2) + heightGrid, gridPaint);
         canvas.drawLine(leftMarginGrid, (heightText / 2) + heightGrid, leftMarginGrid + widthGrid, (heightText / 2) + heightGrid, gridPaint);
 
+        int countDivisionsY = 3;
         for (int i = 0; i < countDivisionsY; i++) {
             float topMargin = (heightText / 2) + i * heightGrid / countDivisionsY;
             float[] pts = generatePointsDottedLine(leftMarginGrid, topMargin, (int) widthGrid);

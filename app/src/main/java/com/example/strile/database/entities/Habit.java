@@ -10,9 +10,9 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import com.example.strile.sevice.converters.DatesConverter;
 import com.example.strile.sevice.date.Day;
 import com.example.strile.sevice.settings.Difficulty;
-import com.example.strile.sevice.converters.DatesConverter;
 import com.example.strile.sevice.structures.DateCompleted;
 
 import java.util.ArrayList;
@@ -24,6 +24,26 @@ import java.util.List;
 @Entity(tableName = "habit")
 public class Habit implements Parcelable {
 
+    public static final Parcelable.Creator<Habit> CREATOR = new Parcelable.Creator<Habit>() {
+        @Override
+        public Habit createFromParcel(Parcel source) {
+            long id = source.readLong();
+            String name = source.readString();
+            int difficult = source.readInt();
+            long goalTime = source.readLong();
+            long elapsedTime = source.readLong();
+            int daysRepeat = source.readInt();
+            List<DateCompleted> datesList = new DatesConverter().toDatesList(source.readString());
+            return new Habit(id, name, difficult, goalTime, elapsedTime, daysRepeat, datesList);
+        }
+
+        @Override
+        public Habit[] newArray(int size) {
+            return new Habit[size];
+        }
+    };
+    @TypeConverters({DatesConverter.class})
+    private final List<DateCompleted> datesCompleted;
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String name;
@@ -31,9 +51,6 @@ public class Habit implements Parcelable {
     private long goalTime;
     private long elapsedTime;
     private int daysRepeat;
-
-    @TypeConverters({DatesConverter.class})
-    private final List<DateCompleted> datesCompleted;
 
     public Habit(long id, String name, int difficulty, long goalTime, long elapsedTime,
                  int daysRepeat, @NonNull List<DateCompleted> datesCompleted) {
@@ -87,20 +104,50 @@ public class Habit implements Parcelable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getDifficulty() {
         return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 
     public long getGoalTime() {
         return goalTime;
     }
 
+    public void setGoalTime(long goalTime) {
+        Date day = Day.getDateOfDayWithoutTime(new Date());
+        if (elapsedTime < goalTime && isCompleteOnDay(day)) {
+            setStateForDay(false, day);
+        } else if (elapsedTime >= goalTime && !isCompleteOnDay(day) && goalTime > 0) {
+            setStateForDay(true, day);
+        }
+        this.goalTime = goalTime;
+    }
+
     public long getElapsedTime() {
         return elapsedTime;
     }
 
+    public void setElapsedTime(long elapsedTime) {
+        Date day = Day.getDateOfDayWithoutTime(new Date());
+        if (elapsedTime >= goalTime && !isCompleteOnDay(day) && goalTime > 0) {
+            setStateForDay(true, day);
+        }
+        this.elapsedTime = elapsedTime;
+    }
+
     public int getDaysRepeat() {
         return daysRepeat;
+    }
+
+    public void setDaysRepeat(boolean[] daysRepeat) {
+        this.daysRepeat = arrayRepeatToInt(daysRepeat);
     }
 
     public List<DateCompleted> getDatesCompleted() {
@@ -138,40 +185,9 @@ public class Habit implements Parcelable {
         return days;
     }
 
-    public Habit setStateForDay(boolean state, Date date) {
+    public void setStateForDay(boolean state, Date date) {
         DateCompleted dateCompleted = getDateCompleted(date);
         dateCompleted.setState(state);
-        return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDifficulty(int difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public void setGoalTime(long goalTime) {
-        Date day = Day.getDateOfDayWithoutTime(new Date());
-        if (elapsedTime < goalTime && isCompleteOnDay(day)) {
-            setStateForDay(false, day);
-        } else if (elapsedTime >= goalTime && !isCompleteOnDay(day) && goalTime > 0) {
-            setStateForDay(true, day);
-        }
-        this.goalTime = goalTime;
-    }
-
-    public void setElapsedTime(long elapsedTime) {
-        Date day = Day.getDateOfDayWithoutTime(new Date());
-        if (elapsedTime >= goalTime && !isCompleteOnDay(day) && goalTime > 0) {
-            setStateForDay(true, day);
-        }
-        this.elapsedTime = elapsedTime;
-    }
-
-    public void setDaysRepeat(boolean[] daysRepeat) {
-        this.daysRepeat = arrayRepeatToInt(daysRepeat);
     }
 
     private int arrayRepeatToInt(boolean[] daysRepeat) {
@@ -191,7 +207,7 @@ public class Habit implements Parcelable {
         if (found == null) {
             DateCompleted newDateCompleted = new DateCompleted(dateOfDayWithoutTime.getTime(), false);
             datesCompleted.add(newDateCompleted);
-            if (dateOfDayWithoutTime.getTime() ==Day.getDateOfDayWithoutTime(new Date()).getTime())
+            if (dateOfDayWithoutTime.getTime() == Day.getDateOfDayWithoutTime(new Date()).getTime())
                 elapsedTime = 0;
             return newDateCompleted;
         }
@@ -213,23 +229,4 @@ public class Habit implements Parcelable {
         dest.writeInt(daysRepeat);
         dest.writeString(new DatesConverter().fromDatesList(datesCompleted));
     }
-
-    public static final Parcelable.Creator<Habit> CREATOR = new Parcelable.Creator<Habit>() {
-        @Override
-        public Habit createFromParcel(Parcel source) {
-            long id = source.readLong();
-            String name = source.readString();
-            int difficult = source.readInt();
-            long goalTime = source.readLong();
-            long elapsedTime = source.readLong();
-            int daysRepeat = source.readInt();
-            List<DateCompleted> datesList = new DatesConverter().toDatesList(source.readString());
-            return new Habit(id, name, difficult, goalTime, elapsedTime, daysRepeat, datesList);
-        }
-
-        @Override
-        public Habit[] newArray(int size) {
-            return new Habit[size];
-        }
-    };
 }

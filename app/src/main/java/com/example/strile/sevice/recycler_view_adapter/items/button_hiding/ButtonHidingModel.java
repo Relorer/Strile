@@ -4,8 +4,8 @@ import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
 
 public class ButtonHidingModel extends BaseModel {
 
-    private boolean checked;
     private final int count;
+    private boolean checked;
 
     public ButtonHidingModel(boolean topMargin, boolean checked, int count) {
         super(topMargin);
@@ -20,7 +20,7 @@ public class ButtonHidingModel extends BaseModel {
     }
 
     @Override
-    public int getType()  {
+    public int getType() {
         return BUTTON_HIDING_TYPE;
     }
 

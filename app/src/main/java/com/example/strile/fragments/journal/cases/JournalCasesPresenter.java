@@ -9,10 +9,8 @@ import java.util.Date;
 
 public abstract class JournalCasesPresenter<T extends JournalCasesFragment> extends BasePresenter<T> {
 
-    protected boolean showCompleted = false;
-
     protected final int idButton;
-
+    protected boolean showCompleted = false;
     protected Date visibleDay = Day.getDateOfDayWithoutTime(new Date());
 
     protected JournalCasesPresenter() {

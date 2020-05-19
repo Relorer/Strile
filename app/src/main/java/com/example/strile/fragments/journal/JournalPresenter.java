@@ -24,7 +24,7 @@ public class JournalPresenter extends BasePresenter<JournalFragment> {
         calendar.setTime(Day.getDateOfDayWithoutTime(new Date()));
         selected = new DayModel(false, calendar.getTime(), true);
         days.add(selected);
-        for (int i = 1; i < 30; i++){
+        for (int i = 1; i < 30; i++) {
             calendar.add(Calendar.DATE, -1);
             days.add(new DayModel(false, calendar.getTime(), false));
         }

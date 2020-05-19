@@ -13,17 +13,17 @@ import com.example.strile.activities.case_activity.BaseCasePresenter;
 
 public class AddHabitActivity extends BaseCaseActivity {
 
+    public static void start(Activity caller) {
+        Intent intent = new Intent(caller, AddHabitActivity.class);
+        caller.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         textTitle.setText(R.string.create_habit);
         imageSpecialPurposeRight.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.tick, null));
         imageSpecialPurposeRight.setColorFilter(getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-    }
-
-    public static void start(Activity caller) {
-        Intent intent = new Intent(caller, AddHabitActivity.class);
-        caller.startActivity(intent);
     }
 
     @Override

@@ -55,16 +55,13 @@ public class SettingsPomodoroTimerPresenter extends BasePresenter<SettingsPomodo
         if (model.getId() == pomodoroId) {
             UsersSettings.setTimerPomodoroTimeGoal(model.getNumber() * 60_000);
             postfix = view().getResources().getQuantityString(R.plurals.minutes_without_number, model.getNumber());
-        }
-        else if (model.getId() == shortBreakId) {
+        } else if (model.getId() == shortBreakId) {
             UsersSettings.setTimerShortBreakTimeGoal(model.getNumber() * 60_000);
             postfix = view().getResources().getQuantityString(R.plurals.minutes_without_number, model.getNumber());
-        }
-        else if (model.getId() == longBreakId) {
+        } else if (model.getId() == longBreakId) {
             UsersSettings.setTimerLongBreakTimeGoal(model.getNumber() * 60_000);
             postfix = view().getResources().getQuantityString(R.plurals.minutes_without_number, model.getNumber());
-        }
-        else if (model.getId() == delyId) {
+        } else if (model.getId() == delyId) {
             UsersSettings.setTimerFrequencyLongBreak(model.getNumber());
             postfix = view().getResources().getQuantityString(R.plurals.pomodoros_without_number, model.getNumber());
         }

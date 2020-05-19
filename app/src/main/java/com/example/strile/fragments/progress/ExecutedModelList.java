@@ -5,7 +5,7 @@ import com.example.strile.sevice.recycler_view_adapter.items.executed.ExecutedMo
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExecutedModelList {
+class ExecutedModelList {
 
     private final List<ExecutedModel> models = new ArrayList<>();
 
@@ -16,8 +16,7 @@ public class ExecutedModelList {
                 .orElse(null);
         if (model == null) {
             model = new ExecutedModel(topMargin, name, experience, dateCreate);
-        }
-        else {
+        } else {
             models.remove(model);
             model = new ExecutedModel(model.getId(), topMargin, name, experience, dateCreate);
         }

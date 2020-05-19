@@ -40,12 +40,10 @@ public class AddHabitPresenter extends BaseCasePresenter<AddHabitActivity> {
         if (habit.getName().equals("")) {
             String message = view().getString(R.string.w_habit_name_empty);
             view().showToast(message);
-        }
-        else if (habit.getDaysRepeat() == 0) {
+        } else if (habit.getDaysRepeat() == 0) {
             String message = view().getString(R.string.w_habit_repeat_empty);
             view().showToast(message);
-        }
-        else {
+        } else {
             repository.insert(habit);
             view().finish();
         }

@@ -17,7 +17,7 @@ public class Subtask {
         return complete;
     }
 
-    public Subtask setState(boolean state) throws CloneNotSupportedException {
+    public Subtask setState(boolean state) {
         return new Subtask(name, state);
     }
 }

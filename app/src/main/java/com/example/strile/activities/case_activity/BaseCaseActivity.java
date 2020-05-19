@@ -30,13 +30,11 @@ import java.util.List;
 
 public abstract class BaseCaseActivity extends AppCompatActivity {
 
-    private BaseCasePresenter presenter;
-
-    private CaseActivityListAdapter adapter;
-
     protected TextView textTitle;
     protected ImageView imageSpecialPurposeRight;
-    protected ImageView imageSpecialPurposeLeft;
+    private BaseCasePresenter presenter;
+    private CaseActivityListAdapter adapter;
+    private ImageView imageSpecialPurposeLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

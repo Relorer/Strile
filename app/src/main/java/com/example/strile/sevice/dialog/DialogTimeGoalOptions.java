@@ -20,7 +20,7 @@ public class DialogTimeGoalOptions extends DialogFragment {
     public DialogTimeGoalOptions(long time, @NonNull CompleteCallback<Long> callback) {
         this.callback = callback;
 
-        final long numMinutes = time / 1000/ 60;
+        final long numMinutes = time / 1000 / 60;
         if (numMinutes == 5) selected = 1;
         else if (numMinutes == 15) selected = 2;
         else if (numMinutes == 30) selected = 3;

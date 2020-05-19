@@ -9,7 +9,7 @@ import java.util.Date;
 public class HabitModel extends BaseModel implements CaseModel {
 
     private final Habit habit;
-    private Date date;
+    private final Date date;
 
     public HabitModel(boolean topMargin, Habit habit, Date date) {
         super(topMargin);

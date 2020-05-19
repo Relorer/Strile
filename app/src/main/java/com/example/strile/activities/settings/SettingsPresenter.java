@@ -19,7 +19,7 @@ public class SettingsPresenter extends BasePresenter<SettingsActivity> {
     public SettingsPresenter() {
         buttonNightModeId = new ButtonNightModeSelectionModel(false, 0).getId();
         buttonPomodoroTimerSettingsId = new ButtonPomodoroTimerSettingsModel(false,
-                0,0,0,0).getId();
+                0, 0, 0, 0).getId();
     }
 
     @Override

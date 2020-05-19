@@ -21,11 +21,11 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter {
     @NonNull
     private final SparseArray<BaseRenderer> renderers = new SparseArray<>();
 
-    protected BaseRecyclerViewAdapter() {
+    BaseRecyclerViewAdapter() {
         sortedItems = getSortedItems();
     }
 
-    protected SortedList<BaseModel> getSortedItems() {
+    SortedList<BaseModel> getSortedItems() {
         return new SortedList<>(BaseModel.class, new SortedList.Callback<BaseModel>() {
             @Override
             public int compare(BaseModel o1, BaseModel o2) {
@@ -104,7 +104,7 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter {
         return item.getType();
     }
 
-    protected void registerRenderer(@NonNull final BaseRenderer renderer) {
+    void registerRenderer(@NonNull final BaseRenderer renderer) {
         final int type = renderer.getType();
 
         if (renderers.get(type) == null) {

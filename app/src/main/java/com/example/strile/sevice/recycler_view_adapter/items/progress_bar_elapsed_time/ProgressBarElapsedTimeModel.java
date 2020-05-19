@@ -24,17 +24,15 @@ public class ProgressBarElapsedTimeModel extends BaseModel {
         return progress;
     }
 
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
     public int getMax() {
         return max;
     }
 
-    public ProgressBarElapsedTimeModel setProgress(int progress) {
-        this.progress = progress;
-        return this;
-    }
-
-    public ProgressBarElapsedTimeModel setMax(int max) {
+    public void setMax(int max) {
         this.max = max;
-        return this;
     }
 }

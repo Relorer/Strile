@@ -16,17 +16,17 @@ public class PresenterManager {
 
     private final Cache<Long, BasePresenter<?>> presenters;
 
-    private PresenterManager(long maxSize, long expirationValue, TimeUnit expirationUnit) {
+    private PresenterManager() {
         currentId = new AtomicLong();
         presenters = CacheBuilder.newBuilder()
-                .maximumSize(maxSize)
-                .expireAfterWrite(expirationValue, expirationUnit)
+                .maximumSize(10)
+                .expireAfterWrite(30, TimeUnit.SECONDS)
                 .build();
     }
 
     public static PresenterManager getInstance() {
         if (instance == null) {
-            instance = new PresenterManager(10, 30, TimeUnit.SECONDS);
+            instance = new PresenterManager();
         }
         return instance;
     }

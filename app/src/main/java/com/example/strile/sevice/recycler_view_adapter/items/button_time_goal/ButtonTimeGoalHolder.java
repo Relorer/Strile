@@ -53,7 +53,7 @@ public class ButtonTimeGoalHolder extends BaseHolder<ButtonTimeGoalModel> {
     private void openDialogTimeGoalOptions(long time) {
         final FragmentManager manager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
         final DialogTimeGoalOptions dialog = new DialogTimeGoalOptions(time, result -> {
-                onModelChangedListener.onChanged(model.setGoalTime(result));
+            onModelChangedListener.onChanged(model.setGoalTime(result));
             changeTextGoalTime();
         });
         dialog.show(manager, "TimeGoal");

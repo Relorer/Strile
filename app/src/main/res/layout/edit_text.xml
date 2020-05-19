@@ -10,4 +10,6 @@
     android:paddingBottom="@dimen/padding_vertical_edit_text"
     android:textColor="@color/colorBlack"
     android:textColorHint="@color/colorGray"
-    android:textAppearance="@style/TextPrimary" />
+    android:textAppearance="@style/TextPrimary"
+    android:inputType="text"
+    android:autofillHints="no"/>

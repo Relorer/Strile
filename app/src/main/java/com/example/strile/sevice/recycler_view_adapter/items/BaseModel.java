@@ -19,13 +19,12 @@ public abstract class BaseModel {
     public static final int BUTTON_REPEAT_TYPE = 16;
     public static final int BUTTON_DATE_SELECTION_TYPE = 17;
     public static final int BUTTON_NIGHT_MODE_SELECTION_TYPE = 18;
-    public static final int BUTTON_LANGUAGE_SELECTION_TYPE = 19;
     public static final int BUTTON_POMODORO_TIMER_SETTINGS_TYPE = 20;
-
+    protected static final int BUTTON_LANGUAGE_SELECTION_TYPE = 19;
     private static int maxId = 0;
 
     private final int id;
-    private boolean topMargin;
+    private final boolean topMargin;
     private boolean bottomMargin;
 
     protected BaseModel(boolean topMargin) {

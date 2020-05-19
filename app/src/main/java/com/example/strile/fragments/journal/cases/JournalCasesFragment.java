@@ -23,9 +23,8 @@ import java.util.List;
 
 public abstract class JournalCasesFragment extends Fragment {
 
-    private JournalCasesPresenter presenter;
-
     private final JournalListAdapter adapter;
+    private JournalCasesPresenter presenter;
 
     public JournalCasesFragment() {
         adapter = new JournalListAdapter(sender -> {

@@ -67,11 +67,6 @@ public class JournalTasksPresenter extends JournalCasesPresenter<JournalTasksFra
     }
 
     @Override
-    public void unbindView() {
-        super.unbindView();
-    }
-
-    @Override
     protected void updateView() {
         if (updatedList != null) buildDisplayedList(updatedList);
         if (!tasks.hasActiveObservers())

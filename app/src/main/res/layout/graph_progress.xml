@@ -15,7 +15,6 @@
         android:layout_marginBottom="@dimen/margin_base">
 
         <TextView
-            android:id="@+id/text_completion_rate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_base"
