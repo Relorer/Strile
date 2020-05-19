@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.fragment.app.Fragment;
 
 import com.example.strile.R;
+import com.example.strile.sevice.settings.UsersSettings;
 import com.example.strile.sevice.timer.TimerController;
 import com.example.strile.sevice.timer.TimerState;
 import com.example.strile.sevice.timer.TimerView;
@@ -14,9 +15,9 @@ public class TimerBreakNoActive implements TimerState {
     private final TimerView view;
     private final TimerController timer;
     private final int numPom;
-    private final long goalTimeShort = 5 * 60000; //todo put in the settings
-    private final long goalTimeLong = 15 * 60000;
-    private final long frequencyLongBreak = 4;
+    private final long goalTimeShort = UsersSettings.getTimerShortBreakTimeGoal();
+    private final long goalTimeLong = UsersSettings.getTimerLongBreakTimeGoal();
+    private final long frequencyLongBreak = UsersSettings.getTimerFrequencyLongBreak();
 
     public TimerBreakNoActive(TimerView view, TimerController timer, int numPom) {
         this.view = view;
@@ -27,7 +28,7 @@ public class TimerBreakNoActive implements TimerState {
 
     @Override
     public void primaryButtonClicked() {
-        if (numPom % frequencyLongBreak == 0) {
+        if ((numPom - 1) % frequencyLongBreak == 0) {
             timer.setState(new TimerBreakRunning(view, timer, numPom, goalTimeLong));
         }
         else {
@@ -42,7 +43,8 @@ public class TimerBreakNoActive implements TimerState {
 
     private void bindView() {
         final Activity context = ((Fragment) view).getActivity();
-        if (numPom % frequencyLongBreak == 0) {
+        assert context != null;
+        if ((numPom - 1) % frequencyLongBreak == 0) {
             view.setTextItemTitle(context.getString(R.string.take_a_long_break));
             view.setTotalTimeOnCanvas(goalTimeLong);
             view.setCurrentTimeOnCanvas(goalTimeLong);

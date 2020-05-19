@@ -1,6 +1,11 @@
 package com.example.strile.fragments.progress;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,17 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.example.strile.R;
 import com.example.strile.activities.settings.SettingsActivity;
 import com.example.strile.sevice.presenter.PresenterManager;
 import com.example.strile.sevice.recycler_view_adapter.adapters.ProgressListAdapter;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
 
 import java.util.List;
 
@@ -41,9 +40,7 @@ public class ProgressFragment extends Fragment {
 
         progressTitle.setText(R.string.progress);
         imageSettings.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.settings, null));
-        settingsButton.setOnClickListener(v -> {
-            presenter.buttonSettingsClicked();
-        });
+        settingsButton.setOnClickListener(v -> presenter.buttonSettingsClicked());
 
         adapter = new ProgressListAdapter(model -> {});
         recycler.setLayoutManager(new LinearLayoutManager(this.getContext(), RecyclerView.VERTICAL, false));

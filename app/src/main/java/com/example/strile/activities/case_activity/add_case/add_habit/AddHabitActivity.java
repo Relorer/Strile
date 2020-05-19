@@ -1,12 +1,11 @@
 package com.example.strile.activities.case_activity.add_case.add_habit;
 
-import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import com.example.strile.R;
 import com.example.strile.activities.case_activity.BaseCaseActivity;
@@ -23,7 +22,6 @@ public class AddHabitActivity extends BaseCaseActivity {
     }
 
     public static void start(Activity caller) {
-        setCaller(caller);
         Intent intent = new Intent(caller, AddHabitActivity.class);
         caller.startActivity(intent);
     }

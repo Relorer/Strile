@@ -15,7 +15,6 @@ public class TimerPomodoroPause implements TimerState {
     private final TimerController timer;
     private final int numPom;
     private final long remaining;
-    private final long goalTime = 25 * 60000; //todo put in the settings
 
     public TimerPomodoroPause(TimerView view, TimerController timer, int numPom, long remaining) {
         this.view = view;
@@ -37,6 +36,7 @@ public class TimerPomodoroPause implements TimerState {
 
     private void bindView() {
         final Activity context = ((Fragment)view).getActivity();
+        assert context != null;
         view.setTextButtonTimerControlPrimary(context.getString(R.string.resume));
         view.setTextButtonTimerControlSecondary(context.getString(R.string.done));
     }

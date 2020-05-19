@@ -1,10 +1,8 @@
 package com.example.strile.activities.case_activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,31 +10,25 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.strile.App;
 import com.example.strile.R;
 import com.example.strile.sevice.presenter.PresenterManager;
 import com.example.strile.sevice.recycler_view_adapter.adapters.CaseActivityListAdapter;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonAddSubtaskModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonDateSelectionModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonRepeatModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonTimeGoalModel;
-import com.example.strile.sevice.recycler_view_adapter.models.EditTextModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ProgressBarElapsedTimeModel;
-import com.example.strile.sevice.recycler_view_adapter.models.SeekBarDifficultModel;
-import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_add_subtask.ButtonAddSubtaskModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_date_selection.ButtonDateSelectionModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_repeat.ButtonRepeatModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_time_goal.ButtonTimeGoalModel;
+import com.example.strile.sevice.recycler_view_adapter.items.edit_text.EditTextModel;
+import com.example.strile.sevice.recycler_view_adapter.items.progress_bar_elapsed_time.ProgressBarElapsedTimeModel;
+import com.example.strile.sevice.recycler_view_adapter.items.seek_bar_difficult.SeekBarDifficultModel;
+import com.example.strile.sevice.recycler_view_adapter.items.subtask.SubtaskModel;
 
 import java.util.List;
 
 public abstract class BaseCaseActivity extends AppCompatActivity {
-
-    //todo remove static
-    private static Activity lastCaller;
 
     private BaseCasePresenter presenter;
 
@@ -56,7 +48,7 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
             presenter = PresenterManager.getInstance().restorePresenter(savedInstanceState);
         }
 
-        setContentView(R.layout.activity_case);
+        setContentView(R.layout.activity_with_app_bar);
 
         textTitle = findViewById(R.id.text_title);
         imageSpecialPurposeRight = findViewById(R.id.image_special_purpose_button_right);
@@ -103,38 +95,12 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
 
     public void showToast(String text) {
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+        TextView v = toast.getView().findViewById(android.R.id.message);
         if (v != null) v.setGravity(Gravity.CENTER);
         toast.show();
     }
 
-    public void showSnackbar(Activity activity, String text, String actionName, View.OnClickListener onClickListener) {
-        if (activity != null) {
-            Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.addButton), text, 5000)
-                    .setAction(actionName, onClickListener);
-
-            View view = snackbar.getView();
-            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-            int baseMargin = view.getResources().getDimensionPixelSize(R.dimen.margin_base);
-            p.setMargins(baseMargin, 0, baseMargin, baseMargin * 3);
-            view.requestLayout();
-            snackbar.show();
-        }
-    }
-
     protected abstract BaseCasePresenter getNewPresenter();
-
-    public static Activity getCaller() {
-        return lastCaller;
-    }
-
-    protected static void setCaller(Activity caller) {
-        lastCaller = caller;
-    }
-
-    protected BaseCasePresenter getPresenter() {
-        return presenter;
-    }
 
     @Override
     protected void onResume() {
@@ -149,7 +115,7 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         PresenterManager.getInstance().savePresenter(presenter, outState);
     }

@@ -35,7 +35,6 @@
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="hour">hour</string>
-    <string name="minutes">minutes</string>
     <string name="no_time">no time</string>
     <string name="add_deadline">Add deadline</string>
     <string name="show_completed">Show Сompleted</string>
@@ -56,6 +55,13 @@
     <string name="repeat">Repeat</string>
     <string name="skip">skip</string>
     <string name="settings">Settings</string>
+    <string name="night_mode">Night mode</string>
+    <string name="enabled">enabled</string>
+    <string name="disabled">disabled</string>
+    <string name="follow_system">follow system</string>
+    <string name="scheme">scheme</string>
+    <string name="icon" translatable="false">icon</string>
+    <string name="icon_cross">icon_cross</string>
 
     <plurals name="day_streak">
         <item quantity="one">%d day streak</item>
@@ -70,6 +76,16 @@
     <plurals name="points_more">
         <item quantity="one">%d point more</item>
         <item quantity="other">%d points more</item>
+    </plurals>
+
+    <plurals name="minutes_without_number">
+        <item quantity="one">minute</item>
+        <item quantity="other">minutes</item>
+    </plurals>
+
+    <plurals name="pomodoros_without_number">
+        <item quantity="one">pomodoro</item>
+        <item quantity="other">pomodoros</item>
     </plurals>
 
 </resources>

@@ -3,8 +3,6 @@ package com.example.strile.database.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-
 @Entity(tableName = "executed")
 public class Executed {
 

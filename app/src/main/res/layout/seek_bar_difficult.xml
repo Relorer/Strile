@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_base"
         android:max="100"
-        android:progressDrawable="@drawable/seekbar_bg"
+        android:progressDrawable="@drawable/seekbar_bg_gradient"
         android:splitTrack="false"
         android:thumb="@drawable/circle_accent"
         app:layout_constraintBottom_toBottomOf="parent"

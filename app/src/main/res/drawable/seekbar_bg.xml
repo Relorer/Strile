@@ -11,6 +11,11 @@
     <item android:id="@android:id/progress"
         android:gravity="center"
         android:height="@dimen/height_progress_bar">
-        <clip android:drawable="@drawable/seekbar_progress" />
+        <clip>
+            <shape android:shape="rectangle">
+                <corners android:radius="@dimen/corners_radius_rectangle_rounded"/>
+                <solid android:color="@color/colorAccent"/>
+            </shape>
+        </clip>
     </item>
 </layer-list>

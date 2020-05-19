@@ -6,11 +6,11 @@ import com.example.strile.activities.case_activity.BaseCasePresenter;
 import com.example.strile.database.entities.Habit;
 import com.example.strile.database.repositories.HabitRepository;
 import com.example.strile.database.repositories.Repository;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonRepeatModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonTimeGoalModel;
-import com.example.strile.sevice.recycler_view_adapter.models.EditTextModel;
-import com.example.strile.sevice.recycler_view_adapter.models.SeekBarDifficultModel;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_repeat.ButtonRepeatModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_time_goal.ButtonTimeGoalModel;
+import com.example.strile.sevice.recycler_view_adapter.items.edit_text.EditTextModel;
+import com.example.strile.sevice.recycler_view_adapter.items.seek_bar_difficult.SeekBarDifficultModel;
 
 import java.util.ArrayList;
 import java.util.List;

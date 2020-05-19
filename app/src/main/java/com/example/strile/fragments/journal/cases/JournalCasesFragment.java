@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.strile.R;
 import com.example.strile.sevice.presenter.PresenterManager;
 import com.example.strile.sevice.recycler_view_adapter.adapters.JournalListAdapter;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonHidingModel;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.CaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.CaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_hiding.ButtonHidingModel;
 
 import java.util.Date;
 import java.util.List;
@@ -88,7 +88,7 @@ public abstract class JournalCasesFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         PresenterManager.getInstance().savePresenter(presenter, outState);
     }

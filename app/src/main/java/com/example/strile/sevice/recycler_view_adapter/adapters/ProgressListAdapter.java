@@ -1,10 +1,10 @@
 package com.example.strile.sevice.recycler_view_adapter.adapters;
 
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.renderers.ExecutedRenderer;
-import com.example.strile.sevice.recycler_view_adapter.renderers.GraphProgressRenderer;
-import com.example.strile.sevice.recycler_view_adapter.renderers.InfoProgressRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.executed.ExecutedRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.graph_progress.GraphProgressRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.info_progress.InfoProgressRenderer;
 
 public class ProgressListAdapter extends BaseRecyclerViewAdapter {
 

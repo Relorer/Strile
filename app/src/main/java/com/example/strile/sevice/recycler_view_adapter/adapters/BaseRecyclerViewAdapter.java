@@ -1,6 +1,5 @@
 package com.example.strile.sevice.recycler_view_adapter.adapters;
 
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
@@ -8,9 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SortedList;
 
-import com.example.strile.sevice.recycler_view_adapter.holders.BaseHolder;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.renderers.BaseRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseHolder;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseRenderer;
 
 import java.util.List;
 

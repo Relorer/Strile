@@ -1,20 +1,17 @@
 package com.example.strile.sevice.recycler_view_adapter.adapters;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.SortedList;
 
-import com.example.strile.database.entities.Habit;
 import com.example.strile.sevice.event_handler_interfaces.OnClickListener;
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonHidingModel;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.HabitModel;
-import com.example.strile.sevice.recycler_view_adapter.models.TaskModel;
-import com.example.strile.sevice.recycler_view_adapter.renderers.ButtonHidingRenderer;
-import com.example.strile.sevice.recycler_view_adapter.renderers.HabitRenderer;
-import com.example.strile.sevice.recycler_view_adapter.renderers.TaskRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_hiding.ButtonHidingModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_hiding.ButtonHidingRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.habit.HabitModel;
+import com.example.strile.sevice.recycler_view_adapter.items.habit.HabitRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.task.TaskModel;
+import com.example.strile.sevice.recycler_view_adapter.items.task.TaskRenderer;
 
 public class JournalListAdapter extends BaseRecyclerViewAdapter {
 

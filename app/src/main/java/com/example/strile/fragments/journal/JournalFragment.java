@@ -4,6 +4,12 @@ import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,13 +18,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.example.strile.R;
 import com.example.strile.activities.case_activity.add_case.add_habit.AddHabitActivity;
@@ -29,9 +28,10 @@ import com.example.strile.fragments.journal.cases.habits.JournalHabitsFragment;
 import com.example.strile.fragments.journal.cases.tasks.JournalTasksFragment;
 import com.example.strile.sevice.presenter.PresenterManager;
 import com.example.strile.sevice.recycler_view_adapter.adapters.DaysListAdapter;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.DayModel;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.day.DayModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -49,9 +49,11 @@ public class JournalFragment extends Fragment {
     private int countMove;
     private float startY = 0;
 
+    private Snackbar snackbar;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, //todo need refactoring
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_journal, container, false);
 
@@ -69,9 +71,7 @@ public class JournalFragment extends Fragment {
         pages.add(new JournalTasksFragment());
         JournalPagerAdapter journalPagerAdapter = new JournalPagerAdapter(getChildFragmentManager(), pages);
 
-        daysListAdapter = new DaysListAdapter(sender -> {
-            presenter.dayClicked((DayModel) sender);
-        }, model -> {
+        daysListAdapter = new DaysListAdapter(sender -> presenter.dayClicked((DayModel) sender), model -> {
         });
 
         viewPager.setAdapter(journalPagerAdapter);
@@ -150,6 +150,18 @@ public class JournalFragment extends Fragment {
     public void setVisibleDayOnPages(Date day) {
         for (int i = 0; i < pages.size(); i++) {
             ((JournalCasesFragment)pages.get(i)).setVisibleDay(day);
+        }
+    }
+
+    public void dismissSnackbar() {
+        if (snackbar != null) snackbar.dismiss();
+    }
+
+    public void showSnackbar(String text, String actionName, View.OnClickListener onClickListener) {
+        if (getView() != null) {
+            snackbar = Snackbar.make(getView().findViewById(R.id.coordinator_journal), text, 5000)
+                    .setAction(actionName, onClickListener);
+            snackbar.show();
         }
     }
 

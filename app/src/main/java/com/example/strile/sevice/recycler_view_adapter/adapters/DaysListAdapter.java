@@ -1,12 +1,11 @@
 package com.example.strile.sevice.recycler_view_adapter.adapters;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.SortedList;
 
 import com.example.strile.sevice.event_handler_interfaces.OnClickListener;
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.renderers.DayRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.day.DayRenderer;
 
 public class DaysListAdapter extends BaseRecyclerViewAdapter {
 

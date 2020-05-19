@@ -9,17 +9,18 @@ import com.example.strile.database.entities.Habit;
 import com.example.strile.database.repositories.HabitRepository;
 import com.example.strile.database.repositories.Repository;
 import com.example.strile.sevice.date.Day;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonRepeatModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonTimeGoalModel;
-import com.example.strile.sevice.recycler_view_adapter.models.CurrentStreakModel;
-import com.example.strile.sevice.recycler_view_adapter.models.EditTextModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ProgressBarElapsedTimeModel;
-import com.example.strile.sevice.recycler_view_adapter.models.SeekBarDifficultModel;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_repeat.ButtonRepeatModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_time_goal.ButtonTimeGoalModel;
+import com.example.strile.sevice.recycler_view_adapter.items.current_streak.CurrentStreakModel;
+import com.example.strile.sevice.recycler_view_adapter.items.edit_text.EditTextModel;
+import com.example.strile.sevice.recycler_view_adapter.items.progress_bar_elapsed_time.ProgressBarElapsedTimeModel;
+import com.example.strile.sevice.recycler_view_adapter.items.seek_bar_difficult.SeekBarDifficultModel;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
 
@@ -49,6 +50,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
     @Override
     public void unbindView() {
         Habit habit = this.habit.getValue();
+        assert habit != null;
         if (habit.getName().equals("")) habit.setName(view().getString(R.string.t_no_name));
         if (habit.getDaysRepeat() == 0) habit.setDaysRepeat(new boolean[]{
                 true, true, true, true, true, true, true //7 days
@@ -61,7 +63,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
     public void specialPurposeButtonClicked() {
         final Habit backupHabit = habit.getValue();
         repository.delete(backupHabit);
-        view().showSnackbar(view().getCaller(),
+        view().showSnackbar(
                 view().getString(R.string.w_habit_deleted),
                 view().getString(R.string.undo), v -> repository.insert(backupHabit));
         view().finish();
@@ -86,7 +88,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
                     seekBarDifficult.setProgress(habit.getDifficulty());
                     final ProgressBarElapsedTimeModel progressBarElapsedTime =
                             new ProgressBarElapsedTimeModel(progressBarElapsedTimeId, true);
-                    progressBarElapsedTime.setMax((int) (habit.getGoalTime() / 60 / 1000)); //todo careless cast: long to int
+                    progressBarElapsedTime.setMax((int) (habit.getGoalTime() / 60 / 1000));
                     progressBarElapsedTime.setProgress((int) (habit.getElapsedTime() / 60 / 1000));
                     currentStreak.setStreak(habit.getStreakByDay(Day.getDateOfDayWithoutTime(new Date())));
 
@@ -106,28 +108,28 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
 
     @Override
     public void repeatChanged(ButtonRepeatModel model) {
-        habit.getValue().setDaysRepeat(model.getDaysRepeat());
+        Objects.requireNonNull(habit.getValue()).setDaysRepeat(model.getDaysRepeat());
     }
 
     @Override
     public void timeGoalChanged(ButtonTimeGoalModel model) {
-        habit.getValue().setGoalTime(model.getGoalTime());
+        Objects.requireNonNull(habit.getValue()).setGoalTime(model.getGoalTime());
         repository.update(habit.getValue());
     }
 
     @Override
     public void editTextChanged(EditTextModel model) {
         if (model.equals(editTextName))
-            habit.getValue().setName(model.getText());
+            Objects.requireNonNull(habit.getValue()).setName(model.getText());
     }
 
     @Override
     public void difficultChanged(SeekBarDifficultModel model) {
-        habit.getValue().setDifficulty(model.getProgress());
+        Objects.requireNonNull(habit.getValue()).setDifficulty(model.getProgress());
     }
 
     @Override
     public void elapsedTimeClicked(ProgressBarElapsedTimeModel model) {
-        view().openTimer(habit.getValue().getId());
+        view().openTimer(Objects.requireNonNull(habit.getValue()).getId());
     }
 }

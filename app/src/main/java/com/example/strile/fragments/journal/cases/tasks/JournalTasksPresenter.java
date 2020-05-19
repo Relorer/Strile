@@ -7,11 +7,12 @@ import com.example.strile.App;
 import com.example.strile.database.entities.Task;
 import com.example.strile.database.repositories.Repository;
 import com.example.strile.database.repositories.TaskRepository;
+import com.example.strile.fragments.journal.JournalFragment;
 import com.example.strile.fragments.journal.cases.JournalCasesPresenter;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonHidingModel;
-import com.example.strile.sevice.recycler_view_adapter.models.CaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.TaskModel;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.CaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_hiding.ButtonHidingModel;
+import com.example.strile.sevice.recycler_view_adapter.items.task.TaskModel;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +23,8 @@ public class JournalTasksPresenter extends JournalCasesPresenter<JournalTasksFra
 
     private final Repository<Task> repository;
     private final LiveData<List<TaskModel>> tasks;
+
+    private List<TaskModel> updatedList;
 
     public JournalTasksPresenter() {
         repository = new TaskRepository(App.getInstance());
@@ -35,13 +38,19 @@ public class JournalTasksPresenter extends JournalCasesPresenter<JournalTasksFra
     @Override
     public void setVisibleDay(Date visibleDay) {
         super.setVisibleDay(visibleDay);
-        if (tasks.getValue().size() > 0)
+        if (tasks.getValue() != null && tasks.getValue().size() > 0)
             repository.update(tasks.getValue().get(0).getTask());
     }
 
     @Override
     public void itemClicked(CaseModel model) {
         Task task = ((TaskModel) model).getTask();
+        if (task == null) return;
+
+        JournalFragment fragment = (JournalFragment) view().getParentFragment();
+        if (fragment != null)
+            fragment.dismissSnackbar();
+
         view().startTaskActivity(task.getId());
     }
 
@@ -64,11 +73,14 @@ public class JournalTasksPresenter extends JournalCasesPresenter<JournalTasksFra
 
     @Override
     protected void updateView() {
+        if (updatedList != null) buildDisplayedList(updatedList);
         if (!tasks.hasActiveObservers())
             tasks.observe(view(), this::buildDisplayedList);
     }
 
     private void buildDisplayedList(List<TaskModel> tasks) {
+        updatedList = tasks;
+
         if (view() != null) {
             final List<BaseModel> models = new ArrayList<>();
             final List<TaskModel> forDay = getPlannedForDay(tasks, visibleDay);
@@ -83,6 +95,8 @@ public class JournalTasksPresenter extends JournalCasesPresenter<JournalTasksFra
                 models.add(new ButtonHidingModel(idButton, false, showCompleted, countCompleted));
             }
             view().setSortedList(models);
+
+            updatedList = null;
         }
     }
 

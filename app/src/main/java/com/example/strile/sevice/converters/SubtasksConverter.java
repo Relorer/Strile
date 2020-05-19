@@ -1,10 +1,7 @@
 package com.example.strile.sevice.converters;
 
-import android.util.Log;
-
 import androidx.room.TypeConverter;
 
-import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
 import com.example.strile.sevice.structures.Subtask;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;

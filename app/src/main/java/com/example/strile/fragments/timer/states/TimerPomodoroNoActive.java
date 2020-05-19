@@ -6,6 +6,7 @@ import android.app.Activity;
 import androidx.fragment.app.Fragment;
 
 import com.example.strile.R;
+import com.example.strile.sevice.settings.UsersSettings;
 import com.example.strile.sevice.timer.TimerController;
 import com.example.strile.sevice.timer.TimerState;
 import com.example.strile.sevice.timer.TimerView;
@@ -15,7 +16,7 @@ public class TimerPomodoroNoActive implements TimerState {
     private final TimerView view;
     private final TimerController timer;
     private final int numPom;
-    private final long goalTime = 25 * 60000; //todo put in the settings
+    private final long goalTime = UsersSettings.getTimerPomodoroTimeGoal();
 
     public TimerPomodoroNoActive(TimerView view, TimerController timer, int numPom) {
         this.view = view;
@@ -37,6 +38,7 @@ public class TimerPomodoroNoActive implements TimerState {
     @SuppressLint("DefaultLocale")
     private void bindView() {
         final Activity context = ((Fragment) view).getActivity();
+        assert context != null;
         view.setTextItemTitle(context.getString(R.string.pomodoro));
         view.setTextInfo(String.format("#%d", numPom));
         view.setTotalTimeOnCanvas(goalTime);

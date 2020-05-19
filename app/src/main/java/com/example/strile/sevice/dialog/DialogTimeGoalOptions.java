@@ -35,20 +35,19 @@ public class DialogTimeGoalOptions extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (callback == null)
+        if (callback == null && getDialog() != null)
             getDialog().cancel();
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
-        final String minutes = getString(R.string.minutes);
         final String[] timeOptions = {
                 getString(R.string.no_time),
-                String.format("5 %s", minutes),
-                String.format("15 %s", minutes),
-                String.format("30 %s", minutes),
-                String.format("45 %s", minutes),
+                String.format("5 %s", getResources().getQuantityString(R.plurals.minutes_without_number, 5)),
+                String.format("15 %s", getResources().getQuantityString(R.plurals.minutes_without_number, 15)),
+                String.format("30 %s", getResources().getQuantityString(R.plurals.minutes_without_number, 30)),
+                String.format("45 %s", getResources().getQuantityString(R.plurals.minutes_without_number, 45)),
                 getString(R.string.hour)
         };
 

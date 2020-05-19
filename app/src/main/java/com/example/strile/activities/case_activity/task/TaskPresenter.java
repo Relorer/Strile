@@ -8,12 +8,12 @@ import com.example.strile.activities.case_activity.BaseCasePresenter;
 import com.example.strile.database.entities.Task;
 import com.example.strile.database.repositories.Repository;
 import com.example.strile.database.repositories.TaskRepository;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonAddSubtaskModel;
-import com.example.strile.sevice.recycler_view_adapter.models.ButtonDateSelectionModel;
-import com.example.strile.sevice.recycler_view_adapter.models.EditTextModel;
-import com.example.strile.sevice.recycler_view_adapter.models.SeekBarDifficultModel;
-import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_add_subtask.ButtonAddSubtaskModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_date_selection.ButtonDateSelectionModel;
+import com.example.strile.sevice.recycler_view_adapter.items.edit_text.EditTextModel;
+import com.example.strile.sevice.recycler_view_adapter.items.seek_bar_difficult.SeekBarDifficultModel;
+import com.example.strile.sevice.recycler_view_adapter.items.subtask.SubtaskModel;
 import com.example.strile.sevice.structures.Subtask;
 
 import java.util.ArrayList;
@@ -50,6 +50,7 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
     @Override
     public void unbindView() {
         Task task = this.task.getValue();
+        assert task != null;
         if (task.getName().equals("")) task.setName(view().getString(R.string.t_no_name));
         task.getSubtasks().addAll(subtaskModels.stream()
                 .map(m -> new Subtask(m.getText(), m.isComplete()))
@@ -62,7 +63,7 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
     public void specialPurposeButtonClicked() {
         final Task backupTask = task.getValue();
         repository.delete(backupTask);
-        view().showSnackbar(view().getCaller(),
+        view().showSnackbar(
                 view().getString(R.string.w_task_deleted),
                 view().getString(R.string.undo), v -> repository.insert(backupTask));
         view().finish();
@@ -110,6 +111,7 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
     @Override
     public void editTextChanged(EditTextModel model) {
         final Task task = this.task.getValue();
+        assert task != null;
         if (model.equals(editTextName)) {
             task.setName(model.getText());
         } else if (model.equals(editTextDescription)) {
@@ -120,6 +122,7 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
     @Override
     public void dateSelectionChanged(ButtonDateSelectionModel model) {
         final Task task = this.task.getValue();
+        assert task != null;
         task.setDeadline(model.getDate());
     }
 
@@ -142,6 +145,7 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
     @Override
     public void difficultChanged(SeekBarDifficultModel model) {
         final Task task = this.task.getValue();
+        assert task != null;
         task.setDifficulty(model.getProgress());
     }
 

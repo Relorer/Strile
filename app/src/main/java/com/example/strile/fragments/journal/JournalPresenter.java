@@ -5,8 +5,8 @@ import com.example.strile.fragments.journal.cases.habits.JournalHabitsFragment;
 import com.example.strile.fragments.journal.cases.tasks.JournalTasksFragment;
 import com.example.strile.sevice.date.Day;
 import com.example.strile.sevice.presenter.BasePresenter;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.DayModel;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.day.DayModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,6 +36,7 @@ public class JournalPresenter extends BasePresenter<JournalFragment> {
     }
 
     void addButtonClicked(JournalCasesPage page) {
+        view().dismissSnackbar();
         if (page instanceof JournalHabitsFragment) view().startAddHabitFragment();
         else if (page instanceof JournalTasksFragment) view().startAddTaskFragment();
     }

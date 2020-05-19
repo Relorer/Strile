@@ -1,20 +1,24 @@
 package com.example.strile.activities.case_activity.habit;
 
-import androidx.core.content.res.ResourcesCompat;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.view.View;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import com.example.strile.R;
 import com.example.strile.activities.case_activity.BaseCaseActivity;
 import com.example.strile.activities.case_activity.BaseCasePresenter;
 import com.example.strile.activities.timer.HabitTimerActivity;
+import com.example.strile.sevice.call_back_interfaces.ShowSnackbarCallback;
 
 public class HabitActivity extends BaseCaseActivity {
 
     private static final String HABIT_ID = "habit_id";
+
+    private static ShowSnackbarCallback lastCallback;
 
     private long habitId;
 
@@ -33,8 +37,13 @@ public class HabitActivity extends BaseCaseActivity {
         return new HabitPresenter(habitId);
     }
 
-    public static void start(Activity caller, long habitId) {
-        setCaller(caller);
+    public void showSnackbar(String text, String actionName, View.OnClickListener onClickListener) {
+        if (lastCallback != null)
+            lastCallback.show(text, actionName, onClickListener);
+    }
+
+    public static void start(Activity caller, long habitId, ShowSnackbarCallback callback) {
+        lastCallback = callback;
         Intent intent = new Intent(caller, HabitActivity.class);
         intent.putExtra(HABIT_ID, habitId);
         caller.startActivity(intent);

@@ -3,6 +3,7 @@ package com.example.strile;
 import android.app.Application;
 
 import com.example.strile.sevice.progress.KeeperHistoryExecutions;
+import com.example.strile.sevice.settings.UsersSettings;
 
 public class App extends Application {
     private static App instance;
@@ -11,6 +12,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        UsersSettings.start();
         KeeperHistoryExecutions.start();
     }
 

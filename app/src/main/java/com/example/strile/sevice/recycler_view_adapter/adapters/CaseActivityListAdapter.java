@@ -5,18 +5,17 @@ import androidx.recyclerview.widget.SortedList;
 
 import com.example.strile.sevice.event_handler_interfaces.OnClickListener;
 import com.example.strile.sevice.event_handler_interfaces.OnModelChangedListener;
-import com.example.strile.sevice.recycler_view_adapter.models.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.CaseModel;
-import com.example.strile.sevice.recycler_view_adapter.models.SubtaskModel;
-import com.example.strile.sevice.recycler_view_adapter.renderers.ButtonAddSubtaskRenderer;
-import com.example.strile.sevice.recycler_view_adapter.renderers.ButtonDateSelectionRenderer;
-import com.example.strile.sevice.recycler_view_adapter.renderers.ButtonRepeatRenderer;
-import com.example.strile.sevice.recycler_view_adapter.renderers.ButtonTimeGoalRenderer;
-import com.example.strile.sevice.recycler_view_adapter.renderers.CurrentStreakRenderer;
-import com.example.strile.sevice.recycler_view_adapter.renderers.EditTextRenderer;
-import com.example.strile.sevice.recycler_view_adapter.renderers.ProgressBarElapsedTimeRenderer;
-import com.example.strile.sevice.recycler_view_adapter.renderers.SeekBarDifficultRenderer;
-import com.example.strile.sevice.recycler_view_adapter.renderers.SubtaskRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
+import com.example.strile.sevice.recycler_view_adapter.items.button_add_subtask.ButtonAddSubtaskRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.button_date_selection.ButtonDateSelectionRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.button_repeat.ButtonRepeatRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.button_time_goal.ButtonTimeGoalRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.current_streak.CurrentStreakRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.edit_text.EditTextRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.progress_bar_elapsed_time.ProgressBarElapsedTimeRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.seek_bar_difficult.SeekBarDifficultRenderer;
+import com.example.strile.sevice.recycler_view_adapter.items.subtask.SubtaskModel;
+import com.example.strile.sevice.recycler_view_adapter.items.subtask.SubtaskRenderer;
 
 public class CaseActivityListAdapter extends BaseRecyclerViewAdapter {
 
