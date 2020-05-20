@@ -7,9 +7,9 @@ import com.example.strile.activities.timer.states.HabitTimerNoActive;
 import com.example.strile.database.entities.Habit;
 import com.example.strile.database.repositories.HabitRepository;
 import com.example.strile.database.repositories.Repository;
-import com.example.strile.sevice.presenter.BasePresenter;
-import com.example.strile.sevice.timer.TimerController;
-import com.example.strile.sevice.timer.TimerState;
+import com.example.strile.service.presenter.BasePresenter;
+import com.example.strile.service.timer.TimerController;
+import com.example.strile.service.timer.TimerState;
 
 public class HabitTimerPresenter extends BasePresenter<HabitTimerActivity> implements TimerController {
 

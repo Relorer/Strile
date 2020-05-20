@@ -3,7 +3,7 @@ package com.example.strile.fragments.journal.cases.habits;
 import androidx.annotation.NonNull;
 
 import com.example.strile.database.entities.Habit;
-import com.example.strile.sevice.recycler_view_adapter.items.habit.HabitModel;
+import com.example.strile.service.recycler_view_adapter.items.habit.HabitModel;
 
 import java.util.ArrayList;
 import java.util.Date;

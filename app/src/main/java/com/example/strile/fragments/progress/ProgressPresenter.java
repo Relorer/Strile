@@ -7,12 +7,12 @@ import com.example.strile.database.entities.Executed;
 import com.example.strile.database.entities.Habit;
 import com.example.strile.database.repositories.ExecutedRepository;
 import com.example.strile.database.repositories.Repository;
-import com.example.strile.sevice.date.Day;
-import com.example.strile.sevice.presenter.BasePresenter;
-import com.example.strile.sevice.progress.Progress;
-import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.items.graph_progress.GraphProgressModel;
-import com.example.strile.sevice.recycler_view_adapter.items.info_progress.InfoProgressModel;
+import com.example.strile.service.date.Day;
+import com.example.strile.service.presenter.BasePresenter;
+import com.example.strile.service.progress.Progress;
+import com.example.strile.service.recycler_view_adapter.items.BaseModel;
+import com.example.strile.service.recycler_view_adapter.items.graph_progress.GraphProgressModel;
+import com.example.strile.service.recycler_view_adapter.items.info_progress.InfoProgressModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;

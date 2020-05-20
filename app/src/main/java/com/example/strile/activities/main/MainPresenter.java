@@ -1,7 +1,7 @@
 package com.example.strile.activities.main;
 
 import com.example.strile.R;
-import com.example.strile.sevice.presenter.BasePresenter;
+import com.example.strile.service.presenter.BasePresenter;
 
 public class MainPresenter extends BasePresenter<MainActivity> {
 

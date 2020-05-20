@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.strile.R;
-import com.example.strile.sevice.presenter.PresenterManager;
-import com.example.strile.sevice.recycler_view_adapter.adapters.SettingsListAdapter;
-import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.items.number_edit_with_title.NumberEditWIthTitleModel;
+import com.example.strile.service.presenter.PresenterManager;
+import com.example.strile.service.recycler_view_adapter.adapters.SettingsListAdapter;
+import com.example.strile.service.recycler_view_adapter.items.BaseModel;
+import com.example.strile.service.recycler_view_adapter.items.number_edit_with_title.NumberEditWIthTitleModel;
 
 import java.util.List;
 

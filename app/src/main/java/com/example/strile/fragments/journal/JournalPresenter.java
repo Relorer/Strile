@@ -3,10 +3,10 @@ package com.example.strile.fragments.journal;
 import com.example.strile.fragments.journal.cases.JournalCasesPage;
 import com.example.strile.fragments.journal.cases.habits.JournalHabitsFragment;
 import com.example.strile.fragments.journal.cases.tasks.JournalTasksFragment;
-import com.example.strile.sevice.date.Day;
-import com.example.strile.sevice.presenter.BasePresenter;
-import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.items.day.DayModel;
+import com.example.strile.service.date.Day;
+import com.example.strile.service.presenter.BasePresenter;
+import com.example.strile.service.recycler_view_adapter.items.BaseModel;
+import com.example.strile.service.recycler_view_adapter.items.day.DayModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;

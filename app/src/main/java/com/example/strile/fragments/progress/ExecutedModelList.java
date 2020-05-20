@@ -1,6 +1,6 @@
 package com.example.strile.fragments.progress;
 
-import com.example.strile.sevice.recycler_view_adapter.items.executed.ExecutedModel;
+import com.example.strile.service.recycler_view_adapter.items.executed.ExecutedModel;
 
 import java.util.ArrayList;
 import java.util.List;

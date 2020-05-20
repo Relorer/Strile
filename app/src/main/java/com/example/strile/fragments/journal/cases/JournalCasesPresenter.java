@@ -1,9 +1,9 @@
 package com.example.strile.fragments.journal.cases;
 
-import com.example.strile.sevice.date.Day;
-import com.example.strile.sevice.presenter.BasePresenter;
-import com.example.strile.sevice.recycler_view_adapter.items.CaseModel;
-import com.example.strile.sevice.recycler_view_adapter.items.button_hiding.ButtonHidingModel;
+import com.example.strile.service.date.Day;
+import com.example.strile.service.presenter.BasePresenter;
+import com.example.strile.service.recycler_view_adapter.items.CaseModel;
+import com.example.strile.service.recycler_view_adapter.items.button_hiding.ButtonHidingModel;
 
 import java.util.Date;
 

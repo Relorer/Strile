@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.strile.R;
 import com.example.strile.activities.settings.pomodoro_timer.SettingsPomodoroTimerActivity;
-import com.example.strile.sevice.presenter.PresenterManager;
-import com.example.strile.sevice.recycler_view_adapter.adapters.SettingsListAdapter;
-import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.items.button_night_mode_selection.ButtonNightModeSelectionModel;
-import com.example.strile.sevice.recycler_view_adapter.items.button_pomodoro_timer_settings.ButtonPomodoroTimerSettingsModel;
+import com.example.strile.service.presenter.PresenterManager;
+import com.example.strile.service.recycler_view_adapter.adapters.SettingsListAdapter;
+import com.example.strile.service.recycler_view_adapter.items.BaseModel;
+import com.example.strile.service.recycler_view_adapter.items.button_night_mode_selection.ButtonNightModeSelectionModel;
+import com.example.strile.service.recycler_view_adapter.items.button_pomodoro_timer_settings.ButtonPomodoroTimerSettingsModel;
 
 import java.util.List;
 

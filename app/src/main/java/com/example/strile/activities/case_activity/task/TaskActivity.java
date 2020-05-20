@@ -11,7 +11,7 @@ import androidx.core.content.res.ResourcesCompat;
 import com.example.strile.R;
 import com.example.strile.activities.case_activity.BaseCaseActivity;
 import com.example.strile.activities.case_activity.BaseCasePresenter;
-import com.example.strile.sevice.call_back_interfaces.ShowSnackbarCallback;
+import com.example.strile.service.call_back_interfaces.ShowSnackbarCallback;
 
 public class TaskActivity extends BaseCaseActivity {
 

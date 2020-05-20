@@ -14,8 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.example.strile.R;
-import com.example.strile.sevice.presenter.PresenterManager;
-import com.example.strile.sevice.timer.TimerView;
+import com.example.strile.service.presenter.PresenterManager;
+import com.example.strile.service.timer.TimerView;
 import com.example.strile.views.TimerCanvas;
 
 public class HabitTimerActivity extends AppCompatActivity implements TimerView {

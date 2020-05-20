@@ -3,7 +3,7 @@ package com.example.strile.fragments.journal.cases.tasks;
 import androidx.annotation.NonNull;
 
 import com.example.strile.database.entities.Task;
-import com.example.strile.sevice.recycler_view_adapter.items.task.TaskModel;
+import com.example.strile.service.recycler_view_adapter.items.task.TaskModel;
 
 import java.util.ArrayList;
 import java.util.Date;

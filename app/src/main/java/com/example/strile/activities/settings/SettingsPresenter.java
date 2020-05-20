@@ -2,11 +2,11 @@ package com.example.strile.activities.settings;
 
 import android.os.Build;
 
-import com.example.strile.sevice.presenter.BasePresenter;
-import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.items.button_night_mode_selection.ButtonNightModeSelectionModel;
-import com.example.strile.sevice.recycler_view_adapter.items.button_pomodoro_timer_settings.ButtonPomodoroTimerSettingsModel;
-import com.example.strile.sevice.settings.UsersSettings;
+import com.example.strile.service.presenter.BasePresenter;
+import com.example.strile.service.recycler_view_adapter.items.BaseModel;
+import com.example.strile.service.recycler_view_adapter.items.button_night_mode_selection.ButtonNightModeSelectionModel;
+import com.example.strile.service.recycler_view_adapter.items.button_pomodoro_timer_settings.ButtonPomodoroTimerSettingsModel;
+import com.example.strile.service.settings.UsersSettings;
 
 import java.util.ArrayList;
 import java.util.List;

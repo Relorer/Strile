@@ -10,10 +10,10 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.example.strile.sevice.converters.DatesConverter;
-import com.example.strile.sevice.date.Day;
-import com.example.strile.sevice.settings.Difficulty;
-import com.example.strile.sevice.structures.DateCompleted;
+import com.example.strile.service.converters.DatesConverter;
+import com.example.strile.service.date.Day;
+import com.example.strile.service.settings.Difficulty;
+import com.example.strile.service.structures.DateCompleted;
 
 import java.util.ArrayList;
 import java.util.Calendar;

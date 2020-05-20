@@ -9,10 +9,10 @@ import com.example.strile.database.repositories.HabitRepository;
 import com.example.strile.database.repositories.Repository;
 import com.example.strile.fragments.journal.JournalFragment;
 import com.example.strile.fragments.journal.cases.JournalCasesPresenter;
-import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.items.CaseModel;
-import com.example.strile.sevice.recycler_view_adapter.items.button_hiding.ButtonHidingModel;
-import com.example.strile.sevice.recycler_view_adapter.items.habit.HabitModel;
+import com.example.strile.service.recycler_view_adapter.items.BaseModel;
+import com.example.strile.service.recycler_view_adapter.items.CaseModel;
+import com.example.strile.service.recycler_view_adapter.items.button_hiding.ButtonHidingModel;
+import com.example.strile.service.recycler_view_adapter.items.habit.HabitModel;
 
 import java.util.ArrayList;
 import java.util.Date;

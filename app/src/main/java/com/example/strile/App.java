@@ -2,8 +2,8 @@ package com.example.strile;
 
 import android.app.Application;
 
-import com.example.strile.sevice.progress.KeeperHistoryExecutions;
-import com.example.strile.sevice.settings.UsersSettings;
+import com.example.strile.service.progress.KeeperHistoryExecutions;
+import com.example.strile.service.settings.UsersSettings;
 
 public class App extends Application {
     private static App instance;

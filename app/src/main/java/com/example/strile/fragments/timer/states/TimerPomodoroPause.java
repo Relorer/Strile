@@ -5,9 +5,9 @@ import android.app.Activity;
 import androidx.fragment.app.Fragment;
 
 import com.example.strile.R;
-import com.example.strile.sevice.timer.TimerController;
-import com.example.strile.sevice.timer.TimerState;
-import com.example.strile.sevice.timer.TimerView;
+import com.example.strile.service.timer.TimerController;
+import com.example.strile.service.timer.TimerState;
+import com.example.strile.service.timer.TimerView;
 
 public class TimerPomodoroPause implements TimerState {
 

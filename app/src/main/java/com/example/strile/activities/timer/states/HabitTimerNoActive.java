@@ -4,9 +4,9 @@ import android.app.Activity;
 
 import com.example.strile.R;
 import com.example.strile.database.entities.Habit;
-import com.example.strile.sevice.timer.TimerController;
-import com.example.strile.sevice.timer.TimerState;
-import com.example.strile.sevice.timer.TimerView;
+import com.example.strile.service.timer.TimerController;
+import com.example.strile.service.timer.TimerState;
+import com.example.strile.service.timer.TimerView;
 
 public class HabitTimerNoActive implements TimerState {
 

@@ -1,10 +1,10 @@
 package com.example.strile.fragments.timer;
 
 import com.example.strile.fragments.timer.states.TimerPomodoroNoActive;
-import com.example.strile.sevice.presenter.BasePresenter;
-import com.example.strile.sevice.settings.UsersSettings;
-import com.example.strile.sevice.timer.TimerController;
-import com.example.strile.sevice.timer.TimerState;
+import com.example.strile.service.presenter.BasePresenter;
+import com.example.strile.service.settings.UsersSettings;
+import com.example.strile.service.timer.TimerController;
+import com.example.strile.service.timer.TimerState;
 
 public class TimerPresenter extends BasePresenter<TimerFragment> implements TimerController {
 

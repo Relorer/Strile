@@ -11,7 +11,7 @@ import com.example.strile.R;
 import com.example.strile.fragments.journal.JournalFragment;
 import com.example.strile.fragments.progress.ProgressFragment;
 import com.example.strile.fragments.timer.TimerFragment;
-import com.example.strile.sevice.presenter.PresenterManager;
+import com.example.strile.service.presenter.PresenterManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

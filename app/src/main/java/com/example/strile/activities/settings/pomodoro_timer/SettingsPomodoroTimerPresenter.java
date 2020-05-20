@@ -1,10 +1,10 @@
 package com.example.strile.activities.settings.pomodoro_timer;
 
 import com.example.strile.R;
-import com.example.strile.sevice.presenter.BasePresenter;
-import com.example.strile.sevice.recycler_view_adapter.items.BaseModel;
-import com.example.strile.sevice.recycler_view_adapter.items.number_edit_with_title.NumberEditWIthTitleModel;
-import com.example.strile.sevice.settings.UsersSettings;
+import com.example.strile.service.presenter.BasePresenter;
+import com.example.strile.service.recycler_view_adapter.items.BaseModel;
+import com.example.strile.service.recycler_view_adapter.items.number_edit_with_title.NumberEditWIthTitleModel;
+import com.example.strile.service.settings.UsersSettings;
 
 import java.util.ArrayList;
 import java.util.List;
