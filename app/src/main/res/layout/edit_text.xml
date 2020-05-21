@@ -11,5 +11,5 @@
     android:textColor="@color/colorBlack"
     android:textColorHint="@color/colorGray"
     android:textAppearance="@style/TextPrimary"
-    android:inputType="text"
+    android:inputType="textNoSuggestions"
     android:autofillHints="no"/>

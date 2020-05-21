@@ -44,6 +44,8 @@ public class AddHabitPresenter extends BaseCasePresenter<AddHabitActivity> {
             String message = view().getString(R.string.w_habit_repeat_empty);
             view().showToast(message);
         } else {
+            //todo hardcode
+            habit.setNotificationTime(0);
             repository.insert(habit);
             view().finish();
         }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.strile">
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -10,6 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver android:name=".service.notifications.NotificationReceiver" />
+
+        <activity
+            android:name=".activities.splash.SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.timer.HabitTimerActivity" />
         <activity android:name=".activities.case_activity.task.TaskActivity" />
         <activity android:name=".activities.case_activity.habit.HabitActivity" />
@@ -25,13 +37,7 @@
         <activity
             android:name=".activities.main.MainActivity"
             android:configChanges="screenSize|orientation|screenLayout"
-            android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

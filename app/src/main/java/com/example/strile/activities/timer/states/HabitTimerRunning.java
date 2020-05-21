@@ -1,10 +1,12 @@
 package com.example.strile.activities.timer.states;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.CountDownTimer;
 
 import com.example.strile.R;
 import com.example.strile.database.entities.Habit;
+import com.example.strile.service.notifications.NotificationDisplay;
 import com.example.strile.service.timer.TimerController;
 import com.example.strile.service.timer.TimerState;
 import com.example.strile.service.timer.TimerView;
@@ -63,8 +65,12 @@ public class HabitTimerRunning implements TimerState {
 
             @Override
             public void onFinish() {
+                Activity activity = (Activity) view;
+                //todo check settings params
+                new NotificationDisplay(activity)
+                        .showNotification(activity.getString(R.string.habit_fulfilled), activity.getString(R.string.habit_fulfilled_text), new Intent(), TIMER_ID);
                 habit.setElapsedTime(habit.getGoalTime());
-                ((Activity) view).finish();
+                activity.finish();
             }
         }.start();
     }

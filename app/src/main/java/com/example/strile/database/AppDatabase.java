@@ -16,7 +16,7 @@ import com.example.strile.database.entities.Task;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Habit.class, Task.class, Executed.class}, version = 21)
+@Database(entities = {Habit.class, Task.class, Executed.class}, version = 22)
 public abstract class AppDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 8;
     public static final ExecutorService databaseWriteExecutor =

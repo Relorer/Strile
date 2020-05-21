@@ -22,7 +22,7 @@
         android:background="@color/colorPrimary"
         android:hint="@string/enter_title"
         android:autofillHints="no"
-        android:inputType="textMultiLine|textCapSentences"
+        android:inputType="textNoSuggestions|textMultiLine|textCapSentences"
         android:paddingTop="@dimen/padding_vertical_edit_text"
         android:paddingEnd="@dimen/margin_base"
         android:paddingStart="@dimen/margin_base"

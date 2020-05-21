@@ -1,11 +1,14 @@
 package com.example.strile.fragments.timer.states;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.CountDownTimer;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.strile.R;
+import com.example.strile.service.notifications.NotificationDisplay;
 import com.example.strile.service.timer.TimerController;
 import com.example.strile.service.timer.TimerState;
 import com.example.strile.service.timer.TimerView;
@@ -62,6 +65,12 @@ public class TimerBreakRunning implements TimerState {
 
             @Override
             public void onFinish() {
+                Context context = ((Fragment) view).getContext();
+                assert context != null;
+                //todo check settings params
+                new NotificationDisplay(context)
+                        .showNotification(context.getString(R.string.break_ended),
+                                context.getString(R.string.break_ended_text), new Intent(), TIMER_ID);
                 timer.setState(new TimerPomodoroNoActive(view, timer, numPom));
             }
         }.start();

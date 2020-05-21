@@ -20,7 +20,8 @@
         android:tint="@color/colorBlack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/icon"/>
 
     <TextView
         android:id="@+id/text_deadline"
@@ -43,6 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/text_deadline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/icon_cross"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -97,7 +97,6 @@ public class JournalFragment extends Fragment {
         params.topToBottom = R.id.tab;
         toggle.setOnTouchListener((v, event) -> {
             final float delta = (event.getY() - startY) / 2;
-
             int margin = topBlockVisible ? (int) delta + maxMargin : (int) delta + minMargin;
             margin = Math.min(margin, maxMargin);
             margin = Math.max(margin, minMargin);

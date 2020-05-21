@@ -13,4 +13,6 @@
     <color name="colorHardCase">#B54472</color>
 
     <color name="colorTextActiveDay">#fff</color>
+
+    <color name="colorLogo">#b7bcbf</color>
 </resources>

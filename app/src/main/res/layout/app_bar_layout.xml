@@ -40,7 +40,8 @@
                 android:layout_height="@dimen/size_image_special"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/margin_base"
-                android:layout_marginEnd="@dimen/margin_base" />
+                android:layout_marginEnd="@dimen/margin_base"
+                android:contentDescription="@string/icon"/>
         </FrameLayout>
 
 
@@ -61,7 +62,8 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/margin_base"
                 android:layout_marginEnd="@dimen/margin_base"
-                android:tint="@color/colorGray" />
+                android:tint="@color/colorGray"
+                android:contentDescription="@string/icon"/>
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,10 +48,10 @@ public class EditTextHolder extends BaseHolder<EditTextModel> {
         else text.setMaxLines(Integer.MAX_VALUE);
 
         if (model.getLineCount() == 1) {
-            text.setInputType(InputType.TYPE_CLASS_TEXT |
+            text.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_CLASS_TEXT |
                     InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         } else {
-            text.setInputType(InputType.TYPE_CLASS_TEXT |
+            text.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_CLASS_TEXT |
                     InputType.TYPE_TEXT_FLAG_MULTI_LINE |
                     InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         }

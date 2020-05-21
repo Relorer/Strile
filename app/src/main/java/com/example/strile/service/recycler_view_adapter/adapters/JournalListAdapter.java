@@ -39,6 +39,9 @@ public class JournalListAdapter extends BaseRecyclerViewAdapter {
                     final TaskModel tm2 = (TaskModel) o2;
                     if (!tm2.isComplete() && tm1.isComplete()) return 1;
                     if (tm2.isComplete() && !tm1.isComplete()) return -1;
+                    if (tm1.getDeadline() == 0 && tm2.getDeadline() != 0) return 1;
+                    if (tm1.getDeadline() != 0 && tm2.getDeadline() == 0) return -1;
+                    return (int) (tm1.getDeadline() - tm2.getDeadline());
                 }
                 return 0;
             }

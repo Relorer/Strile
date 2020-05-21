@@ -34,7 +34,8 @@ public class Habit implements Parcelable {
             long elapsedTime = source.readLong();
             int daysRepeat = source.readInt();
             List<DateCompleted> datesList = new DatesConverter().toDatesList(source.readString());
-            return new Habit(id, name, difficult, goalTime, elapsedTime, daysRepeat, datesList);
+            long notificationTime = source.readLong();
+            return new Habit(id, name, difficult, goalTime, elapsedTime, daysRepeat, datesList, notificationTime);
         }
 
         @Override
@@ -42,8 +43,10 @@ public class Habit implements Parcelable {
             return new Habit[size];
         }
     };
+
     @TypeConverters({DatesConverter.class})
     private final List<DateCompleted> datesCompleted;
+
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String name;
@@ -51,9 +54,10 @@ public class Habit implements Parcelable {
     private long goalTime;
     private long elapsedTime;
     private int daysRepeat;
+    private long notificationTime;
 
     public Habit(long id, String name, int difficulty, long goalTime, long elapsedTime,
-                 int daysRepeat, @NonNull List<DateCompleted> datesCompleted) {
+                 int daysRepeat, @NonNull List<DateCompleted> datesCompleted, long notificationTime) {
         this.id = id;
         this.name = name;
         this.difficulty = difficulty;
@@ -62,17 +66,19 @@ public class Habit implements Parcelable {
         this.daysRepeat = daysRepeat;
         this.datesCompleted = datesCompleted;
         getDateCompleted(new Date());
+        this.notificationTime = notificationTime;
     }
 
     @Ignore
     public Habit(String name, int difficulty, long goalTime, long elapsedTime,
-                 boolean[] daysRepeat, @NonNull List<DateCompleted> datesCompleted) {
+                 boolean[] daysRepeat, @NonNull List<DateCompleted> datesCompleted, long notificationTime) {
         this.name = name;
         this.difficulty = difficulty;
         this.goalTime = goalTime;
         this.elapsedTime = elapsedTime;
         this.daysRepeat = arrayRepeatToInt(daysRepeat);
         this.datesCompleted = datesCompleted;
+        this.notificationTime = notificationTime;
     }
 
     @Ignore
@@ -83,6 +89,7 @@ public class Habit implements Parcelable {
         elapsedTime = 0;
         daysRepeat = arrayRepeatToInt(new boolean[]{true, true, true, true, true, true, true});
         datesCompleted = new ArrayList<>();
+        notificationTime = 0;
     }
 
     public boolean plannedForDay(Date date) {
@@ -198,6 +205,14 @@ public class Habit implements Parcelable {
         return repeat;
     }
 
+    public long getNotificationTime() {
+        return notificationTime;
+    }
+
+    public void setNotificationTime(long notificationTime) {
+        this.notificationTime = notificationTime;
+    }
+
     private DateCompleted getDateCompleted(Date date) {
         final Date dateOfDayWithoutTime = Day.getDateOfDayWithoutTime(date);
         DateCompleted found = datesCompleted.stream()
@@ -228,5 +243,6 @@ public class Habit implements Parcelable {
         dest.writeLong(elapsedTime);
         dest.writeInt(daysRepeat);
         dest.writeString(new DatesConverter().fromDatesList(datesCompleted));
+        dest.writeLong(notificationTime);
     }
 }

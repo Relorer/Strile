@@ -8,6 +8,4 @@
     android:textAppearance="@style/TextPrimary"
     android:background="@color/colorPrimary"
     android:foreground="?attr/selectableItemBackground"
-    tools:ignore="RtlSymmetry">
-
-</TextView>
+    tools:ignore="RtlSymmetry"/>

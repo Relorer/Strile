@@ -2,6 +2,7 @@ package com.example.strile;
 
 import android.app.Application;
 
+import com.example.strile.service.notifications.NotificationPlanner;
 import com.example.strile.service.progress.KeeperHistoryExecutions;
 import com.example.strile.service.settings.UsersSettings;
 
@@ -18,5 +19,6 @@ public class App extends Application {
         instance = this;
         UsersSettings.start();
         KeeperHistoryExecutions.start();
+        NotificationPlanner.start();
     }
 }

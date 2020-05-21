@@ -20,7 +20,8 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="center"
-            android:src="@drawable/circle_accent"/>
+            android:src="@drawable/circle_accent"
+            android:contentDescription="@string/icon"/>
 
         <TextView
             android:id="@+id/text_number"
