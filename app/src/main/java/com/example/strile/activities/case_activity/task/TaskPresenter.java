@@ -52,6 +52,7 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
         Task task = this.task.getValue();
         assert task != null;
         if (task.getName().equals("")) task.setName(view().getString(R.string.t_no_name));
+        task.getSubtasks().clear();
         task.getSubtasks().addAll(subtaskModels.stream()
                 .map(m -> new Subtask(m.getText(), m.isComplete()))
                 .collect(Collectors.toList()));

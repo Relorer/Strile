@@ -10,6 +10,7 @@ import com.example.strile.database.repositories.ExecutedRepository;
 import com.example.strile.database.repositories.HabitRepository;
 import com.example.strile.database.repositories.Repository;
 import com.example.strile.database.repositories.TaskRepository;
+import com.example.strile.service.date.Day;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -25,6 +26,8 @@ public class KeeperHistoryExecutions {
 
     private static final LiveData<List<Habit>> habitsLiveData;
     private static final LiveData<List<Task>> tasksLiveData;
+
+    private static Date currentDay;
 
     static {
         App app = App.getInstance();
@@ -44,10 +47,17 @@ public class KeeperHistoryExecutions {
 
         setHabitsListener();
         setTasksListener();
+
+        currentDay = Day.getDateOfDayWithoutTime(new Date());
     }
 
     private static void setHabitsListener() {
         habitsLiveData.observeForever(habits -> {
+            if (currentDay.getTime() != Day.getDateOfDayWithoutTime(new Date()).getTime()) {
+                tasksState.clear();
+                habitsState.clear();
+                currentDay = Day.getDateOfDayWithoutTime(new Date());
+            }
             Date day = new Date();
             for (Habit habit : habits) {
                 if (habitsState.containsKey(habit.getId())) {
@@ -72,6 +82,11 @@ public class KeeperHistoryExecutions {
 
     private static void setTasksListener() {
         tasksLiveData.observeForever(tasks -> {
+            if (currentDay.getTime() != Day.getDateOfDayWithoutTime(new Date()).getTime()) {
+                tasksState.clear();
+                habitsState.clear();
+                currentDay = Day.getDateOfDayWithoutTime(new Date());
+            }
             for (Task task : tasks) {
                 if (tasksState.containsKey(task.getId())) {
                     Boolean prevValue = tasksState.get(task.getId());

@@ -49,7 +49,8 @@ public class NotificationPlanner {
             Calendar calendar = Calendar.getInstance();
             for (Habit habit : habits) {
                 int requestCode = (int) (habit.getId() * 2);
-                if (habit.getNotificationTime() != 0) {
+                //todo hardcode
+                if (habit.getNotificationTime() != 0 && false) {
                     calendar.setTimeInMillis(System.currentTimeMillis());
                     if (calendar.getTimeInMillis() - Day.getDateOfDayWithoutTime(calendar.getTime()).getTime() >
                             habit.getNotificationTime()) {

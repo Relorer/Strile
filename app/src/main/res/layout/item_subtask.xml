@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,7 +26,7 @@
         android:inputType="textNoSuggestions|textMultiLine|textCapSentences"
         android:paddingTop="@dimen/padding_vertical_edit_text"
         android:paddingEnd="@dimen/margin_base"
-        android:paddingStart="@dimen/margin_base"
+        android:layout_marginStart="@dimen/margin_base"
         android:paddingBottom="@dimen/padding_vertical_edit_text"
         android:textAppearance="@style/TextPrimary"
         android:textColor="@color/colorBlack"
@@ -33,7 +34,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/image_cross"
         app:layout_constraintStart_toEndOf="@+id/image_icon_settings"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry" />
 
     <ImageView
         android:id="@+id/image_cross"

@@ -12,16 +12,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class JournalPresenter extends BasePresenter<JournalFragment> {
 
-    private final List<BaseModel> days;
+    private List<BaseModel> days;
     private DayModel selected;
+    private Date currentDay;
 
     JournalPresenter() {
+        build();
+    }
+
+    private void build() {
         days = new ArrayList<>();
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(Day.getDateOfDayWithoutTime(new Date()));
+        currentDay = calendar.getTime();
         selected = new DayModel(false, calendar.getTime(), true);
         days.add(selected);
         for (int i = 1; i < 30; i++) {
@@ -32,6 +39,10 @@ public class JournalPresenter extends BasePresenter<JournalFragment> {
 
     @Override
     protected void updateView() {
+        if (currentDay.getTime() != Day.getDateOfDayWithoutTime(new Date()).getTime()) {
+            build();
+            Objects.requireNonNull(view().getActivity()).recreate();
+        }
         view().setSortedListDays(days);
     }
 
