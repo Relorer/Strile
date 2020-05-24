@@ -31,18 +31,18 @@ public class HabitTimerPresenter extends BasePresenter<HabitTimerActivity> imple
     public void unbindView() {
         super.unbindView();
         repository.update(habit.getValue());
-        state = null;
     }
 
     @Override
     protected void updateView() {
-        if (!habit.hasActiveObservers()) {
+        if (!habit.hasActiveObservers() && state == null) {
             habit.observe(view(), habit -> {
                 if (habit != null && view() != null) {
                     view().setTextItemTitle(habit.getName());
                     if (state == null)
                         state = new HabitTimerNoActive(view(), this, habit);
                 }
+               this.habit.removeObservers(view());
             });
         }
     }

@@ -1,5 +1,6 @@
 package com.example.strile.service.recycler_view_adapter.items.habit;
 
+import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -24,6 +25,8 @@ public class HabitHolder extends BaseHolder<HabitModel> {
 
     private boolean binding = false;
 
+    private final MediaPlayer checked;
+
     public HabitHolder(@NonNull View itemView,
                        @NonNull final OnModelChangedListener<HabitModel> onModelChangedListener,
                        @NonNull final OnClickListener<HabitModel> onClickCaseListener) {
@@ -33,10 +36,16 @@ public class HabitHolder extends BaseHolder<HabitModel> {
         name = itemView.findViewById(R.id.text_name);
         info = itemView.findViewById(R.id.text_info);
         special = itemView.findViewById(R.id.image_special);
+
+        checked = MediaPlayer.create(itemView.getContext(), R.raw.hero_simple_celebration);
+
         done.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (!binding)
+            if (!binding) {
                 onModelChangedListener.onChanged(model.setState(isChecked));
+                if (isChecked) checked.start();
+            }
         });
+
         itemView.setOnClickListener(v -> onClickCaseListener.onClick(model));
     }
 

@@ -1,5 +1,6 @@
 package com.example.strile.service.recycler_view_adapter.items.task;
 
+import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -25,6 +26,8 @@ public class TaskHolder extends BaseHolder<TaskModel> {
 
     private boolean binding = false;
 
+    private final MediaPlayer checked;
+
     public TaskHolder(@NonNull View itemView,
                       @NonNull final OnModelChangedListener<TaskModel> onModelChangedListener,
                       @NonNull final OnClickListener<TaskModel> onClickCaseListener) {
@@ -33,9 +36,14 @@ public class TaskHolder extends BaseHolder<TaskModel> {
         done = itemView.findViewById(R.id.image_icon_settings);
         name = itemView.findViewById(R.id.text_name);
         info = itemView.findViewById(R.id.text_info);
+
+        checked = MediaPlayer.create(itemView.getContext(), R.raw.hero_simple_celebration);
+
         done.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (!binding)
+            if (!binding) {
                 onModelChangedListener.onChanged(model.setState(isChecked));
+                if (isChecked) checked.start();
+            }
         });
         itemView.setOnClickListener(v -> onClickCaseListener.onClick(model));
     }

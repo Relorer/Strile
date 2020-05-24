@@ -1,5 +1,6 @@
 package com.example.strile.service.recycler_view_adapter.items.subtask;
 
+import android.media.MediaPlayer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -18,6 +19,10 @@ public class SubtaskHolder extends BaseHolder<SubtaskModel> {
     private final EditText text;
     private final View buttonDelete;
 
+    private boolean binding = false;
+
+    private final MediaPlayer checked;
+
     public SubtaskHolder(@NonNull View itemView,
                          @NonNull OnModelChangedListener<SubtaskModel> onModelChangedListener) {
         super(itemView, onModelChangedListener);
@@ -25,7 +30,15 @@ public class SubtaskHolder extends BaseHolder<SubtaskModel> {
         text = view.findViewById(R.id.editText_subtask);
         buttonDelete = view.findViewById(R.id.image_cross);
 
-        state.setOnCheckedChangeListener((buttonView, isChecked) -> onModelChangedListener.onChanged(model.setState(isChecked)));
+        checked = MediaPlayer.create(itemView.getContext(), R.raw.hero_simple_celebration);
+
+        state.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!binding) {
+                onModelChangedListener.onChanged(model.setState(isChecked));
+                if (isChecked) checked.start();
+            }
+        });
+
         buttonDelete.setOnClickListener(v -> {
             text.clearFocus();
             model.setDying(true);
@@ -53,9 +66,11 @@ public class SubtaskHolder extends BaseHolder<SubtaskModel> {
 
     @Override
     public void bind(SubtaskModel model) {
+        binding = true;
         super.bind(model);
         buttonDelete.setVisibility(View.INVISIBLE);
         text.setText(model.getText());
         state.setChecked(model.isComplete());
+        binding = false;
     }
 }
