@@ -48,7 +48,7 @@ public class SettingsPomodoroTimerActivity extends AppCompatActivity {
         View backButton = findViewById(R.id.special_purpose_button_left);
         RecyclerView recyclerView = findViewById(R.id.recycler);
 
-        textTitle.setText(String.format("%s %s", getString(R.string.settings), getString(R.string.focus_timer)));
+        textTitle.setText(R.string.timer_setting);
         imageSpecialPurposeLeft.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
                 R.drawable.back_arrow, null));
         backButton.setOnClickListener(v -> presenter.backButtonClicked());

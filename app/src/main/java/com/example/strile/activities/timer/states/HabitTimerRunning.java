@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 
 import com.example.strile.R;
+import com.example.strile.activities.timer.HabitTimerPresenter;
 import com.example.strile.database.entities.Habit;
 import com.example.strile.service.notifications.NotificationDisplay;
 import com.example.strile.service.timer.TimerController;
@@ -70,6 +71,7 @@ public class HabitTimerRunning implements TimerState {
                 new NotificationDisplay(activity)
                         .showNotification(activity.getString(R.string.habit_fulfilled), activity.getString(R.string.habit_fulfilled_text), new Intent(), TIMER_ID);
                 habit.setElapsedTime(habit.getGoalTime());
+                ((HabitTimerPresenter)timer).updateHabit(habit);
                 activity.finish();
             }
         }.start();

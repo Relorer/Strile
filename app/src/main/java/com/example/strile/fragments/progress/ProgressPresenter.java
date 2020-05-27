@@ -79,11 +79,10 @@ public class ProgressPresenter extends BasePresenter<ProgressFragment> {
             final long day = calendar.getTimeInMillis();
             List<Executed> daily = executed.stream().filter(e -> Day.getDateOfDayWithoutTime(new Date(e.getDateComplete())).getTime() == day).collect(Collectors.toList());
             for (Executed ex : daily) {
-                boolean complete = ex.getExperience() > 0;
                 if (ex.getTypeCase().equals(Habit.class.getCanonicalName())) {
-                    habitsByDay[2 * i + 1] += complete ? 1 : -1;
+                    habitsByDay[2 * i + 1] += 1;
                 } else {
-                    tasksByDay[2 * i + 1] += complete ? 1 : -1;
+                    tasksByDay[2 * i + 1] += 1;
                 }
             }
             maxHabits = Math.max(maxHabits, habitsByDay[2 * i + 1]);

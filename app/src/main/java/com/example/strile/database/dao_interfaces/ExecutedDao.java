@@ -22,7 +22,7 @@ public interface ExecutedDao {
     @Query("DELETE FROM executed WHERE dateComplete < :date")
     void deleteBeforeDate(long date);
 
-    @Query("DELETE FROM executed WHERE caseId == :id AND typeCase == :type")
+    @Query("DELETE FROM executed WHERE dateComplete = (SELECT MAX(dateComplete) FROM executed WHERE caseId == :id AND typeCase == :type)")
     void deleteByCaseId(long id, String type);
 
     @Insert

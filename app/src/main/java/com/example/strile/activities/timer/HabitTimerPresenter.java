@@ -30,7 +30,7 @@ public class HabitTimerPresenter extends BasePresenter<HabitTimerActivity> imple
     @Override
     public void unbindView() {
         super.unbindView();
-        repository.update(habit.getValue());
+        updateHabit(habit.getValue());
     }
 
     @Override
@@ -58,5 +58,9 @@ public class HabitTimerPresenter extends BasePresenter<HabitTimerActivity> imple
     @Override
     public void setState(TimerState state) {
         this.state = state;
+    }
+
+    public void updateHabit(Habit habit) {
+        repository.update(habit);
     }
 }

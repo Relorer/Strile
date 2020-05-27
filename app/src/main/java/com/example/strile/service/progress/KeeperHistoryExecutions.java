@@ -67,12 +67,13 @@ public class KeeperHistoryExecutions {
                         int exp;
                         if (currValue) {
                             exp = (habit.getStreakByDay(day) + 1) * (habit.getDifficulty() + 1) / 2;
+                            Executed executed = new Executed(habit.getId(), habit.getName(), new Date().getTime(), exp, Habit.class.getCanonicalName());
+                            executedRepository.insert(executed);
                         } else {
                             exp = -1 * (habit.getStreakByDay(day) + 2) * (habit.getDifficulty() + 1) / 2;
+                            executedRepository.deleteByCaseId(habit.getId(), Habit.class.getCanonicalName());
                         }
                         Progress.addExperience(exp);
-                        Executed executed = new Executed(habit.getId(), habit.getName(), new Date().getTime(), exp, Habit.class.getCanonicalName());
-                        executedRepository.insert(executed);
                     }
                 }
                 habitsState.put(habit.getId(), habit.isCompleteOnDay(day));
@@ -92,11 +93,17 @@ public class KeeperHistoryExecutions {
                     Boolean prevValue = tasksState.get(task.getId());
                     Boolean currValue = task.getDateComplete() != 0;
                     if (prevValue != currValue) {
-                        int exp = 10 * (task.getDifficulty() + 1);
-                        exp *= currValue ? 1 : -1;
+                        int exp;
+                        if (currValue) {
+                            exp = 10 * (task.getDifficulty() + 1);
+                            Executed executed = new Executed(task.getId(), task.getName(), new Date().getTime(), exp, Task.class.getCanonicalName());
+                            executedRepository.insert(executed);
+                        }
+                        else {
+                            exp = -10 * (task.getDifficulty() + 1);
+                            executedRepository.deleteByCaseId(task.getId(), Task.class.getCanonicalName());
+                        }
                         Progress.addExperience(exp);
-                        Executed executed = new Executed(task.getId(), task.getName(), new Date().getTime(), exp, Task.class.getCanonicalName());
-                        executedRepository.insert(executed);
                     }
                 }
                 tasksState.put(task.getId(), task.getDateComplete() != 0);
