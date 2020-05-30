@@ -89,7 +89,7 @@ public class Habit implements Parcelable {
         elapsedTime = 0;
         daysRepeat = arrayRepeatToInt(new boolean[]{true, true, true, true, true, true, true});
         datesCompleted = new ArrayList<>();
-        notificationTime = 0;
+        notificationTime = -1;
     }
 
     public boolean plannedForDay(Date date) {

@@ -56,10 +56,10 @@
     <string name="skip">skip</string>
     <string name="settings">Settings</string>
     <string name="night_mode">Night mode</string>
-    <string name="enabled">enabled</string>
-    <string name="disabled">disabled</string>
-    <string name="follow_system">follow system</string>
-    <string name="scheme">scheme</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="follow_system">Follow system</string>
+    <string name="scheme">Scheme</string>
     <string name="icon" translatable="false">icon</string>
     <string name="icon_cross" translatable="false">icon_cross</string>
     <string name="jurnal">jurnal</string>
@@ -78,6 +78,11 @@
     <string name="yesterday">Yesterday</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="timer_setting">Timer Setting</string>
+    <string name="notify_after_timer_ends">Notify after the timer ends</string>
+    <string name="notify_upcoming_task">Notify about an upcoming task</string>
+    <string name="no_notify">No notify</string>
+    <string name="dateFormatForTime">h:mm a</string>
+    <string name="at">At</string>
 
     <plurals name="day_streak">
         <item quantity="one">%d day streak</item>

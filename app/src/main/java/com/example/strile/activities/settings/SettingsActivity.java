@@ -20,6 +20,8 @@ import com.example.strile.service.recycler_view_adapter.adapters.SettingsListAda
 import com.example.strile.service.recycler_view_adapter.items.BaseModel;
 import com.example.strile.service.recycler_view_adapter.items.button_night_mode_selection.ButtonNightModeSelectionModel;
 import com.example.strile.service.recycler_view_adapter.items.button_pomodoro_timer_settings.ButtonPomodoroTimerSettingsModel;
+import com.example.strile.service.recycler_view_adapter.items.button_task_time_notify_selection.ButtonTaskTimeNotifySelectionModel;
+import com.example.strile.service.recycler_view_adapter.items.switch_setting.SwitchSettingModel;
 
 import java.util.List;
 
@@ -58,6 +60,10 @@ public class SettingsActivity extends AppCompatActivity {
         adapter = new SettingsListAdapter(model -> {
             if (model instanceof ButtonNightModeSelectionModel) {
                 presenter.nightModeChanged((ButtonNightModeSelectionModel) model);
+            } else if (model instanceof SwitchSettingModel) {
+                presenter.switchStateChanged((SwitchSettingModel) model);
+            } else if (model instanceof ButtonTaskTimeNotifySelectionModel) {
+                presenter.taskTimeNotifyChanged((ButtonTaskTimeNotifySelectionModel) model);
             }
         }, sender -> {
             if (sender instanceof ButtonPomodoroTimerSettingsModel) {

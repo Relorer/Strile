@@ -4,47 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?attr/selectableItemBackground"
-    android:paddingTop="@dimen/padding_vertical_item"
-    android:paddingBottom="@dimen/padding_vertical_item">
+    android:paddingTop="@dimen/padding_vertical_edit_text"
+    android:paddingBottom="@dimen/padding_vertical_edit_text">
 
     <ImageView
-        android:id="@+id/image_date"
-        android:layout_width="@dimen/size_check_box"
-        android:layout_height="@dimen/size_check_box"
+        android:id="@+id/image_icon_settings"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_marginStart="@dimen/margin_base"
-        android:button="@drawable/button_hiding_check_box"
+        android:contentDescription="@string/icon"
         android:src="@drawable/calendar"
         android:tint="@color/colorBlack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/icon"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_deadline"
+        android:id="@+id/text_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_base"
-        android:baselineAligned="false"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textAppearance="@style/TextPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image_date"
+        app:layout_constraintEnd_toStartOf="@+id/switch_setting"
+        app:layout_constraintStart_toEndOf="@+id/image_icon_settings"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/image_cross"
-        android:layout_width="@dimen/size_check_box_icon"
-        android:layout_height="@dimen/size_check_box_icon"
+    <Switch
+        android:id="@+id/switch_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_base"
-        android:src="@drawable/cross"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/text_deadline"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/icon_cross"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

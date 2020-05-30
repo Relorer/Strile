@@ -20,7 +20,7 @@ public class ButtonTimeGoalRenderer extends BaseRenderer<ButtonTimeGoalModel, Bu
     @Override
     public ButtonTimeGoalHolder createViewHolder(@NonNull ViewGroup parent) {
         return new ButtonTimeGoalHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.button_time_goal, parent, false),
+                .inflate(R.layout.button_icon_name, parent, false),
                 onModelChangedListener);
     }
 

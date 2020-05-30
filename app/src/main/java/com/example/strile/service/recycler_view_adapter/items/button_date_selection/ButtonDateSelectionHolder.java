@@ -1,10 +1,13 @@
 package com.example.strile.service.recycler_view_adapter.items.button_date_selection;
 
 import android.app.DatePickerDialog;
+import android.graphics.PorterDuff;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.example.strile.R;
 import com.example.strile.service.event_handler_interfaces.OnModelChangedListener;
@@ -23,8 +26,12 @@ public class ButtonDateSelectionHolder extends BaseHolder<ButtonDateSelectionMod
     public ButtonDateSelectionHolder(@NonNull View itemView,
                                      @NonNull final OnModelChangedListener<ButtonDateSelectionModel> onModelChangedListener) {
         super(itemView, onModelChangedListener);
-        text = itemView.findViewById(R.id.text_deadline);
+        ImageView icon = itemView.findViewById(R.id.image_icon);
+        text = itemView.findViewById(R.id.text_name);
         buttonDelete = itemView.findViewById(R.id.image_cross);
+
+        icon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.calendar, null));
+        icon.setColorFilter(itemView.getContext().getColor(R.color.colorBlack), PorterDuff.Mode.SRC_ATOP);
 
         view.setOnClickListener(v -> openDialogSetDate(model.getDate()));
         buttonDelete.setOnClickListener(v -> {

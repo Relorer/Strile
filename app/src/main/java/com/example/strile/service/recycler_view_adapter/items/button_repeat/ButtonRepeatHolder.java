@@ -1,9 +1,12 @@
 package com.example.strile.service.recycler_view_adapter.items.button_repeat;
 
+import android.graphics.PorterDuff;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -22,8 +25,12 @@ public class ButtonRepeatHolder extends BaseHolder<ButtonRepeatModel> {
     public ButtonRepeatHolder(@NonNull View itemView,
                               @NonNull final OnModelChangedListener<ButtonRepeatModel> onModelChangedListener) {
         super(itemView, onModelChangedListener);
-        text = view.findViewById(R.id.text_repeat);
+        text = view.findViewById(R.id.text_name);
+        ImageView icon = itemView.findViewById(R.id.image_icon);
         view.setOnClickListener(v -> openDialogRepeatOptions(model.getDaysRepeat()));
+
+        icon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.repeat, null));
+        icon.setColorFilter(itemView.getContext().getColor(R.color.colorBlack), PorterDuff.Mode.SRC_ATOP);
     }
 
     @Override

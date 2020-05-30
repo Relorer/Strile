@@ -12,9 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver android:name=".service.notifications.NotificationReceiver" />
-
         <activity
             android:name=".activities.splash.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,6 +36,7 @@
         <activity android:name=".activities.settings.pomodoro_timer.SettingsPomodoroTimerActivity" />
         <activity
             android:name=".activities.main.MainActivity"
+            android:screenOrientation="portrait"
             android:configChanges="screenSize|orientation|screenLayout"
             android:windowSoftInputMode="adjustPan" />
     </application>

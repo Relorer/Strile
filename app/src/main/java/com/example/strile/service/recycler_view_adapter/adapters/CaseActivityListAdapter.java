@@ -10,6 +10,7 @@ import com.example.strile.service.recycler_view_adapter.items.button_add_subtask
 import com.example.strile.service.recycler_view_adapter.items.button_date_selection.ButtonDateSelectionRenderer;
 import com.example.strile.service.recycler_view_adapter.items.button_repeat.ButtonRepeatRenderer;
 import com.example.strile.service.recycler_view_adapter.items.button_time_goal.ButtonTimeGoalRenderer;
+import com.example.strile.service.recycler_view_adapter.items.button_time_selection.ButtonTimeSelectionRenderer;
 import com.example.strile.service.recycler_view_adapter.items.current_streak.CurrentStreakRenderer;
 import com.example.strile.service.recycler_view_adapter.items.edit_text.EditTextRenderer;
 import com.example.strile.service.recycler_view_adapter.items.progress_bar_elapsed_time.ProgressBarElapsedTimeRenderer;
@@ -28,6 +29,7 @@ public class CaseActivityListAdapter extends BaseRecyclerViewAdapter {
         registerRenderer(new ButtonAddSubtaskRenderer(onModelChangedListener, onClickItemListener));
         registerRenderer(new ButtonRepeatRenderer(onModelChangedListener));
         registerRenderer(new ButtonTimeGoalRenderer(onModelChangedListener));
+        registerRenderer(new ButtonTimeSelectionRenderer(onModelChangedListener));
         registerRenderer(new ProgressBarElapsedTimeRenderer(onModelChangedListener, onClickItemListener));
         registerRenderer(new CurrentStreakRenderer(onModelChangedListener));
     }

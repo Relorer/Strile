@@ -49,8 +49,9 @@ public class ProgressPresenter extends BasePresenter<ProgressFragment> {
                             Progress.getExperience(),
                             Progress.getGoalExp() - Progress.getExperience()));
                     models.add(createGraph(executed));
+                    long today = Day.getDateOfDayWithoutTime(new Date()).getTime();
                     models.addAll(executed.stream()
-                            .limit(7)
+                            .filter(e -> e.getDateComplete() > today)
                             .map(e -> executedModelList.getModel(false, e.getName(), e.getExperience(), e.getDateComplete()))
                             .collect(Collectors.toList())
                     );

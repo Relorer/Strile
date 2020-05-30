@@ -21,6 +21,7 @@ import com.example.strile.service.recycler_view_adapter.items.button_add_subtask
 import com.example.strile.service.recycler_view_adapter.items.button_date_selection.ButtonDateSelectionModel;
 import com.example.strile.service.recycler_view_adapter.items.button_repeat.ButtonRepeatModel;
 import com.example.strile.service.recycler_view_adapter.items.button_time_goal.ButtonTimeGoalModel;
+import com.example.strile.service.recycler_view_adapter.items.button_time_selection.ButtonTimeSelectionModel;
 import com.example.strile.service.recycler_view_adapter.items.edit_text.EditTextModel;
 import com.example.strile.service.recycler_view_adapter.items.progress_bar_elapsed_time.ProgressBarElapsedTimeModel;
 import com.example.strile.service.recycler_view_adapter.items.seek_bar_difficult.SeekBarDifficultModel;
@@ -80,6 +81,8 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
                 presenter.repeatChanged((ButtonRepeatModel) model);
             } else if (model instanceof ButtonTimeGoalModel) {
                 presenter.timeGoalChanged((ButtonTimeGoalModel) model);
+            } else if (model instanceof ButtonTimeSelectionModel) {
+                presenter.notifyTimeChanged((ButtonTimeSelectionModel) model);
             }
         });
         adapter.setHasStableIds(true);

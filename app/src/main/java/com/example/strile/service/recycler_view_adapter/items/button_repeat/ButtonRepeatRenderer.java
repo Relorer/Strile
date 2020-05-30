@@ -20,7 +20,7 @@ public class ButtonRepeatRenderer extends BaseRenderer<ButtonRepeatModel, Button
     @Override
     public ButtonRepeatHolder createViewHolder(@NonNull ViewGroup parent) {
         return new ButtonRepeatHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.button_repeat, parent, false),
+                .inflate(R.layout.button_icon_name, parent, false),
                 onModelChangedListener);
     }
 

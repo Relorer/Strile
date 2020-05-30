@@ -11,28 +11,29 @@
     android:paddingBottom="@dimen/padding_vertical_item">
 
     <ImageView
-        android:id="@+id/image_goal"
+        android:id="@+id/image_icon"
         android:layout_width="@dimen/size_check_box"
         android:layout_height="@dimen/size_check_box"
         android:layout_marginStart="@dimen/margin_base"
         android:button="@drawable/button_hiding_check_box"
-        android:src="@drawable/time_goal"
+        android:src="@drawable/repeat"
         android:tint="@color/colorBlack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/icon"/>
+        android:contentDescription="@string/repeat"/>
 
     <TextView
-        android:id="@+id/text_goal"
+        android:id="@+id/text_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_base"
         android:baselineAligned="false"
         android:textAppearance="@style/TextPrimary"
+        android:layout_marginEnd="@dimen/margin_base"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image_goal"
+        app:layout_constraintStart_toEndOf="@+id/image_icon"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

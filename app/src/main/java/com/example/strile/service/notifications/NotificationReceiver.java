@@ -13,7 +13,6 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
         NotificationDisplay notificationDisplay = new NotificationDisplay(context);
 
         Intent startIntent = new Intent(context, SplashActivity.class);
@@ -24,6 +23,8 @@ public class NotificationReceiver extends BroadcastReceiver {
             String text = intent.getExtras().getString(NOTIFICATION_TEXT_ID, "text");
                 notificationDisplay.showNotification(title, text, startIntent);
         }
+
+        NotificationPlanner.updateHabitsNotify();
     }
 
 }

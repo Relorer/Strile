@@ -32,7 +32,7 @@
             android:layout_marginStart="@dimen/margin_base"
             android:layout_marginEnd="@dimen/margin_base"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/image_cross"
             app:layout_constraintStart_toEndOf="@+id/image_icon_settings"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -50,6 +50,19 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextSecondary" />
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <ImageView
+            android:id="@+id/image_cross"
+            android:layout_width="@dimen/size_check_box_icon"
+            android:layout_height="@dimen/size_check_box_icon"
+            android:layout_marginEnd="@dimen/margin_base"
+            android:contentDescription="@string/icon_cross"
+            android:src="@drawable/cross"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

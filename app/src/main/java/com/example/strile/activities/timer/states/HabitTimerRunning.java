@@ -8,6 +8,7 @@ import com.example.strile.R;
 import com.example.strile.activities.timer.HabitTimerPresenter;
 import com.example.strile.database.entities.Habit;
 import com.example.strile.service.notifications.NotificationDisplay;
+import com.example.strile.service.settings.UsersSettings;
 import com.example.strile.service.timer.TimerController;
 import com.example.strile.service.timer.TimerState;
 import com.example.strile.service.timer.TimerView;
@@ -67,11 +68,12 @@ public class HabitTimerRunning implements TimerState {
             @Override
             public void onFinish() {
                 Activity activity = (Activity) view;
-                //todo check settings params
-                new NotificationDisplay(activity)
-                        .showNotification(activity.getString(R.string.habit_fulfilled), activity.getString(R.string.habit_fulfilled_text), new Intent(), TIMER_ID);
+                if (UsersSettings.isNotifyAfterTimerEnd()) {
+                    new NotificationDisplay(activity)
+                            .showNotification(activity.getString(R.string.habit_fulfilled), activity.getString(R.string.habit_fulfilled_text), new Intent(), TIMER_ID);
+                }
                 habit.setElapsedTime(habit.getGoalTime());
-                ((HabitTimerPresenter)timer).updateHabit(habit);
+                ((HabitTimerPresenter) timer).updateHabit(habit);
                 activity.finish();
             }
         }.start();

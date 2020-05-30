@@ -1,10 +1,13 @@
 package com.example.strile.service.recycler_view_adapter.items.button_time_goal;
 
 import android.annotation.SuppressLint;
+import android.graphics.PorterDuff;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -20,7 +23,12 @@ public class ButtonTimeGoalHolder extends BaseHolder<ButtonTimeGoalModel> {
     public ButtonTimeGoalHolder(@NonNull View itemView,
                                 @NonNull final OnModelChangedListener<ButtonTimeGoalModel> onModelChangedListener) {
         super(itemView, onModelChangedListener);
-        text = view.findViewById(R.id.text_goal);
+        ImageView icon = itemView.findViewById(R.id.image_icon);
+        text = view.findViewById(R.id.text_name);
+
+        icon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.time_goal, null));
+        icon.setColorFilter(itemView.getContext().getColor(R.color.colorBlack), PorterDuff.Mode.SRC_ATOP);
+
         view.setOnClickListener(v -> openDialogTimeGoalOptions(model.getGoalTime()));
     }
 

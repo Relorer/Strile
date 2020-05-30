@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.strile.R;
 import com.example.strile.service.notifications.NotificationDisplay;
+import com.example.strile.service.settings.UsersSettings;
 import com.example.strile.service.timer.TimerController;
 import com.example.strile.service.timer.TimerState;
 import com.example.strile.service.timer.TimerView;
@@ -67,11 +68,11 @@ public class TimerPomodoroRunning implements TimerState {
             public void onFinish() {
                 Context context = ((Fragment) view).getContext();
                 assert context != null;
-                //todo check settings params
-                new NotificationDisplay(context)
-                        .showNotification(context.getString(R.string.pomodoro_finished),
-                                context.getString(R.string.pomodoro_finished_text), new Intent(), TIMER_ID);
-
+                if (UsersSettings.isNotifyAfterTimerEnd()) {
+                    new NotificationDisplay(context)
+                            .showNotification(context.getString(R.string.pomodoro_finished),
+                                    context.getString(R.string.pomodoro_finished_text), new Intent(), TIMER_ID);
+                }
                 timer.setState(new TimerBreakNoActive(view, timer, numPom + 1));
             }
         }.start();

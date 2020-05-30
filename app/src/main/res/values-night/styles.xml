@@ -23,4 +23,29 @@
         <item name="android:textColorPrimary">@color/colorBlack</item>
         <item name="android:textColorSecondary">@color/colorGray</item>
     </style>
+
+    <style name="StandardTimePickerDialog" parent="@style/Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/colorBlack</item>
+        <item name="android:textColorSecondary">@color/colorGray</item>
+        <item name="android:textColorHint">@color/colorGray</item>
+        <item name="android:textColorTertiary">@color/colorBlack</item>
+        <item name="android:timePickerStyle">@style/TimePickerDialogStyle</item>
+
+    </style>
+
+    <style name="TimePickerDialogStyle" parent="@android:style/Widget.Material.Light.TimePicker">
+        <item name="android:timePickerMode">clock</item>
+        <item name="android:headerBackground">@color/colorPrimary</item>
+        <item name="android:headerTimeTextAppearance">
+            @style/TextAppearance.TimePickerDialogStyle.TimeLabel
+        </item>
+        <item name="android:numbersTextColor">@color/colorBlack</item>
+        <item name="android:numbersBackgroundColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.TimePickerDialogStyle.TimeLabel" parent="@android:style/TextAppearance.Material">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
 </resources>

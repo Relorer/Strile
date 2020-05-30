@@ -9,6 +9,7 @@ import com.example.strile.database.repositories.Repository;
 import com.example.strile.service.recycler_view_adapter.items.BaseModel;
 import com.example.strile.service.recycler_view_adapter.items.button_repeat.ButtonRepeatModel;
 import com.example.strile.service.recycler_view_adapter.items.button_time_goal.ButtonTimeGoalModel;
+import com.example.strile.service.recycler_view_adapter.items.button_time_selection.ButtonTimeSelectionModel;
 import com.example.strile.service.recycler_view_adapter.items.edit_text.EditTextModel;
 import com.example.strile.service.recycler_view_adapter.items.seek_bar_difficult.SeekBarDifficultModel;
 
@@ -23,6 +24,7 @@ public class AddHabitPresenter extends BaseCasePresenter<AddHabitActivity> {
     private final EditTextModel editTextName;
     private final ButtonRepeatModel buttonRepeat;
     private final ButtonTimeGoalModel buttonTimeGoal;
+    private final ButtonTimeSelectionModel buttonTimeSelection;
     private final SeekBarDifficultModel seekBarDifficult;
 
     public AddHabitPresenter() {
@@ -32,6 +34,7 @@ public class AddHabitPresenter extends BaseCasePresenter<AddHabitActivity> {
         editTextName = new EditTextModel(false, 1, 80);
         buttonRepeat = new ButtonRepeatModel(true, habit.getDaysRepeatAsArray());
         buttonTimeGoal = new ButtonTimeGoalModel(false, habit.getGoalTime());
+        buttonTimeSelection = new ButtonTimeSelectionModel(false, habit.getNotificationTime());
         seekBarDifficult = new SeekBarDifficultModel(true, habit.getDifficulty());
     }
 
@@ -44,8 +47,6 @@ public class AddHabitPresenter extends BaseCasePresenter<AddHabitActivity> {
             String message = view().getString(R.string.w_habit_repeat_empty);
             view().showToast(message);
         } else {
-            //todo hardcode
-            habit.setNotificationTime(0);
             repository.insert(habit);
             view().finish();
         }
@@ -63,6 +64,7 @@ public class AddHabitPresenter extends BaseCasePresenter<AddHabitActivity> {
         models.add(editTextName);
         models.add(buttonRepeat);
         models.add(buttonTimeGoal);
+        models.add(buttonTimeSelection);
         models.add(seekBarDifficult);
         view().setSortedList(models);
     }
@@ -86,5 +88,10 @@ public class AddHabitPresenter extends BaseCasePresenter<AddHabitActivity> {
     @Override
     public void difficultChanged(SeekBarDifficultModel model) {
         habit.setDifficulty(model.getProgress());
+    }
+
+    @Override
+    public void notifyTimeChanged(ButtonTimeSelectionModel model) {
+        habit.setNotificationTime(model.getTime());
     }
 }

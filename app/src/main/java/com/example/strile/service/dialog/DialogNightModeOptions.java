@@ -40,9 +40,9 @@ public class DialogNightModeOptions extends DialogFragment {
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
 
         final String[] options = {
-                getString(R.string.follow_system),
-                getString(R.string.disabled),
-                getString(R.string.enabled)
+                getString(R.string.follow_system).toLowerCase(),
+                getString(R.string.disabled).toLowerCase(),
+                getString(R.string.enabled).toLowerCase()
         };
 
         switch (nightMode) {

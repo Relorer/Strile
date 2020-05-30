@@ -12,6 +12,7 @@ import com.example.strile.service.date.Day;
 import com.example.strile.service.recycler_view_adapter.items.BaseModel;
 import com.example.strile.service.recycler_view_adapter.items.button_repeat.ButtonRepeatModel;
 import com.example.strile.service.recycler_view_adapter.items.button_time_goal.ButtonTimeGoalModel;
+import com.example.strile.service.recycler_view_adapter.items.button_time_selection.ButtonTimeSelectionModel;
 import com.example.strile.service.recycler_view_adapter.items.current_streak.CurrentStreakModel;
 import com.example.strile.service.recycler_view_adapter.items.edit_text.EditTextModel;
 import com.example.strile.service.recycler_view_adapter.items.progress_bar_elapsed_time.ProgressBarElapsedTimeModel;
@@ -32,6 +33,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
     private final ButtonRepeatModel buttonRepeat;
     private final ButtonTimeGoalModel buttonTimeGoal;
     private final SeekBarDifficultModel seekBarDifficult;
+    private final ButtonTimeSelectionModel buttonTimeSelection;
 
     private final int progressBarElapsedTimeId;
 
@@ -44,6 +46,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
         currentStreak = new CurrentStreakModel(true);
         buttonRepeat = new ButtonRepeatModel(true);
         buttonTimeGoal = new ButtonTimeGoalModel(false);
+        buttonTimeSelection = new ButtonTimeSelectionModel(false);
         seekBarDifficult = new SeekBarDifficultModel(true);
     }
 
@@ -98,6 +101,8 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
                     models.add(currentStreak);
                     models.add(buttonRepeat);
                     models.add(buttonTimeGoal);
+                    buttonTimeSelection.setTime(habit.getNotificationTime());
+                    models.add(buttonTimeSelection);
                     models.add(seekBarDifficult);
 
                     view().setSortedList(models);
@@ -131,5 +136,10 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
     @Override
     public void elapsedTimeClicked(ProgressBarElapsedTimeModel model) {
         view().openTimer(Objects.requireNonNull(habit.getValue()).getId());
+    }
+
+    @Override
+    public void notifyTimeChanged(ButtonTimeSelectionModel model) {
+        Objects.requireNonNull(habit.getValue()).setNotificationTime(model.getTime());
     }
 }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.strile.App;
+import com.example.strile.service.notifications.NotificationPlanner;
 
 public class UsersSettings {
 
@@ -15,6 +16,8 @@ public class UsersSettings {
     private static final String TIMER_SHORT_BREAK_TIME_GOAL = "timer_short_break_time_goal";
     private static final String TIMER_LONG_BREAK_TIME_GOAL = "timer_long_break_time_goal";
     private static final String TIMER_FREQUENCY_LONG_BREAK = "timer_frequency_long_break";
+    private static final String NOTIFY_AFTER_TIMER_ENDS = "notify_after_timer_ends";
+    private static final String TIME_NOTIFY_UPCOMING_TASK = "time_notify_upcoming_task";
 
     private static final SharedPreferences preferences;
 
@@ -64,6 +67,23 @@ public class UsersSettings {
 
     public static void setTimerFrequencyLongBreak(int time) {
         preferences.edit().putInt(TIMER_FREQUENCY_LONG_BREAK, time).apply();
+    }
+
+    public static boolean isNotifyAfterTimerEnd() {
+        return preferences.getBoolean(NOTIFY_AFTER_TIMER_ENDS, true);
+    }
+
+    public static void setNotifyAfterTimerEnds(boolean state) {
+        preferences.edit().putBoolean(NOTIFY_AFTER_TIMER_ENDS, state).apply();
+    }
+
+    public static long getTimeNotifyUpcomingTask() {
+        return preferences.getLong(TIME_NOTIFY_UPCOMING_TASK, 9 * 60 * 60_000);
+    }
+
+    public static void setTimeNotifyUpcomingTask(long time) {
+        preferences.edit().putLong(TIME_NOTIFY_UPCOMING_TASK, time).apply();
+        NotificationPlanner.updateTasksNotify();
     }
 
     public static void start() {

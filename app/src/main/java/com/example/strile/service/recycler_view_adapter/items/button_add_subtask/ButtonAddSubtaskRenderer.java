@@ -25,7 +25,7 @@ public class ButtonAddSubtaskRenderer extends BaseRenderer<ButtonAddSubtaskModel
     @Override
     public ButtonAddSubtaskHolder createViewHolder(@NonNull ViewGroup parent) {
         return new ButtonAddSubtaskHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.button_add_subtask, parent, false),
+                .inflate(R.layout.button_icon_name, parent, false),
                 onModelChangedListener, onClickListener);
     }
 

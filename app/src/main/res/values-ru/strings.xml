@@ -57,10 +57,10 @@
     <string name="skip">пропустить</string>
     <string name="settings">Настройки</string>
     <string name="night_mode">Ночной режим</string>
-    <string name="enabled">включен</string>
-    <string name="disabled">выключен</string>
-    <string name="follow_system">по умолчанию</string>
-    <string name="scheme">схема</string>
+    <string name="enabled">Включен</string>
+    <string name="disabled">Выключен</string>
+    <string name="follow_system">По умолчанию</string>
+    <string name="scheme">Схема</string>
     <string name="jurnal">журнал</string>
     <string name="timer">таймер</string>
     <string name="pomodoro_duration">Время помодора</string>
@@ -76,6 +76,11 @@
     <string name="yesterday">Вчера</string>
     <string name="tomorrow">Завтра</string>
     <string name="timer_setting">Настройки таймера</string>
+    <string name="notify_after_timer_ends">Уведомлять по завершению таймера</string>
+    <string name="notify_upcoming_task">Уведомление о предстоящей задаче</string>
+    <string name="no_notify">Не уведомлять</string>
+    <string name="dateFormatForTime">h:mm a</string>
+    <string name="at">В</string>
 
     <plurals name="day_streak">
         <item quantity="one">%d день подряд</item>

@@ -4,35 +4,47 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
-    android:foreground="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:paddingTop="@dimen/padding_vertical_item"
     android:paddingBottom="@dimen/padding_vertical_item">
 
     <ImageView
-        android:id="@+id/image_repeat"
+        android:id="@+id/image_icon"
         android:layout_width="@dimen/size_check_box"
         android:layout_height="@dimen/size_check_box"
         android:layout_marginStart="@dimen/margin_base"
         android:button="@drawable/button_hiding_check_box"
-        android:src="@drawable/repeat"
+        android:src="@drawable/calendar"
         android:tint="@color/colorBlack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/repeat"/>
+        android:contentDescription="@string/icon"/>
 
     <TextView
-        android:id="@+id/text_repeat"
+        android:id="@+id/text_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_base"
         android:baselineAligned="false"
         android:textAppearance="@style/TextPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image_repeat"
+        app:layout_constraintStart_toEndOf="@+id/image_icon"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_cross"
+        android:layout_width="@dimen/size_check_box_icon"
+        android:layout_height="@dimen/size_check_box_icon"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:src="@drawable/cross"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/text_name"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/icon_cross"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
