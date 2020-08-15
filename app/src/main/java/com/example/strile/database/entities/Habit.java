@@ -165,7 +165,7 @@ public class Habit implements Parcelable {
         date = Day.getDateOfDayWithoutTime(date);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        datesCompleted.sort((o1, o2) -> (int) (o2.getDate() - o1.getDate()));
+        datesCompleted.sort((o1, o2) -> (o2.getDate() - o1.getDate()) < 0 ? -1 : 1);
         int streak = 0;
         for (DateCompleted item : datesCompleted) {
 
