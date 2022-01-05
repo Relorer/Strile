@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1086051508162",
+    "project_id": "strile",
+    "storage_bucket": "strile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086051508162:android:09ba4ca52a798d491c805b",
+        "android_client_info": {
+          "package_name": "com.example.strile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086051508162-et7e7qr5ii6e49hh4ltrhflve7gh930i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTp4YMnqaQn-hidkh4O5_UBtoT4WKid1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086051508162-et7e7qr5ii6e49hh4ltrhflve7gh930i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
