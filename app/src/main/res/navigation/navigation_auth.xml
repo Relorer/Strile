@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_email_auth"
+    app:startDestination="@id/chooseAuthWayFragment">
+
+    <fragment
+        android:id="@+id/emailAuthEmailFieldFragment"
+        android:name="com.example.strile.ui.screens.authorization.emailauth.EmailAuthEmailFieldFragment"
+        android:label="email_auth_email_field_fragment"
+        tools:layout="@layout/email_auth_fragment" >
+        <action
+            android:id="@+id/action_emailAuthEmailFieldFragment_to_emailAuthPassFieldFragment"
+            app:destination="@id/emailAuthPassFieldFragment" />
+        <action
+            android:id="@+id/action_emailAuthEmailFieldFragment_to_chooseAuthWayFragment"
+            app:destination="@id/chooseAuthWayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseAuthWayFragment"
+        android:name="com.example.strile.ui.screens.authorization.chooseauthway.ChooseAuthWayFragment"
+        android:label="choose_auth_way_fragment"
+        tools:layout="@layout/choose_auth_way_fragment" >
+        <action
+            android:id="@+id/action_chooseAuthWayFragment_to_emailAuthEmailFieldFragment"
+            app:destination="@id/emailAuthEmailFieldFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailAuthPassFieldFragment"
+        android:name="com.example.strile.ui.screens.authorization.emailauth.EmailAuthPassFieldFragment"
+        android:label="email_auth_pass_field_fragment"
+        tools:layout="@layout/email_auth_pass_field_fragment" >
+        <action
+            android:id="@+id/action_emailAuthPassFieldFragment_to_emailAuthEmailFieldFragment"
+            app:destination="@id/emailAuthEmailFieldFragment" />
+    </fragment>
+</navigation>

@@ -39,7 +39,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.example.strile.views.GraphProgressCanvas
+    <com.example.strile.ui.views.GraphProgressCanvas
         android:id="@+id/frame_graph"
         android:layout_width="match_parent"
         android:layout_height="200dp" />

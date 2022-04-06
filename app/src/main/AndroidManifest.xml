@@ -12,14 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.authorization.ChooseAuthWayActivity"
-            android:exported="true" />
+            android:name=".ui.screens.authorization.AuthActivity"
+            android:exported="false" />
 
-        <receiver android:name=".service.notifications.NotificationReceiver" />
+        <receiver android:name=".infrastructure.notifications.NotificationReceiver" />
 
         <activity
-            android:name=".activities.splash.SplashActivity"
+            android:name=".ui.screens.splash.SplashActivity"
             android:screenOrientation="portrait"
+            android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,20 +28,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.timer.HabitTimerActivity" />
-        <activity android:name=".activities.case_activity.task.TaskActivity" />
-        <activity android:name=".activities.case_activity.habit.HabitActivity" />
         <activity
-            android:name=".activities.case_activity.add_case.add_task.AddTaskActivity"
-            android:configChanges="screenSize|orientation|screenLayout" />
+            android:name=".ui.screens.timer.HabitTimerActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.case_activity.add_case.add_habit.AddHabitActivity"
+            android:name=".ui.screens.case_activity.task.TaskActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.screens.case_activity.habit.HabitActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.screens.case_activity.add_case.add_task.AddTaskActivity"
             android:configChanges="screenSize|orientation|screenLayout"
-            android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activities.settings.SettingsActivity" />
-        <activity android:name=".activities.settings.pomodoro_timer.SettingsPomodoroTimerActivity" />
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.main.MainActivity"
+            android:name=".ui.screens.case_activity.add_case.add_habit.AddHabitActivity"
+            android:configChanges="screenSize|orientation|screenLayout"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ui.screens.settings.SettingsActivity" />
+        <activity
+            android:name=".ui.screens.settings.pomodoro_timer.SettingsPomodoroTimerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.screens.main.MainActivity"
             android:configChanges="screenSize|orientation|screenLayout"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
