@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.strile.R;
+import com.example.strile.infrastructure.rvadapter.items.button_auth.ButtonAuthModel;
 import com.example.strile.ui.screens.settings.pomodoro_timer.SettingsPomodoroTimerActivity;
 import com.example.strile.infrastructure.presenter.PresenterManager;
 import com.example.strile.infrastructure.rvadapter.adapters.SettingsListAdapter;
@@ -68,6 +69,8 @@ public class SettingsActivity extends AppCompatActivity {
         }, sender -> {
             if (sender instanceof ButtonPomodoroTimerSettingsModel) {
                 presenter.buttonPomodoroTimerSettingsClicked((ButtonPomodoroTimerSettingsModel) sender);
+            } else if (sender instanceof ButtonAuthModel) {
+                presenter.buttonAuthClicked();
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));

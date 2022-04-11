@@ -60,7 +60,7 @@ public class HabitTimerActivity extends AppCompatActivity implements TimerView {
         timerCanvas = findViewById(R.id.view_canvas);
         textInfo = findViewById(R.id.text_info);
         buttonTimerControlPrimary = findViewById(R.id.button_timer_control_primary);
-        buttonTimerControlSecondary = findViewById(R.id.button_timer_control_secondary);
+        buttonTimerControlSecondary = findViewById(R.id.button_skip_auth);
 
         textTitle.setText(R.string.focus_timer);
 

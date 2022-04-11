@@ -4,31 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.screens.authorization.emailauth.EmailAuthEmailFieldFragment">
+    tools:context=".ui.screens.authorization.emailauth.EmailAuthFragment">
 
     <include android:id="@+id/app_bar_layout" layout="@layout/app_bar_layout"/>
 
-    <TextView
-        android:id="@+id/text_text_streak"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextPrimary"
-        android:textSize="@dimen/font_size_text_primary"
-        android:layout_marginStart="@dimen/margin_base"
-        android:layout_marginEnd="@dimen/margin_base"
-        android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_bar_layout" />
-
     <EditText
-        android:id="@+id/edit_text"
+        android:id="@+id/edit_text_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="no"
         android:layout_marginTop="@dimen/margin_base"
         android:background="@color/colorPrimary"
-        android:inputType="textNoSuggestions"
+        android:inputType="textEmailAddress"
         android:paddingLeft="@dimen/margin_base"
         android:paddingTop="@dimen/padding_vertical_edit_text"
         android:paddingRight="@dimen/margin_base"
@@ -40,7 +27,28 @@
         android:layout_marginStart="@dimen/margin_base"
         android:layout_marginEnd="@dimen/margin_base"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_text_streak" />
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_layout" />
+
+    <EditText
+        android:id="@+id/edit_text_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="no"
+        android:layout_marginTop="@dimen/margin_base"
+        android:background="@color/colorPrimary"
+        android:inputType="textPassword"
+        android:paddingLeft="@dimen/margin_base"
+        android:paddingTop="@dimen/padding_vertical_edit_text"
+        android:paddingRight="@dimen/margin_base"
+        android:paddingBottom="@dimen/padding_vertical_edit_text"
+        android:textAppearance="@style/TextPrimary"
+        android:textColor="@color/colorBlack"
+        android:textColorHint="@color/colorGray"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_email" />
 
     <Button
         android:id="@+id/button_next"
@@ -57,10 +65,10 @@
         android:paddingEnd="@dimen/padding_horizontal_button_timer_control"
         android:textAllCaps="true"
         android:textAppearance="@style/TextPrimary"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorLightGray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_pass" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

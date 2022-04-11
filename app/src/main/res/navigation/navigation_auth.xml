@@ -7,12 +7,9 @@
 
     <fragment
         android:id="@+id/emailAuthEmailFieldFragment"
-        android:name="com.example.strile.ui.screens.authorization.emailauth.EmailAuthEmailFieldFragment"
+        android:name="com.example.strile.ui.screens.authorization.emailauth.EmailAuthFragment"
         android:label="email_auth_email_field_fragment"
         tools:layout="@layout/email_auth_fragment" >
-        <action
-            android:id="@+id/action_emailAuthEmailFieldFragment_to_emailAuthPassFieldFragment"
-            app:destination="@id/emailAuthPassFieldFragment" />
         <action
             android:id="@+id/action_emailAuthEmailFieldFragment_to_chooseAuthWayFragment"
             app:destination="@id/chooseAuthWayFragment" />
@@ -24,15 +21,6 @@
         tools:layout="@layout/choose_auth_way_fragment" >
         <action
             android:id="@+id/action_chooseAuthWayFragment_to_emailAuthEmailFieldFragment"
-            app:destination="@id/emailAuthEmailFieldFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/emailAuthPassFieldFragment"
-        android:name="com.example.strile.ui.screens.authorization.emailauth.EmailAuthPassFieldFragment"
-        android:label="email_auth_pass_field_fragment"
-        tools:layout="@layout/email_auth_pass_field_fragment" >
-        <action
-            android:id="@+id/action_emailAuthPassFieldFragment_to_emailAuthEmailFieldFragment"
             app:destination="@id/emailAuthEmailFieldFragment" />
     </fragment>
 </navigation>

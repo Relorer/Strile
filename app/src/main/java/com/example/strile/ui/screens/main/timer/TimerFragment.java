@@ -39,7 +39,7 @@ public class TimerFragment extends Fragment implements TimerView {
         timerCanvas = view.findViewById(R.id.view_canvas);
         textInfo = view.findViewById(R.id.text_info);
         buttonTimerControlPrimary = view.findViewById(R.id.button_timer_control_primary);
-        textButtonTimerControlSecondary = view.findViewById(R.id.button_timer_control_secondary);
+        textButtonTimerControlSecondary = view.findViewById(R.id.button_skip_auth);
 
         textTitle.setText(R.string.focus_timer);
 

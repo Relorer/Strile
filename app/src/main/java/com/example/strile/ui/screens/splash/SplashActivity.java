@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.strile.infrastructure.settings.UsersSettings;
 import com.example.strile.ui.screens.authorization.AuthActivity;
 import com.example.strile.ui.screens.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent;
-        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null && !UsersSettings.getUserSkipAuth()) {
             intent = new Intent(this, AuthActivity.class);
         }
         else {

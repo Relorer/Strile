@@ -11,7 +11,7 @@ class AuthActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_auth)
+         setContentView(R.layout.activity_auth)
         navController = Navigation.findNavController(this, R.id.nav_host)
     }
 }

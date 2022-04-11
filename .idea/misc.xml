@@ -27,6 +27,14 @@
         <entry key="..\:/Users/Ytm/source/repos/Strile/app/src/main/res/layout/spinner_item.xml" value="0.55" />
         <entry key="..\:/Users/Ytm/source/repos/Strile/app/src/main/res/layout/spinner_layout.xml" value="0.55" />
         <entry key="..\:/Users/Ytm/source/repos/Strile/app/src/main/res/layout/timer_view.xml" value="0.41302083333333334" />
+        <entry key="..\:/repos/Strile/app/src/main/res/drawable/ic_baseline_account_box_18.xml" value="0.4775" />
+        <entry key="..\:/repos/Strile/app/src/main/res/drawable/ic_baseline_account_box_24.xml" value="0.4775" />
+        <entry key="..\:/repos/Strile/app/src/main/res/drawable/ic_google.xml" value="0.4775" />
+        <entry key="..\:/repos/Strile/app/src/main/res/layout/app_bar_layout.xml" value="0.5541666666666667" />
+        <entry key="..\:/repos/Strile/app/src/main/res/layout/button_auth.xml" value="0.31354166666666666" />
+        <entry key="..\:/repos/Strile/app/src/main/res/layout/button_icon_name.xml" value="0.31354166666666666" />
+        <entry key="..\:/repos/Strile/app/src/main/res/layout/choose_auth_way_fragment.xml" value="0.5" />
+        <entry key="..\:/repos/Strile/app/src/main/res/layout/email_auth_fragment.xml" value="0.2565543071161049" />
       </map>
     </option>
   </component>

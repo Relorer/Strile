@@ -4,7 +4,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 32
+    compileSdk 32
 
     defaultConfig {
         applicationId "com.example.strile"
@@ -12,6 +12,7 @@ android {
         targetSdkVersion 32
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,7 +23,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 dependencies {
 
@@ -39,6 +39,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.3'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'androidx.test:core-ktx:1.4.0'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.4'
 
     def room_version = "2.4.2"
     implementation "androidx.room:room-runtime:$room_version"
@@ -57,6 +61,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.5.0'
     implementation "androidx.core:core-ktx:1.7.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'com.google.android.material:material:1.6.0-beta01'
 }
 repositories {
     mavenCentral()

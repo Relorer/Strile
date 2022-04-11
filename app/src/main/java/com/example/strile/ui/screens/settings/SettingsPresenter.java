@@ -1,15 +1,19 @@
 package com.example.strile.ui.screens.settings;
 
+import android.content.Intent;
 import android.os.Build;
 
 import com.example.strile.R;
 import com.example.strile.infrastructure.presenter.BasePresenter;
 import com.example.strile.infrastructure.rvadapter.items.BaseModel;
+import com.example.strile.infrastructure.rvadapter.items.button_auth.ButtonAuthModel;
 import com.example.strile.infrastructure.rvadapter.items.button_night_mode_selection.ButtonNightModeSelectionModel;
 import com.example.strile.infrastructure.rvadapter.items.button_pomodoro_timer_settings.ButtonPomodoroTimerSettingsModel;
 import com.example.strile.infrastructure.rvadapter.items.button_task_time_notify_selection.ButtonTaskTimeNotifySelectionModel;
 import com.example.strile.infrastructure.rvadapter.items.switch_setting.SwitchSettingModel;
 import com.example.strile.infrastructure.settings.UsersSettings;
+import com.example.strile.ui.screens.authorization.AuthActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +24,11 @@ public class SettingsPresenter extends BasePresenter<SettingsActivity> {
     private final int buttonPomodoroTimerSettingsId;
     private final int buttonTaskNotifyTimeSettingsId;
     private final int switchNotifyAfterTimerId;
+    private final int buttonAuthId;
 
     public SettingsPresenter() {
         buttonNightModeId = new ButtonNightModeSelectionModel(false, 0).getId();
+        buttonAuthId = new ButtonAuthModel(true, authButtonText()).getId();
         buttonPomodoroTimerSettingsId = new ButtonPomodoroTimerSettingsModel(false,
                 0, 0, 0, 0).getId();
         switchNotifyAfterTimerId = new SwitchSettingModel(false, "", 0, false).getId();
@@ -52,6 +58,7 @@ public class SettingsPresenter extends BasePresenter<SettingsActivity> {
         models.add(new SwitchSettingModel(switchNotifyAfterTimerId, true,
                 view().getString(R.string.notify_after_timer_ends), R.drawable.notifications, timerNotify));
 
+        models.add(new ButtonAuthModel(buttonAuthId, true, authButtonText()));
         view().setSortedList(models);
     }
 
@@ -76,5 +83,17 @@ public class SettingsPresenter extends BasePresenter<SettingsActivity> {
         if (model.getId() == switchNotifyAfterTimerId) {
             UsersSettings.setNotifyAfterTimerEnds(model.isChecked());
         }
+    }
+
+    public void buttonAuthClicked() {
+        FirebaseAuth.getInstance().signOut();
+        UsersSettings.setUserSkipAuth(false);
+
+        view().startActivity(new Intent(view(), AuthActivity.class));
+        view().finish();
+    }
+
+    private String authButtonText() {
+        return FirebaseAuth.getInstance().getCurrentUser() == null ? "Sign in" : "Sign out";
     }
 }

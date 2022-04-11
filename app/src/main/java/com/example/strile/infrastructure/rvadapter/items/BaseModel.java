@@ -24,6 +24,7 @@ public abstract class BaseModel {
     public static final int BUTTON_TASK_TIME_NOTIFY_SELECTION_TYPE = 21;
     public static final int BUTTON_TIME_SELECTION_TYPE = 22;
     public static final int SWITCH_SETTING_TYPE = 23;
+    public static final int BUTTON_AUTH = 24;
 
     private static int maxId = 0;
 

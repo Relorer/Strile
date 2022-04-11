@@ -1,6 +1,7 @@
 package com.example.strile.infrastructure.rvadapter.adapters;
 
 
+import com.example.strile.infrastructure.rvadapter.items.button_auth.ButtonAuthRenderer;
 import com.example.strile.utilities.events.OnClickListener;
 import com.example.strile.utilities.events.OnModelChangedListener;
 import com.example.strile.infrastructure.rvadapter.items.BaseModel;
@@ -18,5 +19,6 @@ public class SettingsListAdapter extends BaseRecyclerViewAdapter {
         registerRenderer(new NumberEditWIthTitleRenderer(onModelChangedListener));
         registerRenderer(new SwitchSettingRenderer(onModelChangedListener));
         registerRenderer(new ButtonTaskTimeNotifySelectionRenderer(onModelChangedListener));
+        registerRenderer(new ButtonAuthRenderer(onModelChangedListener, onClickListener));
     }
 }
