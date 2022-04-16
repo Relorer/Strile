@@ -43,6 +43,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'androidx.test:core-ktx:1.4.0'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.4'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.1.0'
+    implementation 'com.google.firebase:firebase-database:20.0.4'
 
     def room_version = "2.4.2"
     implementation "androidx.room:room-runtime:$room_version"
@@ -61,6 +63,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.5.0'
     implementation "androidx.core:core-ktx:1.7.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 
     implementation 'com.google.android.material:material:1.6.0-beta01'
 }

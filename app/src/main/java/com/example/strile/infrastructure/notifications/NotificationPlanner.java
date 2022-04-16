@@ -135,8 +135,11 @@ public class NotificationPlanner {
         Intent intent = new Intent(app, NotificationReceiver.class);
         intent.putExtra(NotificationReceiver.NOTIFICATION_TITLE_ID, title);
         intent.putExtra(NotificationReceiver.NOTIFICATION_TEXT_ID, text);
+
+        int flags = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S ? PendingIntent.FLAG_MUTABLE : PendingIntent.FLAG_CANCEL_CURRENT;
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(app, requestCode,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                intent, flags);
 
         manager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
     }
@@ -146,8 +149,11 @@ public class NotificationPlanner {
 
     private static void deleteNotify(int requestCode) {
         Intent intent = new Intent(app, NotificationReceiver.class);
+
+        int flags = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S ? PendingIntent.FLAG_MUTABLE : PendingIntent.FLAG_CANCEL_CURRENT;
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(app, requestCode,
-                intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                intent, flags);
         manager.cancel(pendingIntent);
     }
 }
