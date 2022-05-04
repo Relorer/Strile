@@ -17,11 +17,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.strile.R
+import com.example.strile.data_firebase.models.User
+import com.example.strile.data_firebase.repositories.UserRepository
 import com.example.strile.infrastructure.settings.UsersSettings
 import com.example.strile.ui.screens.authorization.AuthActivity
 import com.example.strile.ui.screens.authorization.emailauth.EmailAuthFragment
 import com.example.strile.ui.screens.main.MainActivity
 import com.example.strile.utilities.AppConstants.Companion.TAG_LOG
+import com.google.android.gms.auth.UserRecoverableAuthException
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -68,6 +71,7 @@ class ChooseAuthWayFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ChooseAuthWayViewModel::class.java)
+        auth = Firebase.auth
 
         val buttonEmailAuthLabel: Spannable = SpannableString("   Sign in with Email")
         val buttonGoogleAuthLabel: Spannable = SpannableString("   Sign in with Google")
@@ -91,14 +95,24 @@ class ChooseAuthWayFragment : Fragment() {
         button_auth_email.setOnClickListener() {openEmailAuth()}
 
         button_auth_google.setOnClickListener() {
-            val client = getClient()
-            auth = Firebase.auth
-            launcher.launch(client.signInIntent)
+            launcher.launch(getClient().signInIntent)
         }
 
+        button_skip_auth.text = if (FirebaseAuth.getInstance().currentUser == null) "Skip" else "Back";
         button_skip_auth.setOnClickListener() {
-            UsersSettings.setUserSkipAuth(true);
-            openMainActivity()
+            if (FirebaseAuth.getInstance().currentUser == null) {
+                auth.signInAnonymously().addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        openMainActivity()
+                    } else {
+                        //TODO
+                        Log.w(TAG_LOG, "signInAnonymously:failure", it.exception)
+                    }
+                }
+            }
+            else {
+                openMainActivity()
+            }
         }
     }
 
@@ -125,13 +139,29 @@ class ChooseAuthWayFragment : Fragment() {
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
-        auth.signInWithCredential(credential).addOnCompleteListener {
-            if (it.isSuccessful) {
-                openMainActivity()
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            auth.signInWithCredential(credential).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    openMainActivity()
+                }
+                else {
+                    Log.d(TAG_LOG, "google sign in error")
+                }
             }
-            else {
-                Log.d(TAG_LOG, "google signin error")
-            }
+        }
+        else {
+            auth.currentUser!!.linkWithCredential(credential)
+                .addOnCompleteListener{ task ->
+                    if (task.isSuccessful) {
+                        openMainActivity()
+                    } else {
+                        //TODO
+//                        Log.w(TAG, "linkWithCredential:failure", task.exception)
+//                        Toast.makeText(baseContext, "Authentication failed.",
+//                            Toast.LENGTH_SHORT).show()
+//                        updateUI(null)
+                    }
+                }
         }
     }
 

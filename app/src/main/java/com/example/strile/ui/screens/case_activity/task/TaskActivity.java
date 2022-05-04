@@ -19,9 +19,9 @@ public class TaskActivity extends BaseCaseActivity {
 
     private static ShowSnackbarCallback lastCallback;
 
-    private long taskId;
+    private String taskId;
 
-    public static void start(Activity caller, long taskId, ShowSnackbarCallback callback) {
+    public static void start(Activity caller, String taskId, ShowSnackbarCallback callback) {
         lastCallback = callback;
         Intent intent = new Intent(caller, TaskActivity.class);
         intent.putExtra(TASK_ID, taskId);
@@ -30,8 +30,8 @@ public class TaskActivity extends BaseCaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        taskId = getIntent().getLongExtra(TASK_ID, -1);
-        if (taskId == -1)
+        taskId = getIntent().getStringExtra(TASK_ID);
+        if (taskId == null)
             throw new IllegalArgumentException("Task activity received an incorrect id");
         super.onCreate(savedInstanceState);
         textTitle.setText(R.string.task);

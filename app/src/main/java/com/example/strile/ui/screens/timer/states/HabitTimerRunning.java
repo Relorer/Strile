@@ -6,7 +6,7 @@ import android.os.CountDownTimer;
 
 import com.example.strile.R;
 import com.example.strile.ui.screens.timer.HabitTimerPresenter;
-import com.example.strile.data.entities.Habit;
+import com.example.strile.data_firebase.models.Habit;
 import com.example.strile.infrastructure.notifications.NotificationDisplay;
 import com.example.strile.infrastructure.settings.UsersSettings;
 import com.example.strile.infrastructure.timer.TimerController;

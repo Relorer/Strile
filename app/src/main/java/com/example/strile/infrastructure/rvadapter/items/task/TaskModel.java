@@ -1,6 +1,6 @@
 package com.example.strile.infrastructure.rvadapter.items.task;
 
-import com.example.strile.data.entities.Task;
+import com.example.strile.data_firebase.models.Task;
 import com.example.strile.infrastructure.rvadapter.items.BaseModel;
 import com.example.strile.infrastructure.rvadapter.items.CaseModel;
 

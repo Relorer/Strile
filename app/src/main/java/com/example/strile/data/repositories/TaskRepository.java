@@ -45,21 +45,6 @@ public class TaskRepository implements Repository<Task> {
     }
 
     public void insert(Task task) {
-        if (task != null) {
-            ArrayList<Subtask> subs = new ArrayList<Subtask>(2);
-            subs.add(new Subtask("test", true));
-            com.example.strile.data_firebase.models.Task a = new com.example.strile.data_firebase.models.Task(
-                    "",
-                    task.getName(),
-                    task.getDifficulty(),
-                    task.getDescription(),
-                    task.getDateCreate(),
-                    task.getDeadline(),
-                    task.getDateComplete(),
-                    subs
-            );
-            repo.updateTask(a);
-        }
         AppDatabase.databaseWriteExecutor.execute(() -> taskDao.insert(task));
     }
 

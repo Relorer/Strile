@@ -3,13 +3,12 @@ package com.example.strile.infrastructure.progress;
 import androidx.lifecycle.LiveData;
 
 import com.example.strile.App;
-import com.example.strile.data.entities.Executed;
-import com.example.strile.data.entities.Habit;
-import com.example.strile.data.entities.Task;
-import com.example.strile.data.repositories.ExecutedRepository;
-import com.example.strile.data.repositories.HabitRepository;
-import com.example.strile.data.repositories.Repository;
-import com.example.strile.data.repositories.TaskRepository;
+import com.example.strile.data_firebase.models.Executed;
+import com.example.strile.data_firebase.models.Habit;
+import com.example.strile.data_firebase.models.Task;
+import com.example.strile.data_firebase.repositories.ExecutedRepository;
+import com.example.strile.data_firebase.repositories.HabitRepository;
+import com.example.strile.data_firebase.repositories.TaskRepository;
 import com.example.strile.utilities.extensions.DateUtilities;
 
 import java.util.Calendar;
@@ -21,8 +20,8 @@ import java.util.Map;
 public class KeeperHistoryExecutions {
 
     private static final ExecutedRepository executedRepository;
-    private static final Map<Long, Boolean> habitsState;
-    private static final Map<Long, Boolean> tasksState;
+    private static final Map<String, Boolean> habitsState;
+    private static final Map<String, Boolean> tasksState;
 
     private static final LiveData<List<Habit>> habitsLiveData;
     private static final LiveData<List<Task>> tasksLiveData;
@@ -31,9 +30,9 @@ public class KeeperHistoryExecutions {
 
     static {
         App app = App.getInstance();
-        Repository<Habit> habitRepository = new HabitRepository(app);
-        Repository<Task> taskRepository = new TaskRepository(app);
-        executedRepository = new ExecutedRepository(app);
+        HabitRepository habitRepository = new HabitRepository();
+        TaskRepository taskRepository = new TaskRepository();
+        executedRepository = new ExecutedRepository();
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -8);
@@ -66,11 +65,11 @@ public class KeeperHistoryExecutions {
                     if (prevValue != currValue) {
                         int exp;
                         if (currValue) {
-                            exp = (habit.getStreakByDay(day) + 1) * (habit.getDifficulty() + 1) / 2;
-                            Executed executed = new Executed(habit.getId(), habit.getName(), new Date().getTime(), exp, Habit.class.getCanonicalName());
-                            executedRepository.insert(executed);
+                            exp = (habit.streakByDay(day) + 1) * (habit.getDifficulty() + 1) / 2;
+                            Executed executed = new Executed("", habit.getId(), habit.getName(), new Date().getTime(), exp, Habit.class.getCanonicalName());
+                            executedRepository.update(executed);
                         } else {
-                            exp = -1 * (habit.getStreakByDay(day) + 2) * (habit.getDifficulty() + 1) / 2;
+                            exp = -1 * (habit.streakByDay(day) + 2) * (habit.getDifficulty() + 1) / 2;
                             executedRepository.deleteByCaseId(habit.getId(), Habit.class.getCanonicalName());
                         }
                         Progress.addExperience(exp);
@@ -96,8 +95,8 @@ public class KeeperHistoryExecutions {
                         int exp;
                         if (currValue) {
                             exp = 10 * (task.getDifficulty() + 1);
-                            Executed executed = new Executed(task.getId(), task.getName(), new Date().getTime(), exp, Task.class.getCanonicalName());
-                            executedRepository.insert(executed);
+                            Executed executed = new Executed("", task.getId(), task.getName(), new Date().getTime(), exp, Task.class.getCanonicalName());
+                            executedRepository.update(executed);
                         }
                         else {
                             exp = -10 * (task.getDifficulty() + 1);

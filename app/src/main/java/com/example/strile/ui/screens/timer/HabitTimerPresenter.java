@@ -4,22 +4,21 @@ import androidx.lifecycle.LiveData;
 
 import com.example.strile.App;
 import com.example.strile.ui.screens.timer.states.HabitTimerNoActive;
-import com.example.strile.data.entities.Habit;
-import com.example.strile.data.repositories.HabitRepository;
-import com.example.strile.data.repositories.Repository;
+import com.example.strile.data_firebase.models.Habit;
+import com.example.strile.data_firebase.repositories.HabitRepository;
 import com.example.strile.infrastructure.presenter.BasePresenter;
 import com.example.strile.infrastructure.timer.TimerController;
 import com.example.strile.infrastructure.timer.TimerState;
 
 public class HabitTimerPresenter extends BasePresenter<HabitTimerActivity> implements TimerController {
 
-    private final Repository<Habit> repository;
+    private final HabitRepository repository;
     private final LiveData<Habit> habit;
 
     private TimerState state;
 
-    public HabitTimerPresenter(long habitId) {
-        repository = new HabitRepository(App.getInstance());
+    public HabitTimerPresenter(String habitId) {
+        repository = new HabitRepository();
         habit = repository.getById(habitId);
     }
 

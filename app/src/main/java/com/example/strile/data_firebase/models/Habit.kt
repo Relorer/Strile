@@ -3,20 +3,45 @@ package com.example.strile.data_firebase.models
 import android.os.Parcelable
 import com.example.strile.infrastructure.settings.Difficulty
 import com.example.strile.utilities.extensions.DateUtilities
+import com.google.firebase.database.Exclude
 import kotlinx.android.parcel.Parcelize
 import java.util.*
+import java.util.function.Predicate
 
 @Parcelize
-class Habit(
-    var id: String?,
-    var name: String? = "",
+data class Habit(
+    override var id: String = "",
+    var name: String = "",
     var difficulty: Int = Difficulty.maxDifficulty / 3,
-    private var goalTime: Long = 0,
-    private var elapsedTime: Long = 0,
-    var daysRepeat: Int = arrayRepeatToInt(booleanArrayOf(true, true, true, true, true, true, true)),
-    private val datesCompleted: MutableList<DateCompleted?> = ArrayList(),
+    var goalTime: Long = 0,
+    var elapsedTime: Long = 0,
+    var daysRepeat: Int = arrayRepeatToInt(
+        booleanArrayOf(
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        )
+    ),
+    val datesCompleted: MutableList<DateCompleted> = ArrayList(),
     var notificationTime: Long = -1
-) : Parcelable {
+) : Parcelable, IModel {
+
+    @Exclude
+    fun getDaysRepeatAsArray(): BooleanArray {
+        val days = BooleanArray(7)
+        for (i in days.indices) {
+            days[i] =
+                (daysRepeat and Math.pow(2.0, i.toDouble()).toInt()).toDouble() == Math.pow(
+                    2.0,
+                    i.toDouble()
+                )
+        }
+        return days
+    }
 
     fun plannedForDay(date: Date?): Boolean {
         val calendar = Calendar.getInstance()
@@ -27,13 +52,11 @@ class Habit(
     }
 
     fun isCompleteOnDay(date: Date): Boolean {
-        return getDateCompleted(date).isComplete
+        return dateCompleted(date).isComplete
     }
 
-    fun getGoalTime(): Long {
-        return goalTime
-    }
-
+    @Exclude
+    @JvmName("_setGoalTime")
     fun setGoalTime(goalTime: Long) {
         val day = DateUtilities.getDateOfDayWithoutTime(Date())
         if (elapsedTime < goalTime && isCompleteOnDay(day)) {
@@ -44,10 +67,8 @@ class Habit(
         this.goalTime = goalTime
     }
 
-    fun getElapsedTime(): Long {
-        return elapsedTime
-    }
-
+    @Exclude
+    @JvmName("_setElapsedTime")
     fun setElapsedTime(elapsedTime: Long) {
         val day = DateUtilities.getDateOfDayWithoutTime(Date())
         if (elapsedTime >= goalTime && !isCompleteOnDay(day) && goalTime > 0) {
@@ -56,15 +77,12 @@ class Habit(
         this.elapsedTime = elapsedTime
     }
 
+    @Exclude
     fun setDaysRepeat(daysRepeat: BooleanArray) {
         this.daysRepeat = arrayRepeatToInt(daysRepeat)
     }
 
-    fun getDatesCompleted(): List<DateCompleted?> {
-        return datesCompleted
-    }
-
-    fun getStreakByDay(date: Date): Int {
+    fun streakByDay(date: Date): Int {
         var date = date
         date = DateUtilities.getDateOfDayWithoutTime(date)
         val calendar = Calendar.getInstance()
@@ -90,25 +108,12 @@ class Habit(
         return streak
     }
 
-    val daysRepeatAsArray: BooleanArray
-        get() {
-            val days = BooleanArray(7)
-            for (i in days.indices) {
-                days[i] =
-                    (daysRepeat and Math.pow(2.0, i.toDouble()).toInt()).toDouble() == Math.pow(
-                        2.0,
-                        i.toDouble()
-                    )
-            }
-            return days
-        }
-
     fun setStateForDay(state: Boolean, date: Date) {
-        val dateCompleted = getDateCompleted(date)
+        val dateCompleted = dateCompleted(date)
         dateCompleted.isComplete = state
     }
 
-    private fun getDateCompleted(date: Date): DateCompleted {
+    private fun dateCompleted(date: Date): DateCompleted {
         val dateOfDayWithoutTime = DateUtilities.getDateOfDayWithoutTime(date)
         val found = datesCompleted.stream()
             .filter { item: DateCompleted? -> dateOfDayWithoutTime.time == item!!.date }

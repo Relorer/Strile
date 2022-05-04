@@ -4,5 +4,5 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class DateCompleted(val date: Long, var isComplete: Boolean) : Parcelable {
+data class DateCompleted(var date: Long = 0, var isComplete: Boolean = false) : Parcelable {
 }

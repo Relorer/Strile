@@ -31,7 +31,7 @@ public class HabitTimerActivity extends AppCompatActivity implements TimerView {
     private Button buttonTimerControlPrimary;
     private TextView buttonTimerControlSecondary;
 
-    public static void start(Activity caller, long habitId) {
+    public static void start(Activity caller, String habitId) {
         Intent intent = new Intent(caller, HabitTimerActivity.class);
         intent.putExtra(HABIT_ID, habitId);
         caller.startActivity(intent);
@@ -39,8 +39,8 @@ public class HabitTimerActivity extends AppCompatActivity implements TimerView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final long habitId = getIntent().getLongExtra(HABIT_ID, -1);
-        if (habitId == -1)
+        final String habitId = getIntent().getStringExtra(HABIT_ID);
+        if (habitId == null)
             throw new IllegalArgumentException("Habit activity received an incorrect id");
         super.onCreate(savedInstanceState);
 

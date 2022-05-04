@@ -16,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent;
-        if (FirebaseAuth.getInstance().getCurrentUser() == null && !UsersSettings.getUserSkipAuth()) {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             intent = new Intent(this, AuthActivity.class);
         }
         else {

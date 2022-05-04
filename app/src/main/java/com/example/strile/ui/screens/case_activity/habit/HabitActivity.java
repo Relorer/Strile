@@ -20,9 +20,9 @@ public class HabitActivity extends BaseCaseActivity {
 
     private static ShowSnackbarCallback lastCallback;
 
-    private long habitId;
+    private String habitId;
 
-    public static void start(Activity caller, long habitId, ShowSnackbarCallback callback) {
+    public static void start(Activity caller, String habitId, ShowSnackbarCallback callback) {
         lastCallback = callback;
         Intent intent = new Intent(caller, HabitActivity.class);
         intent.putExtra(HABIT_ID, habitId);
@@ -31,8 +31,8 @@ public class HabitActivity extends BaseCaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        habitId = getIntent().getLongExtra(HABIT_ID, -1);
-        if (habitId == -1)
+        habitId = getIntent().getStringExtra(HABIT_ID);
+        if (habitId == null)
             throw new IllegalArgumentException("Habit activity received an incorrect id");
         super.onCreate(savedInstanceState);
         textTitle.setText(R.string.t_habit);
@@ -50,7 +50,7 @@ public class HabitActivity extends BaseCaseActivity {
             lastCallback.show(text, actionName, onClickListener);
     }
 
-    public void openTimer(long habitId) {
+    public void openTimer(String habitId) {
         HabitTimerActivity.start(this, habitId);
     }
 }

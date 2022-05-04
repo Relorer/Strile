@@ -8,10 +8,10 @@ import android.content.Intent;
 import androidx.lifecycle.LiveData;
 
 import com.example.strile.App;
-import com.example.strile.data.entities.Habit;
-import com.example.strile.data.entities.Task;
-import com.example.strile.data.repositories.HabitRepository;
-import com.example.strile.data.repositories.TaskRepository;
+import com.example.strile.data_firebase.models.Habit;
+import com.example.strile.data_firebase.models.Task;
+import com.example.strile.data_firebase.repositories.HabitRepository;
+import com.example.strile.data_firebase.repositories.TaskRepository;
 import com.example.strile.utilities.extensions.DateUtilities;
 import com.example.strile.infrastructure.settings.UsersSettings;
 
@@ -33,14 +33,14 @@ public class NotificationPlanner {
     private static final LiveData<List<Task>> allTasks;
     private static final LiveData<List<Habit>> allHabits;
 
-    private static final List<Long> lastUpdatedHabitIds;
-    private static final List<Long> lastUpdatedTaskIds;
+    private static final List<String> lastUpdatedHabitIds;
+    private static final List<String> lastUpdatedTaskIds;
 
     static {
         app = App.getInstance();
         manager = (AlarmManager) app.getSystemService(Context.ALARM_SERVICE);
-        taskRepository = new TaskRepository(app);
-        habitRepository = new HabitRepository(app);
+        taskRepository = new TaskRepository();
+        habitRepository = new HabitRepository();
 
         lastUpdatedTaskIds = new ArrayList<>();
         lastUpdatedHabitIds = new ArrayList<>();
@@ -65,7 +65,7 @@ public class NotificationPlanner {
             for (Task task : tasks) {
                 calendar.setTimeInMillis(task.getDeadline());
                 calendar.add(Calendar.MILLISECOND, time);
-                int requestCode = (int) (task.getId() * 2 + 1);
+                int requestCode = (task.getId().hashCode());
                 if (task.getDateComplete() == 0 && date.getTime() <= calendar.getTimeInMillis() && time != -1) {
                     restartNotify(task.getName(), task.getDescription(), calendar.getTimeInMillis(), requestCode);
                 } else {
@@ -74,7 +74,7 @@ public class NotificationPlanner {
             }
             //check deleted tasks
             if (tasks.size() != lastUpdatedTaskIds.size()) {
-                for (Long id : lastUpdatedTaskIds) {
+                for (String id : lastUpdatedTaskIds) {
                     boolean deleted = true;
                     for (Task task : tasks) {
                         if (task.getId() == id) {
@@ -82,7 +82,7 @@ public class NotificationPlanner {
                             break;
                         }
                     }
-                    if (deleted) deleteNotify((int) (id * 2 + 1));
+                    if (deleted) deleteNotify(id.hashCode());
                 }
                 lastUpdatedTaskIds.clear();
                 lastUpdatedTaskIds.addAll(tasks.stream().map(Task::getId).collect(Collectors.toList()));
@@ -95,7 +95,7 @@ public class NotificationPlanner {
         if (habits != null) {
             Calendar calendar = Calendar.getInstance();
             for (Habit habit : habits) {
-                int requestCode = (int) (habit.getId() * 2);
+                int requestCode = (int) (habit.getId().hashCode());
                 long notifyTime = habit.getNotificationTime();
                 if (notifyTime != -1) {
                     calendar.setTimeInMillis(System.currentTimeMillis());
@@ -115,7 +115,7 @@ public class NotificationPlanner {
             }
             //check deleted habits
             if (habits.size() != lastUpdatedHabitIds.size()) {
-                for (Long id : lastUpdatedHabitIds) {
+                for (String id : lastUpdatedHabitIds) {
                     boolean deleted = true;
                     for (Habit habit : habits) {
                         if (habit.getId() == id) {
@@ -123,7 +123,7 @@ public class NotificationPlanner {
                             break;
                         }
                     }
-                    if (deleted) deleteNotify((int) (id * 2));
+                    if (deleted) deleteNotify((int) (id.hashCode()));
                 }
                 lastUpdatedHabitIds.clear();
                 lastUpdatedHabitIds.addAll(habits.stream().map(Habit::getId).collect(Collectors.toList()));

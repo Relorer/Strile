@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SettingsPresenter extends BasePresenter<SettingsActivity> {
 
@@ -86,14 +87,15 @@ public class SettingsPresenter extends BasePresenter<SettingsActivity> {
     }
 
     public void buttonAuthClicked() {
-        FirebaseAuth.getInstance().signOut();
-        UsersSettings.setUserSkipAuth(false);
+        if (!Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).isAnonymous()) {
+            FirebaseAuth.getInstance().signOut();
+        }
 
         view().startActivity(new Intent(view(), AuthActivity.class));
         view().finish();
     }
 
     private String authButtonText() {
-        return FirebaseAuth.getInstance().getCurrentUser() == null ? "Sign in" : "Sign out";
+        return Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).isAnonymous() ? "Sign in" : "Sign out";
     }
 }

@@ -3,10 +3,8 @@ package com.example.strile.ui.screens.main.journal.cases.tasks;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
-import com.example.strile.App;
-import com.example.strile.data.entities.Task;
-import com.example.strile.data.repositories.Repository;
-import com.example.strile.data.repositories.TaskRepository;
+import com.example.strile.data_firebase.models.Task;
+import com.example.strile.data_firebase.repositories.TaskRepository;
 import com.example.strile.ui.screens.main.journal.JournalFragment;
 import com.example.strile.ui.screens.main.journal.cases.JournalCasesPresenter;
 import com.example.strile.infrastructure.rvadapter.items.BaseModel;
@@ -21,16 +19,18 @@ import java.util.stream.Collectors;
 
 public class JournalTasksPresenter extends JournalCasesPresenter<JournalTasksFragment> {
 
-    private final Repository<Task> repository;
-    private final LiveData<List<TaskModel>> tasks;
+    private final TaskRepository repository;
+    private final LiveData<List<TaskModel>> taskModels;
+    private final LiveData<List<Task>> tasks;
 
     private List<TaskModel> updatedList;
+    private final TaskModelList modelList;
 
     public JournalTasksPresenter() {
-        repository = new TaskRepository(App.getInstance());
-        final LiveData<List<Task>> tasks = repository.getAll();
-        final TaskModelList modelList = new TaskModelList();
-        this.tasks = Transformations.map(tasks, input -> input.stream()
+        repository = new TaskRepository();
+        tasks = repository.getAll();
+        modelList = new TaskModelList();
+        this.taskModels = Transformations.map(tasks, input -> input.stream()
                 .map(model -> modelList.getModel(false, model, visibleDay))
                 .collect(Collectors.toList()));
     }
@@ -38,8 +38,8 @@ public class JournalTasksPresenter extends JournalCasesPresenter<JournalTasksFra
     @Override
     public void setVisibleDay(Date visibleDay) {
         super.setVisibleDay(visibleDay);
-        if (tasks.getValue() != null && tasks.getValue().size() > 0)
-            repository.update(tasks.getValue().get(0).getTask());
+        if (taskModels.getValue() != null && taskModels.getValue().size() > 0)
+            buildDisplayedList(this.tasks.getValue().stream().map(model -> modelList.getModel(false, model, visibleDay)).collect(Collectors.toList()));
     }
 
     @Override
@@ -63,14 +63,14 @@ public class JournalTasksPresenter extends JournalCasesPresenter<JournalTasksFra
     @Override
     public void buttonHidingStateChanged(ButtonHidingModel button) {
         super.buttonHidingStateChanged(button);
-        buildDisplayedList(tasks.getValue());
+        buildDisplayedList(this.tasks.getValue().stream().map(model -> modelList.getModel(false, model, visibleDay)).collect(Collectors.toList()));
     }
 
     @Override
     protected void updateView() {
         if (updatedList != null) buildDisplayedList(updatedList);
-        if (!tasks.hasActiveObservers())
-            tasks.observe(view(), this::buildDisplayedList);
+        if (!taskModels.hasActiveObservers())
+            taskModels.observe(view(), this::buildDisplayedList);
     }
 
     private void buildDisplayedList(List<TaskModel> tasks) {

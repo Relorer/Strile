@@ -9,7 +9,7 @@ import com.example.strile.ui.screens.main.journal.cases.JournalCasesPresenter;
 
 public class JournalTasksFragment extends JournalCasesFragment implements JournalCasesPage {
 
-    public void startTaskActivity(long TaskId) {
+    public void startTaskActivity(String TaskId) {
         TaskActivity.start(this.getActivity(), TaskId, (text, actionName, callback) -> {
             if (getParentFragment() != null)
                 ((JournalFragment) getParentFragment()).showSnackbar(text, actionName, callback);

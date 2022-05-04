@@ -2,19 +2,17 @@ package com.example.strile.ui.screens.case_activity.task;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.strile.App;
 import com.example.strile.R;
+import com.example.strile.data_firebase.models.Subtask;
+import com.example.strile.data_firebase.repositories.TaskRepository;
 import com.example.strile.ui.screens.case_activity.BaseCasePresenter;
-import com.example.strile.data.entities.Task;
-import com.example.strile.data.repositories.Repository;
-import com.example.strile.data.repositories.TaskRepository;
+import com.example.strile.data_firebase.models.Task;
 import com.example.strile.infrastructure.rvadapter.items.BaseModel;
 import com.example.strile.infrastructure.rvadapter.items.button_add_subtask.ButtonAddSubtaskModel;
 import com.example.strile.infrastructure.rvadapter.items.button_date_selection.ButtonDateSelectionModel;
 import com.example.strile.infrastructure.rvadapter.items.edit_text.EditTextModel;
 import com.example.strile.infrastructure.rvadapter.items.seek_bar_difficult.SeekBarDifficultModel;
 import com.example.strile.infrastructure.rvadapter.items.subtask.SubtaskModel;
-import com.example.strile.data.entities.Subtask;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +21,7 @@ import java.util.stream.Collectors;
 
 public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
 
-    private final Repository<Task> repository;
+    private final TaskRepository repository;
     private final LiveData<Task> task;
 
     private final EditTextModel editTextName;
@@ -34,8 +32,10 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
 
     private final List<SubtaskModel> subtaskModels;
 
-    public TaskPresenter(long taskId) {
-        repository = new TaskRepository(App.getInstance());
+    private boolean isDeleted = false;
+
+    public TaskPresenter(String taskId) {
+        repository = new TaskRepository();
         task = repository.getById(taskId);
 
         editTextName = new EditTextModel(false, 1, 80);
@@ -49,14 +49,16 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
 
     @Override
     public void unbindView() {
-        Task task = this.task.getValue();
-        assert task != null;
-        if (task.getName().equals("")) task.setName(view().getString(R.string.t_no_name));
-        task.getSubtasks().clear();
-        task.getSubtasks().addAll(subtaskModels.stream()
-                .map(m -> new Subtask(m.getText(), m.isComplete()))
-                .collect(Collectors.toList()));
-        repository.update(task);
+        if (!isDeleted) {
+            Task task = this.task.getValue();
+            assert task != null;
+            if (task.getName().equals("")) task.setName(view().getString(R.string.t_no_name));
+            task.getSubtasks().clear();
+            task.getSubtasks().addAll(subtaskModels.stream()
+                    .map(m -> new Subtask(m.getText(), m.isComplete()))
+                    .collect(Collectors.toList()));
+            repository.update(task);
+        }
         super.unbindView();
     }
 
@@ -64,9 +66,10 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
     public void specialPurposeButtonClicked() {
         final Task backupTask = task.getValue();
         repository.delete(backupTask);
+        isDeleted = true;
         view().showSnackbar(
                 view().getString(R.string.w_task_deleted),
-                view().getString(R.string.undo), v -> repository.insert(backupTask));
+                view().getString(R.string.undo), v -> repository.update(backupTask));
         view().finish();
     }
 
@@ -78,34 +81,36 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
     @Override
     protected void updateView() {
         if (!task.hasActiveObservers()) {
-            task.observe(view(), task -> {
-                if (task != null && view() != null) {
-                    if (task.getSubtasks().size() > 0) {
-                        subtaskModels.clear();
-                        subtaskModels.addAll(task.getSubtasks().stream()
-                                .map(m -> new SubtaskModel(false, m.getName(), m.isComplete()))
-                                .collect(Collectors.toList()));
-                        task.getSubtasks().clear();
-                    }
+            task.observe(view(), this::_updateView);
+        }
+    }
 
-                    final List<BaseModel> models = new ArrayList<>();
+    protected void _updateView(Task task) {
+        if (task != null && view() != null) {
+            if (task.getSubtasks().size() > 0 && subtaskModels.size() == 0) {
+                subtaskModels.clear();
+                subtaskModels.addAll(task.getSubtasks().stream()
+                        .map(m -> new SubtaskModel(false, m.getName(), m.isComplete()))
+                        .collect(Collectors.toList()));
+                task.getSubtasks().clear();
+            }
 
-                    editTextName.setHint(view().getString(R.string.t_name));
-                    editTextName.setText(task.getName());
-                    editTextDescription.setHint(view().getString(R.string.description));
-                    editTextDescription.setText(task.getDescription());
-                    buttonDateSelection.setDate(new Date(task.getDeadline()));
-                    seekBarDifficult.setProgress(task.getDifficulty());
+            final List<BaseModel> models = new ArrayList<>();
 
-                    models.add(editTextName);
-                    models.add(editTextDescription);
-                    models.add(buttonDateSelection);
-                    models.addAll(subtaskModels);
-                    models.add(buttonAddSubtask);
-                    models.add(seekBarDifficult);
-                    view().setSortedList(models);
-                }
-            });
+            editTextName.setHint(view().getString(R.string.t_name));
+            editTextName.setText(task.getName());
+            editTextDescription.setHint(view().getString(R.string.description));
+            editTextDescription.setText(task.getDescription());
+            buttonDateSelection.setDate(new Date(task.getDeadline()));
+            seekBarDifficult.setProgress(task.getDifficulty());
+
+            models.add(editTextName);
+            models.add(editTextDescription);
+            models.add(buttonDateSelection);
+            models.addAll(subtaskModels);
+            models.add(buttonAddSubtask);
+            models.add(seekBarDifficult);
+            view().setSortedList(models);
         }
     }
 
@@ -124,22 +129,20 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
     public void dateSelectionChanged(ButtonDateSelectionModel model) {
         final Task task = this.task.getValue();
         assert task != null;
-        task.setDeadline(model.getDate());
+        task.setDeadlineFromDate(model.getDate());
     }
 
     @Override
     public void addSubtaskButtonClicked(ButtonAddSubtaskModel model) {
-        final Task task = this.task.getValue();
         subtaskModels.add(new SubtaskModel(false, "", false));
-        repository.update(task);
+        _updateView(this.task.getValue());
     }
 
     @Override
     public void subtaskChanged(SubtaskModel model) {
-        final Task task = this.task.getValue();
         if (model.isDying()) {
             subtaskModels.remove(model);
-            repository.update(task);
+            _updateView(this.task.getValue());
         }
     }
 

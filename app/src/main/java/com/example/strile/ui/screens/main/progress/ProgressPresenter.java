@@ -3,10 +3,9 @@ package com.example.strile.ui.screens.main.progress;
 import androidx.lifecycle.LiveData;
 
 import com.example.strile.App;
-import com.example.strile.data.entities.Executed;
-import com.example.strile.data.entities.Habit;
-import com.example.strile.data.repositories.ExecutedRepository;
-import com.example.strile.data.repositories.Repository;
+import com.example.strile.data_firebase.models.Executed;
+import com.example.strile.data_firebase.models.Habit;
+import com.example.strile.data_firebase.repositories.ExecutedRepository;
 import com.example.strile.utilities.extensions.DateUtilities;
 import com.example.strile.infrastructure.presenter.BasePresenter;
 import com.example.strile.infrastructure.progress.Progress;
@@ -31,7 +30,7 @@ public class ProgressPresenter extends BasePresenter<ProgressFragment> {
 
     public ProgressPresenter() {
         App app = App.getInstance();
-        Repository<Executed> repository = new ExecutedRepository(app);
+        ExecutedRepository repository = new ExecutedRepository();
         executed = repository.getAll();
         executedModelList = new ExecutedModelList();
         infoId = new InfoProgressModel(false, 0, 0, 0).getId();

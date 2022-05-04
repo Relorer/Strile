@@ -17,10 +17,7 @@ import com.example.strile.R
 import com.example.strile.ui.screens.authorization.AuthActivity
 import com.example.strile.ui.screens.main.MainActivity
 import com.example.strile.utilities.AppConstants.Companion.TAG_LOG
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.app_bar_layout.*
@@ -132,13 +129,29 @@ class EmailAuthFragment : Fragment() {
     }
 
     private fun trySingIn() {
-        auth.signInWithEmailAndPassword(
-            edit_text_email.text.toString(),
-            edit_text_pass.text.toString()
-        ).addOnCompleteListener() {
-            if (it.isSuccessful) {
-                openMainActivity()
+        if (auth.currentUser == null) {
+            auth.signInWithEmailAndPassword(
+                edit_text_email.text.toString(),
+                edit_text_pass.text.toString()
+            ).addOnCompleteListener() {
+                if (it.isSuccessful) {
+                    openMainActivity()
+                }
             }
+        }
+        else {
+            auth.currentUser!!.linkWithCredential(EmailAuthProvider.getCredential(edit_text_email.text.toString(), edit_text_pass.text.toString()))
+                .addOnCompleteListener{ task ->
+                    if (task.isSuccessful) {
+                        openMainActivity()
+                    } else {
+                        //TODO
+//                        Log.w(TAG, "linkWithCredential:failure", task.exception)
+//                        Toast.makeText(baseContext, "Authentication failed.",
+//                            Toast.LENGTH_SHORT).show()
+//                        updateUI(null)
+                    }
+                }
         }
     }
 }

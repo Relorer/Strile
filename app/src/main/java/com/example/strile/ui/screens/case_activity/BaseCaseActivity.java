@@ -1,11 +1,9 @@
 package com.example.strile.ui.screens.case_activity;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +24,7 @@ import com.example.strile.infrastructure.rvadapter.items.edit_text.EditTextModel
 import com.example.strile.infrastructure.rvadapter.items.progress_bar_elapsed_time.ProgressBarElapsedTimeModel;
 import com.example.strile.infrastructure.rvadapter.items.seek_bar_difficult.SeekBarDifficultModel;
 import com.example.strile.infrastructure.rvadapter.items.subtask.SubtaskModel;
+import com.example.strile.utilities.ToastUtilities;
 
 import java.util.List;
 
@@ -95,10 +94,7 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
     }
 
     public void showToast(String text) {
-        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-        TextView v = toast.getView().findViewById(android.R.id.message);
-        if (v != null) v.setGravity(Gravity.CENTER);
-        toast.show();
+        ToastUtilities.Companion.showToastWithCenteredText(this, text);
     }
 
     protected abstract BaseCasePresenter getNewPresenter();

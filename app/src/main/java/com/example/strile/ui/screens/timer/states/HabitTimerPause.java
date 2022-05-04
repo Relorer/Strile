@@ -3,7 +3,7 @@ package com.example.strile.ui.screens.timer.states;
 import android.app.Activity;
 
 import com.example.strile.R;
-import com.example.strile.data.entities.Habit;
+import com.example.strile.data_firebase.models.Habit;
 import com.example.strile.infrastructure.timer.TimerController;
 import com.example.strile.infrastructure.timer.TimerState;
 import com.example.strile.infrastructure.timer.TimerView;

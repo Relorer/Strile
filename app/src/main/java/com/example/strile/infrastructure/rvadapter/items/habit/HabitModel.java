@@ -1,6 +1,6 @@
 package com.example.strile.infrastructure.rvadapter.items.habit;
 
-import com.example.strile.data.entities.Habit;
+import com.example.strile.data_firebase.models.Habit;
 import com.example.strile.infrastructure.rvadapter.items.BaseModel;
 import com.example.strile.infrastructure.rvadapter.items.CaseModel;
 
@@ -37,7 +37,7 @@ public class HabitModel extends BaseModel implements CaseModel {
     }
 
     public int getStreak() {
-        return habit.getStreakByDay(date);
+        return habit.streakByDay(date);
     }
 
     public boolean isComplete() {

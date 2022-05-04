@@ -1,11 +1,9 @@
 package com.example.strile.ui.screens.case_activity.add_case.add_habit;
 
-import com.example.strile.App;
 import com.example.strile.R;
 import com.example.strile.ui.screens.case_activity.BaseCasePresenter;
-import com.example.strile.data.entities.Habit;
-import com.example.strile.data.repositories.HabitRepository;
-import com.example.strile.data.repositories.Repository;
+import com.example.strile.data_firebase.models.Habit;
+import com.example.strile.data_firebase.repositories.HabitRepository;
 import com.example.strile.infrastructure.rvadapter.items.BaseModel;
 import com.example.strile.infrastructure.rvadapter.items.button_repeat.ButtonRepeatModel;
 import com.example.strile.infrastructure.rvadapter.items.button_time_goal.ButtonTimeGoalModel;
@@ -18,7 +16,7 @@ import java.util.List;
 
 public class AddHabitPresenter extends BaseCasePresenter<AddHabitActivity> {
 
-    private final Repository<Habit> repository;
+    private final HabitRepository repository;
     private final Habit habit;
 
     private final EditTextModel editTextName;
@@ -28,7 +26,7 @@ public class AddHabitPresenter extends BaseCasePresenter<AddHabitActivity> {
     private final SeekBarDifficultModel seekBarDifficult;
 
     public AddHabitPresenter() {
-        repository = new HabitRepository(App.getInstance());
+        repository = new HabitRepository();
         habit = new Habit();
 
         editTextName = new EditTextModel(false, 1, 80);
@@ -47,7 +45,7 @@ public class AddHabitPresenter extends BaseCasePresenter<AddHabitActivity> {
             String message = view().getString(R.string.w_habit_repeat_empty);
             view().showToast(message);
         } else {
-            repository.insert(habit);
+            repository.update(habit);
             view().finish();
         }
     }

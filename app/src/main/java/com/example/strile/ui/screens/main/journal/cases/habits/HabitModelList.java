@@ -2,7 +2,7 @@ package com.example.strile.ui.screens.main.journal.cases.habits;
 
 import androidx.annotation.NonNull;
 
-import com.example.strile.data.entities.Habit;
+import com.example.strile.data_firebase.models.Habit;
 import com.example.strile.infrastructure.rvadapter.items.habit.HabitModel;
 
 import java.util.ArrayList;

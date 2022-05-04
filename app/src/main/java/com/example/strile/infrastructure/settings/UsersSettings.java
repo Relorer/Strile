@@ -18,7 +18,6 @@ public class UsersSettings {
     private static final String TIMER_FREQUENCY_LONG_BREAK = "timer_frequency_long_break";
     private static final String NOTIFY_AFTER_TIMER_ENDS = "notify_after_timer_ends";
     private static final String TIME_NOTIFY_UPCOMING_TASK = "time_notify_upcoming_task";
-    private static final String USER_SKIP_AUTH = "user_skip_auth";
 
     private static final SharedPreferences preferences;
 
@@ -85,14 +84,6 @@ public class UsersSettings {
     public static void setTimeNotifyUpcomingTask(long time) {
         preferences.edit().putLong(TIME_NOTIFY_UPCOMING_TASK, time).apply();
         NotificationPlanner.updateTasksNotify();
-    }
-
-    public static Boolean getUserSkipAuth() {
-        return preferences.getBoolean(USER_SKIP_AUTH, false);
-    }
-
-    public static void setUserSkipAuth(Boolean value) {
-        preferences.edit().putBoolean(USER_SKIP_AUTH, value).apply();
     }
 
     public static void start() {

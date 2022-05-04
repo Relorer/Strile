@@ -2,12 +2,10 @@ package com.example.strile.ui.screens.case_activity.habit;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.strile.App;
 import com.example.strile.R;
 import com.example.strile.ui.screens.case_activity.BaseCasePresenter;
-import com.example.strile.data.entities.Habit;
-import com.example.strile.data.repositories.HabitRepository;
-import com.example.strile.data.repositories.Repository;
+import com.example.strile.data_firebase.models.Habit;
+import com.example.strile.data_firebase.repositories.HabitRepository;
 import com.example.strile.utilities.extensions.DateUtilities;
 import com.example.strile.infrastructure.rvadapter.items.BaseModel;
 import com.example.strile.infrastructure.rvadapter.items.button_repeat.ButtonRepeatModel;
@@ -25,7 +23,7 @@ import java.util.Objects;
 
 public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
 
-    private final Repository<Habit> repository;
+    private final HabitRepository repository;
     private final LiveData<Habit> habit;
 
     private final EditTextModel editTextName;
@@ -37,8 +35,10 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
 
     private final int progressBarElapsedTimeId;
 
-    public HabitPresenter(long habitId) {
-        repository = new HabitRepository(App.getInstance());
+    private boolean isDeleted = false;
+
+    public HabitPresenter(String habitId) {
+        repository = new HabitRepository();
         habit = repository.getById(habitId);
 
         editTextName = new EditTextModel(false, 1, 80);
@@ -52,13 +52,15 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
 
     @Override
     public void unbindView() {
-        Habit habit = this.habit.getValue();
-        assert habit != null;
-        if (habit.getName().equals("")) habit.setName(view().getString(R.string.t_no_name));
-        if (habit.getDaysRepeat() == 0) habit.setDaysRepeat(new boolean[]{
-                true, true, true, true, true, true, true //7 days
-        });
-        repository.update(habit);
+        if (!isDeleted) {
+            Habit habit = this.habit.getValue();
+            assert habit != null;
+            if (habit.getName().equals("")) habit.setName(view().getString(R.string.t_no_name));
+            if (habit.getDaysRepeat() == 0) habit.setDaysRepeat(new boolean[]{
+                    true, true, true, true, true, true, true //7 days
+            });
+            repository.update(habit);
+        }
         super.unbindView();
     }
 
@@ -66,9 +68,10 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
     public void specialPurposeButtonClicked() {
         final Habit backupHabit = habit.getValue();
         repository.delete(backupHabit);
+        isDeleted = true;
         view().showSnackbar(
                 view().getString(R.string.w_habit_deleted),
-                view().getString(R.string.undo), v -> repository.insert(backupHabit));
+                view().getString(R.string.undo), v -> repository.update(backupHabit));
         view().finish();
     }
 
@@ -93,7 +96,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
                             new ProgressBarElapsedTimeModel(progressBarElapsedTimeId, true);
                     progressBarElapsedTime.setMax((int) (habit.getGoalTime() / 60 / 1000));
                     progressBarElapsedTime.setProgress((int) (habit.getElapsedTime() / 60 / 1000));
-                    currentStreak.setStreak(habit.getStreakByDay(DateUtilities.getDateOfDayWithoutTime(new Date())));
+                    currentStreak.setStreak(habit.streakByDay(DateUtilities.getDateOfDayWithoutTime(new Date())));
 
                     models.add(editTextName);
                     if (habit.getGoalTime() > habit.getElapsedTime())

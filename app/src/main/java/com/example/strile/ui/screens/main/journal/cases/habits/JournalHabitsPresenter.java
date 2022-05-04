@@ -3,10 +3,8 @@ package com.example.strile.ui.screens.main.journal.cases.habits;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
-import com.example.strile.App;
-import com.example.strile.data.entities.Habit;
-import com.example.strile.data.repositories.HabitRepository;
-import com.example.strile.data.repositories.Repository;
+import com.example.strile.data_firebase.models.Habit;
+import com.example.strile.data_firebase.repositories.HabitRepository;
 import com.example.strile.ui.screens.main.journal.JournalFragment;
 import com.example.strile.ui.screens.main.journal.cases.JournalCasesPresenter;
 import com.example.strile.infrastructure.rvadapter.items.BaseModel;
@@ -21,16 +19,18 @@ import java.util.stream.Collectors;
 
 public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsFragment> {
 
-    private final Repository<Habit> repository;
-    private final LiveData<List<HabitModel>> habits;
+    private final HabitRepository repository;
+    private final LiveData<List<HabitModel>> habitModels;
+    private final LiveData<List<Habit>> habits;
 
     private List<HabitModel> updatedList;
+    private final HabitModelList modelList;
 
     public JournalHabitsPresenter() {
-        repository = new HabitRepository(App.getInstance());
-        final LiveData<List<Habit>> habits = repository.getAll();
-        final HabitModelList modelList = new HabitModelList();
-        this.habits = Transformations.map(habits, input -> input.stream()
+        repository = new HabitRepository();
+        habits = repository.getAll();
+        modelList = new HabitModelList();
+        this.habitModels = Transformations.map(habits, input -> input.stream()
                 .map(model -> modelList.getModel(false, model, visibleDay))
                 .collect(Collectors.toList()));
     }
@@ -38,8 +38,8 @@ public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsF
     @Override
     public void setVisibleDay(Date visibleDay) {
         super.setVisibleDay(visibleDay);
-        if (habits.getValue() != null && habits.getValue().size() > 0)
-            repository.update(habits.getValue().get(0).getHabit());
+        if (habitModels.getValue() != null && habitModels.getValue().size() > 0)
+            buildDisplayedList(this.habits.getValue().stream().map(model -> modelList.getModel(false, model, visibleDay)).collect(Collectors.toList()));
     }
 
     @Override
@@ -62,14 +62,14 @@ public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsF
     @Override
     public void buttonHidingStateChanged(ButtonHidingModel button) {
         super.buttonHidingStateChanged(button);
-        buildDisplayedList(habits.getValue());
+        buildDisplayedList(this.habits.getValue().stream().map(model -> modelList.getModel(false, model, visibleDay)).collect(Collectors.toList()));
     }
 
     @Override
     protected void updateView() {
         if (updatedList != null) buildDisplayedList(updatedList);
-        if (!habits.hasActiveObservers())
-            habits.observe(view(), this::buildDisplayedList);
+        if (!habitModels.hasActiveObservers())
+            habitModels.observe(view(), this::buildDisplayedList);
     }
 
     private void buildDisplayedList(List<HabitModel> habits) {

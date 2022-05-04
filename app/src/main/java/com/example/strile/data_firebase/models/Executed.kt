@@ -4,13 +4,13 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class Executed(
-    var id: String?,
-    val caseId: Long,
-    val name: String,
-    val dateComplete: Long,
-    val experience: Int,
-    val typeCase: String
-) : Parcelable {
+data class Executed(
+    override var id: String = "",
+    var caseId: String = "",
+    var name: String = "",
+    var dateComplete: Long = 0,
+    var experience: Int = 0,
+    var typeCase: String = ""
+) : Parcelable, IModel {
 
 }
