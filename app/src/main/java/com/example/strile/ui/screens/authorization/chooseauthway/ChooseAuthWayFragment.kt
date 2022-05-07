@@ -1,8 +1,7 @@
 package com.example.strile.ui.screens.authorization.chooseauthway
 
+import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.Canvas
-import android.graphics.Paint
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -14,26 +13,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.strile.R
-import com.example.strile.data_firebase.models.User
 import com.example.strile.data_firebase.repositories.UserRepository
-import com.example.strile.infrastructure.settings.UsersSettings
+import com.example.strile.infrastructure.progress.KeeperHistoryExecutions
 import com.example.strile.ui.screens.authorization.AuthActivity
 import com.example.strile.ui.screens.authorization.emailauth.EmailAuthFragment
 import com.example.strile.ui.screens.main.MainActivity
 import com.example.strile.utilities.AppConstants.Companion.TAG_LOG
-import com.google.android.gms.auth.UserRecoverableAuthException
+import com.example.strile.utilities.ToastUtilities
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.choose_auth_way_fragment.*
+import kotlinx.android.synthetic.main.email_auth_fragment.*
 
 
 class ChooseAuthWayFragment : Fragment() {
@@ -60,7 +62,12 @@ class ChooseAuthWayFragment : Fragment() {
             try {
                 val account = task.getResult(ApiException::class.java)
                 if (account != null) {
-                    firebaseAuthWithGoogle(account.idToken!!);
+                    val credential = GoogleAuthProvider.getCredential(account.idToken!!, null)
+                    if (FirebaseAuth.getInstance().currentUser == null) {
+                        firebaseAuthWithGoogle(credential)
+                    } else {
+                        firebaseLinkWithGoogle(credential)
+                    }
                 }
             } catch (e: ApiException) {
                 Log.d(TAG_LOG, "api exception")
@@ -92,31 +99,30 @@ class ChooseAuthWayFragment : Fragment() {
         button_auth_email.text = buttonEmailAuthLabel
         button_auth_google.text = buttonGoogleAuthLabel
 
-        button_auth_email.setOnClickListener() {openEmailAuth()}
+        button_auth_email.setOnClickListener() { openEmailAuth() }
 
         button_auth_google.setOnClickListener() {
             launcher.launch(getClient().signInIntent)
         }
 
-        button_skip_auth.text = if (FirebaseAuth.getInstance().currentUser == null) "Skip" else "Back";
+        button_skip_auth.text =
+            if (FirebaseAuth.getInstance().currentUser == null) "Skip" else "Back";
         button_skip_auth.setOnClickListener() {
             if (FirebaseAuth.getInstance().currentUser == null) {
                 auth.signInAnonymously().addOnCompleteListener {
                     if (it.isSuccessful) {
                         openMainActivity()
                     } else {
-                        //TODO
-                        Log.w(TAG_LOG, "signInAnonymously:failure", it.exception)
+                        ToastUtilities.showToast(this.requireActivity(), it.exception?.localizedMessage)
                     }
                 }
-            }
-            else {
+            } else {
                 openMainActivity()
             }
         }
     }
 
-    private fun getClient() : GoogleSignInClient {
+    private fun getClient(): GoogleSignInClient {
         val gso = GoogleSignInOptions
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -134,36 +140,63 @@ class ChooseAuthWayFragment : Fragment() {
 
     private fun openMainActivity() {
         startActivity(Intent(activity, MainActivity::class.java))
+        KeeperHistoryExecutions.refresh()
         activity?.finish()
     }
 
-    private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        if (FirebaseAuth.getInstance().currentUser == null) {
-            auth.signInWithCredential(credential).addOnCompleteListener {
+    private fun firebaseLinkWithGoogle(credential: AuthCredential) {
+        auth.currentUser!!.linkWithCredential(credential)
+            .addOnCompleteListener {
                 if (it.isSuccessful) {
                     openMainActivity()
-                }
-                else {
-                    Log.d(TAG_LOG, "google sign in error")
-                }
-            }
-        }
-        else {
-            auth.currentUser!!.linkWithCredential(credential)
-                .addOnCompleteListener{ task ->
-                    if (task.isSuccessful) {
-                        openMainActivity()
+                } else {
+                    if (it.exception is FirebaseAuthUserCollisionException) {
+                        UserRepository().getCurrentUser() {
+
+                            UserRepository().deleteCurrentUser()
+
+                            val post = {
+                                AlertDialog.Builder(this.requireActivity())
+                                    .setMessage("Перенести локальные данные на аккаунт?")
+                                    .setPositiveButton("Yes") { dialogInterface: DialogInterface, _ ->
+                                        UserRepository().mergeWithCurrent(it)
+                                        openMainActivity()
+                                        dialogInterface.dismiss()
+                                    }
+                                    .setNegativeButton("No") { dialogInterface: DialogInterface, _ ->
+                                        openMainActivity()
+                                        dialogInterface.dismiss()
+                                    }.create().show()
+                            }
+
+                            val postFail = {
+                                UserRepository().mergeWithCurrent(it)
+                            }
+
+                            firebaseAuthWithGoogle(credential, post, postFail)
+
+                        }
+
                     } else {
-                        //TODO
-//                        Log.w(TAG, "linkWithCredential:failure", task.exception)
-//                        Toast.makeText(baseContext, "Authentication failed.",
-//                            Toast.LENGTH_SHORT).show()
-//                        updateUI(null)
+                        ToastUtilities.showToast(this.requireActivity(), it.exception?.localizedMessage)
                     }
                 }
-        }
+            }
     }
 
+    private fun firebaseAuthWithGoogle(
+        credential: AuthCredential,
+        post: (() -> Unit)? = null, postFail: (() -> Unit)? = null
+    ) {
+        auth.signInWithCredential(credential).addOnCompleteListener {
+            if (it.isSuccessful) {
+                if (post != null) post()
+                else openMainActivity()
+            } else {
+                if (postFail != null) postFail()
+                ToastUtilities.showToast(this.requireActivity(), it.exception?.localizedMessage)
+            }
+        }
+    }
 
 }

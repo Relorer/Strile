@@ -37,6 +37,8 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
 
     private boolean isDeleted = false;
 
+    private Habit backupHabit;
+
     public HabitPresenter(String habitId) {
         repository = new HabitRepository();
         habit = repository.getById(habitId);
@@ -54,19 +56,20 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
     public void unbindView() {
         if (!isDeleted) {
             Habit habit = this.habit.getValue();
-            assert habit != null;
-            if (habit.getName().equals("")) habit.setName(view().getString(R.string.t_no_name));
-            if (habit.getDaysRepeat() == 0) habit.setDaysRepeat(new boolean[]{
-                    true, true, true, true, true, true, true //7 days
-            });
-            repository.update(habit);
+            if (habit != null) {
+                if (habit.getName().equals("")) habit.setName(view().getString(R.string.t_no_name));
+                if (habit.getDaysRepeat() == 0) habit.setDaysRepeat(new boolean[]{
+                        true, true, true, true, true, true, true //7 days
+                });
+                repository.update(habit);
+            }
         }
         super.unbindView();
     }
 
     @Override
     public void specialPurposeButtonClicked() {
-        final Habit backupHabit = habit.getValue();
+        backupHabit = habit.getValue();
         repository.delete(backupHabit);
         isDeleted = true;
         view().showSnackbar(
@@ -85,6 +88,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
         if (!habit.hasActiveObservers()) {
             habit.observe(view(), habit -> {
                 if (habit != null && view() != null) {
+                    backupHabit = habit;
                     final List<BaseModel> models = new ArrayList<>();
 
                     editTextName.setHint(view().getString(R.string.t_name));
@@ -109,6 +113,14 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
                     models.add(seekBarDifficult);
 
                     view().setSortedList(models);
+                }
+                else if (habit == null) {
+                    if (backupHabit != null) {
+                        view().showSnackbar(
+                                view().getString(R.string.w_habit_deleted),
+                                view().getString(R.string.undo), v -> repository.update(backupHabit));
+                    }
+                    view().finish();
                 }
             });
         }

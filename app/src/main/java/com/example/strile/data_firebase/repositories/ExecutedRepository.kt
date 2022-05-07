@@ -11,7 +11,7 @@ import java.util.*
 
 
 class ExecutedRepository: Repository<Executed>() {
-    override val referenceName: String = "Users/" + FirebaseAuth.getInstance().currentUser?.uid + "/Executed"
+    override val referenceName: String = "users/" + FirebaseAuth.getInstance().currentUser?.uid + "/executed"
 
     private val all = getAll()
 

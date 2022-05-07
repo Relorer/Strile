@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData;
 import com.example.strile.App;
 import com.example.strile.data_firebase.models.Executed;
 import com.example.strile.data_firebase.models.Habit;
+import com.example.strile.data_firebase.models.User;
 import com.example.strile.data_firebase.repositories.ExecutedRepository;
+import com.example.strile.data_firebase.repositories.UserRepository;
 import com.example.strile.utilities.extensions.DateUtilities;
 import com.example.strile.infrastructure.presenter.BasePresenter;
 import com.example.strile.infrastructure.progress.Progress;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 public class ProgressPresenter extends BasePresenter<ProgressFragment> {
 
     private final LiveData<List<Executed>> executed;
+    private final LiveData<User> user;
 
     private final ExecutedModelList executedModelList;
 
@@ -32,6 +35,7 @@ public class ProgressPresenter extends BasePresenter<ProgressFragment> {
         App app = App.getInstance();
         ExecutedRepository repository = new ExecutedRepository();
         executed = repository.getAll();
+        user = new UserRepository().getCurrentUser();
         executedModelList = new ExecutedModelList();
         infoId = new InfoProgressModel(false, 0, 0, 0).getId();
         graphId = new GraphProgressModel(false, 0, 0, new int[0], new int[0]).getId();
@@ -41,22 +45,31 @@ public class ProgressPresenter extends BasePresenter<ProgressFragment> {
     protected void updateView() {
         if (!executed.hasActiveObservers()) {
             executed.observe(view(), executed -> {
-                if (view() != null) {
-                    final List<BaseModel> models = new ArrayList<>();
-                    models.add(new InfoProgressModel(infoId, false,
-                            Progress.getLevel(),
-                            Progress.getExperience(),
-                            Progress.getGoalExp() - Progress.getExperience()));
-                    models.add(createGraph(executed));
-                    long today = DateUtilities.getDateOfDayWithoutTime(new Date()).getTime();
-                    models.addAll(executed.stream()
-                            .filter(e -> e.getDateComplete() > today)
-                            .map(e -> executedModelList.getModel(false, e.getName(), e.getExperience(), e.getDateComplete()))
-                            .collect(Collectors.toList())
-                    );
-                    view().setSortedList(models);
-                }
+                _updateView();
             });
+        }
+        if (!user.hasActiveObservers()) {
+            user.observe(view(), user -> {
+                _updateView();
+            });
+        }
+    }
+
+    private void _updateView() {
+        if (view() != null && executed.getValue() != null && user.getValue() != null) {
+            final List<BaseModel> models = new ArrayList<>();
+            models.add(new InfoProgressModel(infoId, false,
+                    user.getValue().getLevel(),
+                    user.getValue().getExperience(),
+                    user.getValue().getGoalExperience() - user.getValue().getExperience()));
+            models.add(createGraph(executed.getValue()));
+            long today = DateUtilities.getDateOfDayWithoutTime(new Date()).getTime();
+            models.addAll(executed.getValue().stream()
+                    .filter(e -> e.getDateComplete() > today)
+                    .map(e -> executedModelList.getModel(false, e.getName(), e.getExperience(), e.getDateComplete()))
+                    .collect(Collectors.toList())
+            );
+            view().setSortedList(models);
         }
     }
 

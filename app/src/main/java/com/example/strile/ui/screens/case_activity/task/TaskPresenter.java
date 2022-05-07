@@ -34,6 +34,8 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
 
     private boolean isDeleted = false;
 
+    private Task backupTask;
+
     public TaskPresenter(String taskId) {
         repository = new TaskRepository();
         task = repository.getById(taskId);
@@ -51,20 +53,21 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
     public void unbindView() {
         if (!isDeleted) {
             Task task = this.task.getValue();
-            assert task != null;
-            if (task.getName().equals("")) task.setName(view().getString(R.string.t_no_name));
-            task.getSubtasks().clear();
-            task.getSubtasks().addAll(subtaskModels.stream()
-                    .map(m -> new Subtask(m.getText(), m.isComplete()))
-                    .collect(Collectors.toList()));
-            repository.update(task);
+            if (task != null) {
+                if (task.getName().equals("")) task.setName(view().getString(R.string.t_no_name));
+                task.getSubtasks().clear();
+                task.getSubtasks().addAll(subtaskModels.stream()
+                        .map(m -> new Subtask(m.getText(), m.isComplete()))
+                        .collect(Collectors.toList()));
+                repository.update(task);
+            }
         }
         super.unbindView();
     }
 
     @Override
     public void specialPurposeButtonClicked() {
-        final Task backupTask = task.getValue();
+        backupTask = task.getValue();
         repository.delete(backupTask);
         isDeleted = true;
         view().showSnackbar(
@@ -87,8 +90,8 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
 
     protected void _updateView(Task task) {
         if (task != null && view() != null) {
+            backupTask = task;
             if (task.getSubtasks().size() > 0 && subtaskModels.size() == 0) {
-                subtaskModels.clear();
                 subtaskModels.addAll(task.getSubtasks().stream()
                         .map(m -> new SubtaskModel(false, m.getName(), m.isComplete()))
                         .collect(Collectors.toList()));
@@ -111,6 +114,13 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
             models.add(buttonAddSubtask);
             models.add(seekBarDifficult);
             view().setSortedList(models);
+        } else if (task == null) {
+            if (backupTask != null) {
+                view().showSnackbar(
+                        view().getString(R.string.w_task_deleted),
+                        view().getString(R.string.undo), v -> repository.update(backupTask));
+            }
+            view().finish();
         }
     }
 

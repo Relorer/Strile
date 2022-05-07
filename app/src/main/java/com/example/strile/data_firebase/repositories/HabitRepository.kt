@@ -12,7 +12,7 @@ import com.google.firebase.database.ValueEventListener
 import java.util.*
 
 class HabitRepository : Repository<Habit>() {
-    override val referenceName: String = "Users/" + FirebaseAuth.getInstance().currentUser?.uid + "/Habits"
+    override val referenceName: String = "users/" + FirebaseAuth.getInstance().currentUser?.uid + "/habits"
 
     private val all = getAll()
 

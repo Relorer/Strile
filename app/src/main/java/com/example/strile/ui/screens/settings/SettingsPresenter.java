@@ -90,9 +90,9 @@ public class SettingsPresenter extends BasePresenter<SettingsActivity> {
         if (!Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).isAnonymous()) {
             FirebaseAuth.getInstance().signOut();
         }
-
-        view().startActivity(new Intent(view(), AuthActivity.class));
-        view().finish();
+        Intent intent = new Intent(view(), AuthActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        view().startActivity(intent);
     }
 
     private String authButtonText() {

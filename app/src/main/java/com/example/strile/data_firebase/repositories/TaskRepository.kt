@@ -12,7 +12,7 @@ import com.google.firebase.database.ValueEventListener
 import java.util.*
 
 class TaskRepository() : Repository<Task>() {
-    override val referenceName: String = "Users/" + FirebaseAuth.getInstance().currentUser?.uid + "/Tasks"
+    override val referenceName: String = "users/" + FirebaseAuth.getInstance().currentUser?.uid + "/tasks"
 
     private val all = getAll()
 

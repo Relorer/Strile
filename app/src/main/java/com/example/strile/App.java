@@ -18,7 +18,7 @@ public class App extends Application {
         super.onCreate();
         instance = this;
         UsersSettings.start();
-        KeeperHistoryExecutions.start();
+        KeeperHistoryExecutions.refresh();
         NotificationPlanner.start();
     }
 }

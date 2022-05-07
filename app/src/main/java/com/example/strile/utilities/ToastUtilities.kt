@@ -19,5 +19,13 @@ class ToastUtilities {
             )
             Toast.makeText(context, centeredText, Toast.LENGTH_SHORT).show()
         }
+
+        public fun showToast(context: Context, message: String?) {
+            Toast.makeText(
+                context,
+                message,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }

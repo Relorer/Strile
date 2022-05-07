@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_emailAuthEmailFieldFragment_to_chooseAuthWayFragment"
             app:destination="@id/chooseAuthWayFragment" />
+        <action
+            android:id="@+id/action_emailAuthEmailFieldFragment_to_passwordRestoreFragment"
+            app:destination="@id/passwordRestoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/chooseAuthWayFragment"
@@ -21,6 +24,15 @@
         tools:layout="@layout/choose_auth_way_fragment" >
         <action
             android:id="@+id/action_chooseAuthWayFragment_to_emailAuthEmailFieldFragment"
+            app:destination="@id/emailAuthEmailFieldFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordRestoreFragment"
+        android:name="com.example.strile.ui.screens.authorization.emailauth.passwordrestore.PasswordRestoreFragment"
+        android:label="password_restore_fragment"
+        tools:layout="@layout/password_restore_fragment" >
+        <action
+            android:id="@+id/action_passwordRestoreFragment_to_emailAuthEmailFieldFragment"
             app:destination="@id/emailAuthEmailFieldFragment" />
     </fragment>
 </navigation>

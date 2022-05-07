@@ -1,22 +1,26 @@
 package com.example.strile.ui.screens.authorization.emailauth
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.strile.R
+import com.example.strile.data_firebase.repositories.UserRepository
+import com.example.strile.infrastructure.progress.KeeperHistoryExecutions
 import com.example.strile.ui.screens.authorization.AuthActivity
+import com.example.strile.ui.screens.authorization.emailauth.passwordrestore.PasswordRestoreFragment
 import com.example.strile.ui.screens.main.MainActivity
-import com.example.strile.utilities.AppConstants.Companion.TAG_LOG
+import com.example.strile.utilities.ToastUtilities
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -64,6 +68,10 @@ class EmailAuthFragment : Fragment() {
             (activity as AuthActivity).navController.popBackStack()
         }
 
+        button_forgotpass_auth.setOnClickListener() {
+            openPasswordRestore()
+        }
+
         button_next.setOnClickListener() {
             trySignUp()
         }
@@ -88,7 +96,7 @@ class EmailAuthFragment : Fragment() {
     }
 
     private fun validateAuthData() {
-        if (isValidEmail(edit_text_email.text) && edit_text_pass.text.length > 6) {
+        if (isValidEmail(edit_text_email.text) && edit_text_pass.text.length >= 6) {
             button_next.isEnabled = true
             button_next.setTextColor(requireActivity().applicationContext.resources.getColor(R.color.colorAccent));
         } else {
@@ -99,11 +107,19 @@ class EmailAuthFragment : Fragment() {
 
     private fun openMainActivity() {
         startActivity(Intent(activity, MainActivity::class.java))
+        KeeperHistoryExecutions.refresh()
         activity?.finish()
     }
 
     private fun isValidEmail(target: CharSequence?): Boolean {
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
+    }
+
+    private fun openPasswordRestore() {
+        (activity as AuthActivity).navController.navigate(
+            R.id.action_emailAuthEmailFieldFragment_to_passwordRestoreFragment,
+            PasswordRestoreFragment.getBundle()
+        )
     }
 
     private fun trySignUp() {
@@ -113,16 +129,11 @@ class EmailAuthFragment : Fragment() {
         ).addOnCompleteListener() {
             if (it.isSuccessful) {
                 trySingIn()
-            }
-            else {
-                if (it.exception is FirebaseAuthWeakPasswordException) {
-
-                } else if (it.exception is FirebaseAuthInvalidCredentialsException) {
-
-                } else if (it.exception is FirebaseAuthUserCollisionException) {
+            } else {
+                if (it.exception is FirebaseAuthUserCollisionException) {
                     trySingIn()
                 } else {
-                    Log.d(TAG_LOG, "email auth: " + it.exception?.message);
+                    ToastUtilities.showToast(this.requireActivity(), it.exception?.localizedMessage)
                 }
             }
         }
@@ -130,28 +141,70 @@ class EmailAuthFragment : Fragment() {
 
     private fun trySingIn() {
         if (auth.currentUser == null) {
-            auth.signInWithEmailAndPassword(
-                edit_text_email.text.toString(),
-                edit_text_pass.text.toString()
-            ).addOnCompleteListener() {
-                if (it.isSuccessful) {
-                    openMainActivity()
-                }
-            }
-        }
-        else {
-            auth.currentUser!!.linkWithCredential(EmailAuthProvider.getCredential(edit_text_email.text.toString(), edit_text_pass.text.toString()))
-                .addOnCompleteListener{ task ->
-                    if (task.isSuccessful) {
+            firebaseAuthWithEmail()
+        } else {
+            auth.currentUser!!.linkWithCredential(
+                EmailAuthProvider.getCredential(
+                    edit_text_email.text.toString(),
+                    edit_text_pass.text.toString()
+                )
+            )
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
                         openMainActivity()
                     } else {
-                        //TODO
-//                        Log.w(TAG, "linkWithCredential:failure", task.exception)
-//                        Toast.makeText(baseContext, "Authentication failed.",
-//                            Toast.LENGTH_SHORT).show()
-//                        updateUI(null)
+                        if (it.exception is FirebaseAuthUserCollisionException) {
+                            UserRepository().getCurrentUser() {
+
+                                UserRepository().deleteCurrentUser()
+
+                                val post = {
+                                    AlertDialog.Builder(this.requireActivity())
+                                        .setMessage("Перенести локальные данные на аккаунт?")
+                                        .setPositiveButton("Yes") { dialogInterface: DialogInterface, _ ->
+                                            UserRepository().mergeWithCurrent(it)
+                                            openMainActivity()
+                                            dialogInterface.dismiss()
+                                        }
+                                        .setNegativeButton("No") { dialogInterface: DialogInterface, _ ->
+                                            openMainActivity()
+                                            dialogInterface.dismiss()
+                                        }.create().show()
+                                }
+
+                                val postFail = {
+                                    UserRepository().mergeWithCurrent(it)
+                                }
+
+                                firebaseAuthWithEmail(post, postFail)
+
+                            }
+
+
+                        } else {
+                            ToastUtilities.showToast(
+                                this.requireActivity(),
+                                it.exception?.localizedMessage
+                            )
+                        }
                     }
                 }
         }
     }
+
+    private fun firebaseAuthWithEmail(post: (() -> Unit)? = null, postFail: (() -> Unit)? = null) {
+        auth.signInWithEmailAndPassword(
+            edit_text_email.text.toString(),
+            edit_text_pass.text.toString()
+        ).addOnCompleteListener {
+            if (it.isSuccessful) {
+                if (post != null) post()
+                else openMainActivity()
+            } else {
+                if (postFail != null) postFail()
+                ToastUtilities.showToast(this.requireActivity(), it.exception?.localizedMessage)
+            }
+        }
+    }
+
 }
