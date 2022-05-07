@@ -10,7 +10,6 @@ import com.example.strile.data_firebase.repositories.ExecutedRepository;
 import com.example.strile.data_firebase.repositories.UserRepository;
 import com.example.strile.utilities.extensions.DateUtilities;
 import com.example.strile.infrastructure.presenter.BasePresenter;
-import com.example.strile.infrastructure.progress.Progress;
 import com.example.strile.infrastructure.rvadapter.items.BaseModel;
 import com.example.strile.infrastructure.rvadapter.items.graph_progress.GraphProgressModel;
 import com.example.strile.infrastructure.rvadapter.items.info_progress.InfoProgressModel;

@@ -21,7 +21,9 @@ import com.example.strile.ui.screens.authorization.AuthActivity
 import com.example.strile.ui.screens.authorization.emailauth.passwordrestore.PasswordRestoreFragment
 import com.example.strile.ui.screens.main.MainActivity
 import com.example.strile.utilities.ToastUtilities
-import com.google.firebase.auth.*
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.app_bar_layout.*
@@ -35,7 +37,6 @@ class EmailAuthFragment : Fragment() {
             return Bundle()
         }
 
-        fun newInstance() = EmailAuthFragment()
     }
 
     private lateinit var viewModel: EmailAuthEmailFieldViewModel
@@ -52,27 +53,27 @@ class EmailAuthFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        text_title.text = "Sing in / Sign up"
+        text_title.text = getString(R.string.sing_in_or_sing_up)
         edit_text_email.hint = "Email"
         edit_text_pass.hint = "Password"
-        button_next.text = "Confirm"
+        button_next.text = getString(R.string.confirm)
 
         image_special_purpose_button_left.setImageDrawable(
             ResourcesCompat.getDrawable(
-                getResources(),
+                resources,
                 R.drawable.back_arrow, null
             )
-        );
+        )
 
-        image_special_purpose_button_left.setOnClickListener() {
+        image_special_purpose_button_left.setOnClickListener {
             (activity as AuthActivity).navController.popBackStack()
         }
 
-        button_forgotpass_auth.setOnClickListener() {
+        button_forgotpass_auth.setOnClickListener {
             openPasswordRestore()
         }
 
-        button_next.setOnClickListener() {
+        button_next.setOnClickListener {
             trySignUp()
         }
 
@@ -92,16 +93,16 @@ class EmailAuthFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EmailAuthEmailFieldViewModel::class.java)
+        viewModel = ViewModelProvider(this)[EmailAuthEmailFieldViewModel::class.java]
     }
 
     private fun validateAuthData() {
         if (isValidEmail(edit_text_email.text) && edit_text_pass.text.length >= 6) {
             button_next.isEnabled = true
-            button_next.setTextColor(requireActivity().applicationContext.resources.getColor(R.color.colorAccent));
+            button_next.setTextColor(requireActivity().applicationContext.resources.getColor(R.color.colorAccent))
         } else {
             button_next.isEnabled = false
-            button_next.setTextColor(requireActivity().applicationContext.resources.getColor(R.color.colorLightGray));
+            button_next.setTextColor(requireActivity().applicationContext.resources.getColor(R.color.colorLightGray))
         }
     }
 
@@ -126,7 +127,7 @@ class EmailAuthFragment : Fragment() {
         auth.createUserWithEmailAndPassword(
             edit_text_email.text.toString(),
             edit_text_pass.text.toString()
-        ).addOnCompleteListener() {
+        ).addOnCompleteListener {
             if (it.isSuccessful) {
                 trySingIn()
             } else {
@@ -154,7 +155,7 @@ class EmailAuthFragment : Fragment() {
                         openMainActivity()
                     } else {
                         if (it.exception is FirebaseAuthUserCollisionException) {
-                            UserRepository().getCurrentUser() {
+                            UserRepository().getCurrentUser {
 
                                 UserRepository().deleteCurrentUser()
 

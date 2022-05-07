@@ -63,7 +63,7 @@ public class ButtonTimeSelectionHolder extends BaseHolder<ButtonTimeSelectionMod
         Calendar calendar = getModelCalendar();
         new TimePickerDialog(view.getContext(), R.style.StandardTimePickerDialog,
                 (view, hourOfDay, minute) -> {
-                    model.setTime((hourOfDay * 60 + minute) * 60_000);
+                    model.setTime((hourOfDay * 60L + minute) * 60_000);
                     updateText();
                     cross.setVisibility(View.VISIBLE);
                     onModelChangedListener.onChanged(model);

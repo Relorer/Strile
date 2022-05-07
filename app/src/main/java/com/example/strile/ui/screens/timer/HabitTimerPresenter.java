@@ -2,7 +2,6 @@ package com.example.strile.ui.screens.timer;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.strile.App;
 import com.example.strile.ui.screens.timer.states.HabitTimerNoActive;
 import com.example.strile.data_firebase.models.Habit;
 import com.example.strile.data_firebase.repositories.HabitRepository;

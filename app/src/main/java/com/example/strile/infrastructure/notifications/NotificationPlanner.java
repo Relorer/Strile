@@ -77,7 +77,7 @@ public class NotificationPlanner {
                 for (String id : lastUpdatedTaskIds) {
                     boolean deleted = true;
                     for (Task task : tasks) {
-                        if (task.getId() == id) {
+                        if (task.getId().equals(id)) {
                             deleted = false;
                             break;
                         }
@@ -95,7 +95,7 @@ public class NotificationPlanner {
         if (habits != null) {
             Calendar calendar = Calendar.getInstance();
             for (Habit habit : habits) {
-                int requestCode = (int) (habit.getId().hashCode());
+                int requestCode = habit.getId().hashCode();
                 long notifyTime = habit.getNotificationTime();
                 if (notifyTime != -1) {
                     calendar.setTimeInMillis(System.currentTimeMillis());
@@ -118,12 +118,12 @@ public class NotificationPlanner {
                 for (String id : lastUpdatedHabitIds) {
                     boolean deleted = true;
                     for (Habit habit : habits) {
-                        if (habit.getId() == id) {
+                        if (habit.getId().equals(id)) {
                             deleted = false;
                             break;
                         }
                     }
-                    if (deleted) deleteNotify((int) (id.hashCode()));
+                    if (deleted) deleteNotify(id.hashCode());
                 }
                 lastUpdatedHabitIds.clear();
                 lastUpdatedHabitIds.addAll(habits.stream().map(Habit::getId).collect(Collectors.toList()));

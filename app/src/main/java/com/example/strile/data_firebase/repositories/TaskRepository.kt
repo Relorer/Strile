@@ -3,7 +3,6 @@ package com.example.strile.data_firebase.repositories
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.example.strile.data_firebase.models.Executed
 import com.example.strile.data_firebase.models.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -11,7 +10,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import java.util.*
 
-class TaskRepository() : Repository<Task>() {
+class TaskRepository : Repository<Task>() {
     override val referenceName: String = "users/" + FirebaseAuth.getInstance().currentUser?.uid + "/tasks"
 
     private val all = getAll()

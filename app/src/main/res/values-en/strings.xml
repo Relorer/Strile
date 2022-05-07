@@ -61,7 +61,7 @@
     <string name="disabled">Disabled</string>
     <string name="follow_system">Follow system</string>
     <string name="scheme">Scheme</string>
-    <string name="jurnal">jurnal</string>
+    <string name="journal">journal</string>
     <string name="timer">timer</string>
     <string name="pomodoro_duration">Pomodoro duration</string>
     <string name="short_break_duration">Short break duration</string>
@@ -106,4 +106,10 @@
         <item quantity="one">pomodoro</item>
         <item quantity="other">pomodoros</item>
     </plurals>
+    <string name="logo">logo</string>
+    <string name="sing_in_or_sing_up">Sing in / Sign up</string>
+    <string name="confirm">Confirm</string>
+    <string name="password_restore">Password restore</string>
+    <string name="forgot_your_password">with Strile</string>
+    <string name="slogan">Be more effective\nwith Strile</string>
 </resources>

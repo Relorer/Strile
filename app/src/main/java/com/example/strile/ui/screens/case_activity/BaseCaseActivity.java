@@ -34,6 +34,7 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
     protected ImageView imageSpecialPurposeRight;
     private BaseCasePresenter presenter;
     private CaseActivityListAdapter adapter;
+    @SuppressWarnings("FieldCanBeLocal")
     private ImageView imageSpecialPurposeLeft;
 
     @Override
@@ -63,9 +64,9 @@ public abstract class BaseCaseActivity extends AppCompatActivity {
 
         adapter = new CaseActivityListAdapter(sender -> {
             if (sender instanceof ButtonAddSubtaskModel) {
-                presenter.addSubtaskButtonClicked((ButtonAddSubtaskModel) sender);
+                presenter.addSubtaskButtonClicked();
             } else if (sender instanceof ProgressBarElapsedTimeModel) {
-                presenter.elapsedTimeClicked((ProgressBarElapsedTimeModel) sender);
+                presenter.elapsedTimeClicked();
             }
         }, model -> {
             if (model instanceof EditTextModel) {

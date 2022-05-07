@@ -17,6 +17,7 @@ import com.example.strile.infrastructure.rvadapter.items.subtask.SubtaskModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
@@ -68,7 +69,7 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
     @Override
     public void specialPurposeButtonClicked() {
         backupTask = task.getValue();
-        repository.delete(backupTask);
+        repository.delete(Objects.requireNonNull(backupTask));
         isDeleted = true;
         view().showSnackbar(
                 view().getString(R.string.w_task_deleted),
@@ -143,7 +144,7 @@ public class TaskPresenter extends BaseCasePresenter<TaskActivity> {
     }
 
     @Override
-    public void addSubtaskButtonClicked(ButtonAddSubtaskModel model) {
+    public void addSubtaskButtonClicked() {
         subtaskModels.add(new SubtaskModel(false, "", false));
         _updateView(this.task.getValue());
     }

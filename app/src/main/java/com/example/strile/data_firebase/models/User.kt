@@ -13,5 +13,4 @@ data class User (
     var experience: Int = 0,
     var goalExperience: Int = 100,
     var dateLastActiveDay: Long = 0
-) : Parcelable, IModel {
-}
+) : Parcelable, IModel

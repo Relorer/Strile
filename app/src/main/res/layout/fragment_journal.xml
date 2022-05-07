@@ -101,6 +101,7 @@
         android:src="@drawable/plus"
         android:tint="#FFFFFF"
         app:fabCustomSize="@dimen/size_fab_custom"
-        android:layout_gravity="bottom|end"/>
+        android:layout_gravity="bottom|end"
+        android:contentDescription="TODO" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -68,7 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }, sender -> {
             if (sender instanceof ButtonPomodoroTimerSettingsModel) {
-                presenter.buttonPomodoroTimerSettingsClicked((ButtonPomodoroTimerSettingsModel) sender);
+                presenter.buttonPomodoroTimerSettingsClicked();
             } else if (sender instanceof ButtonAuthModel) {
                 presenter.buttonAuthClicked();
             }

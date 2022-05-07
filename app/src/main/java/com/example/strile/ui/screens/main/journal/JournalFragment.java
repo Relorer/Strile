@@ -161,8 +161,8 @@ public class JournalFragment extends Fragment {
             snackbar = Snackbar.make(getView().findViewById(R.id.coordinator_journal), text, 5000)
                     .setAction(actionName, onClickListener);
 
-            snackbar.setBackgroundTint(ContextCompat.getColor(Objects.requireNonNull(this.getContext()), R.color.colorPrimary));
-            snackbar.setTextColor(ContextCompat.getColor(Objects.requireNonNull(this.getContext()), R.color.colorBlack));
+            snackbar.setBackgroundTint(ContextCompat.getColor(this.requireContext(), R.color.colorPrimary));
+            snackbar.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.colorBlack));
 
             snackbar.show();
         }

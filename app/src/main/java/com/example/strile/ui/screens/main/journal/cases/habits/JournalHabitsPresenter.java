@@ -15,6 +15,7 @@ import com.example.strile.infrastructure.rvadapter.items.habit.HabitModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsFragment> {
@@ -39,7 +40,7 @@ public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsF
     public void setVisibleDay(Date visibleDay) {
         super.setVisibleDay(visibleDay);
         if (habitModels.getValue() != null && habitModels.getValue().size() > 0)
-            buildDisplayedList(this.habits.getValue().stream().map(model -> modelList.getModel(false, model, visibleDay)).collect(Collectors.toList()));
+            buildDisplayedList(Objects.requireNonNull(this.habits.getValue()).stream().map(model -> modelList.getModel(false, model, visibleDay)).collect(Collectors.toList()));
     }
 
     @Override
@@ -62,7 +63,7 @@ public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsF
     @Override
     public void buttonHidingStateChanged(ButtonHidingModel button) {
         super.buttonHidingStateChanged(button);
-        buildDisplayedList(this.habits.getValue().stream().map(model -> modelList.getModel(false, model, visibleDay)).collect(Collectors.toList()));
+        buildDisplayedList(Objects.requireNonNull(this.habits.getValue()).stream().map(model -> modelList.getModel(false, model, visibleDay)).collect(Collectors.toList()));
     }
 
     @Override

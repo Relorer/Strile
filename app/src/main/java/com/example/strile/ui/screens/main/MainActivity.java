@@ -1,6 +1,5 @@
 package com.example.strile.ui.screens.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,13 +8,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.strile.R;
-import com.example.strile.ui.screens.authorization.AuthActivity;
 import com.example.strile.ui.screens.main.journal.JournalFragment;
 import com.example.strile.ui.screens.main.progress.ProgressFragment;
 import com.example.strile.ui.screens.main.timer.TimerFragment;
 import com.example.strile.infrastructure.presenter.PresenterManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 

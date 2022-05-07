@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.strile.infrastructure.settings.UsersSettings;
 import com.example.strile.ui.screens.authorization.AuthActivity;
 import com.example.strile.ui.screens.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;

@@ -62,7 +62,7 @@
     <string name="scheme">Scheme</string>
     <string name="icon" translatable="false">icon</string>
     <string name="icon_cross" translatable="false">icon_cross</string>
-    <string name="jurnal">jurnal</string>
+    <string name="journal">journal</string>
     <string name="timer">timer</string>
     <string name="plus" translatable="false">plus</string>
     <string name="pomodoro_duration">Pomodoro duration</string>
@@ -83,6 +83,12 @@
     <string name="no_notify">No notify</string>
     <string name="dateFormatForTime">h:mm a</string>
     <string name="at">At</string>
+    <string name="slogan">Be more effective\nwith Strile</string>
+    <string name="forgot_your_password">with Strile</string>
+    <string name="password_restore">Password restore</string>
+    <string name="confirm">Confirm</string>
+    <string name="sing_in_or_sing_up">Sing in / Sign up</string>
+    <string name="logo">logo</string>
 
     <plurals name="day_streak">
         <item quantity="one">%d day streak</item>

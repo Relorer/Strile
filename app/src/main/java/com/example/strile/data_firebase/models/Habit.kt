@@ -6,7 +6,7 @@ import com.example.strile.utilities.extensions.DateUtilities
 import com.google.firebase.database.Exclude
 import kotlinx.android.parcel.Parcelize
 import java.util.*
-import java.util.function.Predicate
+import kotlin.math.pow
 
 @Parcelize
 data class Habit(
@@ -35,10 +35,7 @@ data class Habit(
         val days = BooleanArray(7)
         for (i in days.indices) {
             days[i] =
-                (daysRepeat and Math.pow(2.0, i.toDouble()).toInt()).toDouble() == Math.pow(
-                    2.0,
-                    i.toDouble()
-                )
+                (daysRepeat and 2.0.pow(i.toDouble()).toInt()).toDouble() == 2.0.pow(i.toDouble())
         }
         return days
     }
@@ -47,34 +44,12 @@ data class Habit(
         val calendar = Calendar.getInstance()
         calendar.time = date
         val weekday = calendar[Calendar.DAY_OF_WEEK] - 1
-        return (daysRepeat and Math.pow(2.0, weekday.toDouble())
-            .toInt()).toDouble() == Math.pow(2.0, weekday.toDouble())
+        return (daysRepeat and 2.0.pow(weekday.toDouble())
+            .toInt()).toDouble() == 2.0.pow(weekday.toDouble())
     }
 
     fun isCompleteOnDay(date: Date): Boolean {
         return dateCompleted(date).isComplete
-    }
-
-    @Exclude
-    @JvmName("_setGoalTime")
-    fun setGoalTime(goalTime: Long) {
-        val day = DateUtilities.getDateOfDayWithoutTime(Date())
-        if (elapsedTime < goalTime && isCompleteOnDay(day)) {
-            setStateForDay(false, day)
-        } else if (elapsedTime >= goalTime && !isCompleteOnDay(day) && goalTime > 0) {
-            setStateForDay(true, day)
-        }
-        this.goalTime = goalTime
-    }
-
-    @Exclude
-    @JvmName("_setElapsedTime")
-    fun setElapsedTime(elapsedTime: Long) {
-        val day = DateUtilities.getDateOfDayWithoutTime(Date())
-        if (elapsedTime >= goalTime && !isCompleteOnDay(day) && goalTime > 0) {
-            setStateForDay(true, day)
-        }
-        this.elapsedTime = elapsedTime
     }
 
     @Exclude
@@ -87,10 +62,10 @@ data class Habit(
         date = DateUtilities.getDateOfDayWithoutTime(date)
         val calendar = Calendar.getInstance()
         calendar.time = date
-        datesCompleted.sortWith(Comparator { o1: DateCompleted?, o2: DateCompleted? -> if (o2!!.date - o1!!.date < 0) -1 else 1 })
+        datesCompleted.sortWith { o1: DateCompleted?, o2: DateCompleted? -> if (o2!!.date - o1!!.date < 0) -1 else 1 }
         var streak = 0
         for (item in datesCompleted) {
-            val itemDate = item!!.date
+            val itemDate = item.date
             if (itemDate <= date.time) {
                 while (calendar.timeInMillis != itemDate) {
                     calendar.add(Calendar.DATE, -1)
@@ -133,7 +108,7 @@ data class Habit(
         fun arrayRepeatToInt(daysRepeat: BooleanArray): Int {
             var repeat = 0
             for (i in daysRepeat.indices) {
-                if (daysRepeat[i]) repeat += Math.pow(2.0, i.toDouble()).toInt()
+                if (daysRepeat[i]) repeat += 2.0.pow(i.toDouble()).toInt()
             }
             return repeat
         }

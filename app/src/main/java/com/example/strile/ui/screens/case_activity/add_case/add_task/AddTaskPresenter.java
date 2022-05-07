@@ -89,7 +89,7 @@ public class AddTaskPresenter extends BaseCasePresenter<AddTaskActivity> {
     }
 
     @Override
-    public void addSubtaskButtonClicked(ButtonAddSubtaskModel model) {
+    public void addSubtaskButtonClicked() {
         subtaskModels.add(new SubtaskModel(false, "", false));
         updateView();
     }

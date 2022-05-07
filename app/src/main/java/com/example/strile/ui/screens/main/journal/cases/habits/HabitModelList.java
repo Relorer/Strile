@@ -15,7 +15,7 @@ class HabitModelList {
 
     public HabitModel getModel(boolean topMargin, @NonNull Habit habit, @NonNull Date date) {
         HabitModel model = models.stream()
-                .filter(m -> m.getHabit().getId() == habit.getId())
+                .filter(m -> m.getHabit().getId().equals(habit.getId()))
                 .findAny()
                 .orElse(null);
         if (model == null) {

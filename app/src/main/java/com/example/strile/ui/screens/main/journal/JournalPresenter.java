@@ -41,7 +41,7 @@ public class JournalPresenter extends BasePresenter<JournalFragment> {
     protected void updateView() {
         if (currentDay.getTime() != DateUtilities.getDateOfDayWithoutTime(new Date()).getTime()) {
             build();
-            Objects.requireNonNull(view().getActivity()).recreate();
+            view().requireActivity().recreate();
         }
         view().setSortedListDays(days);
     }

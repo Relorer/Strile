@@ -11,6 +11,4 @@ data class Executed(
     var dateComplete: Long = 0,
     var experience: Int = 0,
     var typeCase: String = ""
-) : Parcelable, IModel {
-
-}
+) : Parcelable, IModel

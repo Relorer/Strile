@@ -57,13 +57,13 @@ public class SettingsPomodoroTimerPresenter extends BasePresenter<SettingsPomodo
     public void numberChanged(NumberEditWIthTitleModel model) {
         String postfix = "";
         if (model.getId() == pomodoroId) {
-            UsersSettings.setTimerPomodoroTimeGoal(model.getNumber() * 60_000);
+            UsersSettings.setTimerPomodoroTimeGoal(model.getNumber() * 60_000L);
             postfix = view().getResources().getQuantityString(R.plurals.minutes_without_number, model.getNumber());
         } else if (model.getId() == shortBreakId) {
-            UsersSettings.setTimerShortBreakTimeGoal(model.getNumber() * 60_000);
+            UsersSettings.setTimerShortBreakTimeGoal(model.getNumber() * 60_000L);
             postfix = view().getResources().getQuantityString(R.plurals.minutes_without_number, model.getNumber());
         } else if (model.getId() == longBreakId) {
-            UsersSettings.setTimerLongBreakTimeGoal(model.getNumber() * 60_000);
+            UsersSettings.setTimerLongBreakTimeGoal(model.getNumber() * 60_000L);
             postfix = view().getResources().getQuantityString(R.plurals.minutes_without_number, model.getNumber());
         } else if (model.getId() == delyId) {
             UsersSettings.setTimerFrequencyLongBreak(model.getNumber());

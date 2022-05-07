@@ -6,7 +6,6 @@ import com.example.strile.App;
 import com.example.strile.data_firebase.models.Executed;
 import com.example.strile.data_firebase.models.Habit;
 import com.example.strile.data_firebase.models.Task;
-import com.example.strile.data_firebase.models.User;
 import com.example.strile.data_firebase.repositories.ExecutedRepository;
 import com.example.strile.data_firebase.repositories.HabitRepository;
 import com.example.strile.data_firebase.repositories.TaskRepository;

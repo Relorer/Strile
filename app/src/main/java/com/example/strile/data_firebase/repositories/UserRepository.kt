@@ -3,7 +3,6 @@ package com.example.strile.data_firebase.repositories
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.strile.data_firebase.models.User
-import com.example.strile.infrastructure.progress.Progress
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -57,7 +56,7 @@ class UserRepository {
 
     fun getCurrentUser(result: (User?) -> Unit) {
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
-        reference.child(uid).get().addOnCompleteListener() {
+        reference.child(uid).get().addOnCompleteListener {
             if (it.isSuccessful) {
                 result.invoke(it.result.getValue(User::class.java))
             }

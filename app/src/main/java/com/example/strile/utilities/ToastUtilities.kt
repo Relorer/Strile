@@ -10,7 +10,7 @@ import android.widget.Toast
 class ToastUtilities {
     companion object {
 
-        public fun showToastWithCenteredText(context: Context, text: String) {
+        fun showToastWithCenteredText(context: Context, text: String) {
             val centeredText: Spannable = SpannableString(text)
             centeredText.setSpan(
                 AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
@@ -20,7 +20,7 @@ class ToastUtilities {
             Toast.makeText(context, centeredText, Toast.LENGTH_SHORT).show()
         }
 
-        public fun showToast(context: Context, message: String?) {
+        fun showToast(context: Context, message: String?) {
             Toast.makeText(
                 context,
                 message,

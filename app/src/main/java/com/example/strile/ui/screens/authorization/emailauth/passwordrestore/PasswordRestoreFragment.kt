@@ -1,19 +1,18 @@
 package com.example.strile.ui.screens.authorization.emailauth.passwordrestore
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Patterns
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.strile.R
 import com.example.strile.ui.screens.authorization.AuthActivity
-import com.example.strile.ui.screens.authorization.emailauth.EmailAuthFragment
 import com.example.strile.utilities.ToastUtilities
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -28,7 +27,6 @@ class PasswordRestoreFragment : Fragment() {
             return Bundle()
         }
 
-        fun newInstance() = PasswordRestoreFragment()
     }
 
     private lateinit var viewModel: PasswordRestoreViewModel
@@ -45,22 +43,22 @@ class PasswordRestoreFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        text_title.text = "Password restore"
+        text_title.text = getString(R.string.password_restore)
         edit_text_email.hint = "Email"
-        button_next.text = "Confirm"
+        button_next.text = getString(R.string.confirm)
 
         image_special_purpose_button_left.setImageDrawable(
             ResourcesCompat.getDrawable(
-                getResources(),
+                resources,
                 R.drawable.back_arrow, null
             )
-        );
+        )
 
-        image_special_purpose_button_left.setOnClickListener() {
+        image_special_purpose_button_left.setOnClickListener {
             (activity as AuthActivity).navController.popBackStack()
         }
 
-        button_next.setOnClickListener() {
+        button_next.setOnClickListener {
             auth.sendPasswordResetEmail(edit_text_email.text.toString())
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -87,17 +85,17 @@ class PasswordRestoreFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PasswordRestoreViewModel::class.java)
+        viewModel = ViewModelProvider(this)[PasswordRestoreViewModel::class.java]
         // TODO: Use the ViewModel
     }
 
     private fun validateAuthData() {
         if (isValidEmail(edit_text_email.text)) {
             button_next.isEnabled = true
-            button_next.setTextColor(requireActivity().applicationContext.resources.getColor(R.color.colorAccent));
+            button_next.setTextColor(requireActivity().applicationContext.resources.getColor(R.color.colorAccent))
         } else {
             button_next.isEnabled = false
-            button_next.setTextColor(requireActivity().applicationContext.resources.getColor(R.color.colorLightGray));
+            button_next.setTextColor(requireActivity().applicationContext.resources.getColor(R.color.colorLightGray))
         }
     }
 

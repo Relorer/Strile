@@ -35,13 +35,13 @@
 
             <ImageView
                 android:id="@+id/image_special_purpose_button_right"
-                android:tint="@color/colorGray"
                 android:layout_width="@dimen/size_image_special"
                 android:layout_height="@dimen/size_image_special"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/margin_base"
                 android:layout_marginEnd="@dimen/margin_base"
-                android:contentDescription="@string/icon"/>
+                android:contentDescription="@string/icon"
+                app:tint="@color/colorGray" />
         </FrameLayout>
 
 
@@ -62,8 +62,8 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/margin_base"
                 android:layout_marginEnd="@dimen/margin_base"
-                android:tint="@color/colorGray"
-                android:contentDescription="@string/icon"/>
+                android:contentDescription="@string/icon"
+                app:tint="@color/colorGray" />
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,10 +14,10 @@
         android:layout_marginStart="@dimen/margin_base"
         android:contentDescription="@string/icon"
         android:src="@drawable/calendar"
-        android:tint="@color/colorBlack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/colorBlack" />
 
     <TextView
         android:id="@+id/text_name"

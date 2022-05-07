@@ -15,7 +15,7 @@ class TaskModelList {
 
     public TaskModel getModel(boolean topMargin, @NonNull Task task, @NonNull Date date) {
         TaskModel model = models.stream()
-                .filter(m -> m.getTask().getId() == task.getId())
+                .filter(m -> m.getTask().getId().equals(task.getId()))
                 .findAny()
                 .orElse(null);
         if (model == null) {

@@ -61,7 +61,7 @@
     <string name="disabled">Выключен</string>
     <string name="follow_system">По умолчанию</string>
     <string name="scheme">Схема</string>
-    <string name="jurnal">журнал</string>
+    <string name="journal">журнал</string>
     <string name="timer">таймер</string>
     <string name="pomodoro_duration">Время помодора</string>
     <string name="short_break_duration">Время короткого перерыва</string>
@@ -111,5 +111,11 @@
         <item quantity="few">помодора</item>
         <item quantity="many">помодор</item>
     </plurals>
+    <string name="slogan">Будьте более эффективны\nсо Strile</string>
+    <string name="forgot_your_password">Забыли пароль?</string>
+    <string name="password_restore">Восстановление пароля</string>
+    <string name="confirm">OK</string>
+    <string name="sing_in_or_sing_up">Вход / Регистрация</string>
+    <string name="logo">лого</string>
 
 </resources>

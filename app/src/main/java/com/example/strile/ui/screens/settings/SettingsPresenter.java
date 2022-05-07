@@ -72,7 +72,7 @@ public class SettingsPresenter extends BasePresenter<SettingsActivity> {
         view().getDelegate().applyDayNight();
     }
 
-    public void buttonPomodoroTimerSettingsClicked(ButtonPomodoroTimerSettingsModel sender) {
+    public void buttonPomodoroTimerSettingsClicked() {
         view().startPomodoroTimerSettingsActivity();
     }
 

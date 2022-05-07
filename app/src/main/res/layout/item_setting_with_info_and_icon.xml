@@ -15,12 +15,12 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:src="@drawable/calendar"
-            android:tint="@color/colorBlack"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="@dimen/margin_base"
-            android:contentDescription="@string/icon"/>
+            android:contentDescription="@string/icon"
+            app:tint="@color/colorBlack" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="0dp"

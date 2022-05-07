@@ -55,10 +55,10 @@
             android:layout_height="@dimen/size_image_special"
             android:layout_marginEnd="@dimen/margin_base"
             android:contentDescription="@string/icon"
-            android:tint="@color/colorGray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/colorGray" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

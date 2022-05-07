@@ -2,6 +2,7 @@ package com.example.strile.ui.screens.authorization.chooseauthway
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -40,9 +41,7 @@ import kotlinx.android.synthetic.main.email_auth_fragment.*
 
 class ChooseAuthWayFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ChooseAuthWayFragment()
-    }
+    companion object;
 
     private lateinit var viewModel: ChooseAuthWayViewModel
     private lateinit var auth: FirebaseAuth
@@ -77,7 +76,7 @@ class ChooseAuthWayFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ChooseAuthWayViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ChooseAuthWayViewModel::class.java]
         auth = Firebase.auth
 
         val buttonEmailAuthLabel: Spannable = SpannableString("   Sign in with Email")
@@ -90,24 +89,33 @@ class ChooseAuthWayFragment : Fragment() {
             ), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        buttonGoogleAuthLabel.setSpan(
-            ImageSpan(
-                requireActivity().applicationContext, R.drawable.googleg_standard_color_18,
-                ImageSpan.ALIGN_CENTER
-            ), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            buttonGoogleAuthLabel.setSpan(
+                ImageSpan(
+                    requireActivity().applicationContext, R.drawable.googleg_standard_color_18,
+                    ImageSpan.ALIGN_CENTER
+                ), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+        else {
+            buttonGoogleAuthLabel.setSpan(
+                ImageSpan(
+                    requireActivity().applicationContext, R.drawable.googleg_standard_color_18
+                ), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
         button_auth_email.text = buttonEmailAuthLabel
         button_auth_google.text = buttonGoogleAuthLabel
 
-        button_auth_email.setOnClickListener() { openEmailAuth() }
+        button_auth_email.setOnClickListener { openEmailAuth() }
 
-        button_auth_google.setOnClickListener() {
+        button_auth_google.setOnClickListener {
             launcher.launch(getClient().signInIntent)
         }
 
         button_skip_auth.text =
-            if (FirebaseAuth.getInstance().currentUser == null) "Skip" else "Back";
-        button_skip_auth.setOnClickListener() {
+            if (FirebaseAuth.getInstance().currentUser == null) "Skip" else "Back"
+        button_skip_auth.setOnClickListener {
             if (FirebaseAuth.getInstance().currentUser == null) {
                 auth.signInAnonymously().addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -127,8 +135,8 @@ class ChooseAuthWayFragment : Fragment() {
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
-            .build();
-        return GoogleSignIn.getClient(this.requireActivity(), gso);
+            .build()
+        return GoogleSignIn.getClient(this.requireActivity(), gso)
     }
 
     private fun openEmailAuth() {
@@ -151,7 +159,7 @@ class ChooseAuthWayFragment : Fragment() {
                     openMainActivity()
                 } else {
                     if (it.exception is FirebaseAuthUserCollisionException) {
-                        UserRepository().getCurrentUser() {
+                        UserRepository().getCurrentUser {
 
                             UserRepository().deleteCurrentUser()
 

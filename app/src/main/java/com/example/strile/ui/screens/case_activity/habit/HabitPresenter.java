@@ -70,7 +70,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
     @Override
     public void specialPurposeButtonClicked() {
         backupHabit = habit.getValue();
-        repository.delete(backupHabit);
+        repository.delete(Objects.requireNonNull(backupHabit));
         isDeleted = true;
         view().showSnackbar(
                 view().getString(R.string.w_habit_deleted),
@@ -149,7 +149,7 @@ public class HabitPresenter extends BaseCasePresenter<HabitActivity> {
     }
 
     @Override
-    public void elapsedTimeClicked(ProgressBarElapsedTimeModel model) {
+    public void elapsedTimeClicked() {
         view().openTimer(Objects.requireNonNull(habit.getValue()).getId());
     }
 

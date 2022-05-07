@@ -1,19 +1,16 @@
 package com.example.strile.data_firebase.repositories
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.example.strile.data_firebase.models.Executed
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import java.util.*
 
 
 class ExecutedRepository: Repository<Executed>() {
     override val referenceName: String = "users/" + FirebaseAuth.getInstance().currentUser?.uid + "/executed"
-
-    private val all = getAll()
 
     override fun getAll(): MutableLiveData<List<Executed>> {
         val liveData: MutableLiveData<List<Executed>> = MutableLiveData()
@@ -32,15 +29,6 @@ class ExecutedRepository: Repository<Executed>() {
                 }
             })
         return liveData
-    }
-
-    fun getById(id: String): LiveData<Executed?> {
-        return Transformations.map(all) {
-            it.stream()
-                .filter { m: Executed? -> m!!.id == id }
-                .findAny()
-                .orElse(null)
-        }
     }
 
     fun deleteBeforeDate(date: Date) {
