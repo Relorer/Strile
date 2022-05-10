@@ -72,12 +72,16 @@ data class Habit(
                     if (calendar.timeInMillis == itemDate) break
                     if (plannedForDay(calendar.time)) return streak
                 }
-                if (item.isComplete) streak++ else if (itemDate != date.time && plannedForDay(
+                if (item.isComplete) {
+                    streak++
+                } else if (itemDate != date.time && plannedForDay(
                         Date(
                             itemDate
                         )
                     )
-                ) break
+                ) {
+                    break
+                }
             }
         }
         return streak
