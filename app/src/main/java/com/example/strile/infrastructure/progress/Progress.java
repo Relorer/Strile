@@ -14,7 +14,7 @@ public class Progress {
             user.setExperience(Math.max(totalExp, 0));
         } else {
             int level = user.getLevel();
-            while (totalExp > goalExp) {
+            while (totalExp >= goalExp) {
                 level++;
                 totalExp -= goalExp;
                 goalExp = goalExp * 3 / 2;

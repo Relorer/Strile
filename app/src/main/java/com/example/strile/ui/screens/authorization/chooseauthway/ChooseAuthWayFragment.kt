@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.strile.R
 import com.example.strile.data_firebase.repositories.UserRepository
-import com.example.strile.infrastructure.progress.KeeperHistoryExecutions
 import com.example.strile.ui.screens.authorization.AuthActivity
 import com.example.strile.ui.screens.authorization.emailauth.EmailAuthFragment
 import com.example.strile.ui.screens.main.MainActivity
@@ -148,7 +147,6 @@ class ChooseAuthWayFragment : Fragment() {
 
     private fun openMainActivity() {
         startActivity(Intent(activity, MainActivity::class.java))
-        KeeperHistoryExecutions.refresh()
         activity?.finish()
     }
 

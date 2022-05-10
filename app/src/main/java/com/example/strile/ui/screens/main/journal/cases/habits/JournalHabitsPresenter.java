@@ -58,6 +58,7 @@ public class JournalHabitsPresenter extends JournalCasesPresenter<JournalHabitsF
     public void itemStateChanged(CaseModel model) {
         Habit habit = ((HabitModel) model).getHabit();
         repository.update(habit);
+        repository.updateExecuted(habit, ((HabitModel) model).isComplete());
     }
 
     @Override

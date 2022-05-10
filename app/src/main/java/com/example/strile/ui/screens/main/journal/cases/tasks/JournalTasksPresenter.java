@@ -59,6 +59,7 @@ public class JournalTasksPresenter extends JournalCasesPresenter<JournalTasksFra
     public void itemStateChanged(CaseModel model) {
         Task task = ((TaskModel) model).getTask();
         repository.update(task);
+        repository.updateExecuted(task, ((TaskModel) model).isComplete());
     }
 
     @Override
